@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="KT - Travel" />
+    <meta name="description" content="This is KT Travel website" />
+
+    <!-- FAVICON -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+
+    <!-- GOOGLE FONT LINK -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CUSTOM CSS LINK -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- PRELOAD IMAGES -->
+    <!-- <link rel="preload" as="image" href="./assets/images/hero-banner.png" /> -->
+    <link rel="preload" as="image" href="./assets/images/preloader.svg" />
+  </head>
+  <body>
+    <!-- PRELOADER -->
+    <div class="preloader" data-preloader="">
+      <div class="preloader-inner">
+        <img
+          src="./assets/images/preloader.svg"
+          width="50"
+          height="50"
+          alt=""
+          class="img"
+        />
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header" data-header>
+      <div class="container">
+        <a href="#" class="logo-active">
+          <img src="./assets/images/white-logo.svg" alt="logo" />
+        </a>
+
+        <button class="nav-toggle-btn" aria-label="open menu" data-nav-toggler>
+          <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+        </button>
+
+        <nav class="navbar" data-navbar>
+          <div class="container-navbar-logo">
+            <button
+              class="nav-toggle-btn"
+              aria-label="close menu"
+              data-nav-toggler
+            >
+              <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+            </button>
+            <a href="#" class="logo">
+              <img
+                src="./assets/images/black-logo.svg"
+                width="187"
+                height="38"
+                alt="logo"
+              />
+            </a>
+          </div>
+
+          <div class="container-nav-list">
+            <ul class="navbar-list">
+              <li class="navbar-item" data-nav-toggler>
+                <a href="#section-home" class="navbar-link">Home</a>
+              </li>
+              <li class="navbar-item" data-nav-toggler>
+                <a href="#section-booking" class="navbar-link">Booking</a>
+              </li>
+            </ul>
+
+            <a href="#" class="logo">
+              <img
+                src="./assets/images/white-logo.svg"
+                width="187"
+                height="38"
+                alt="logo"
+              />
+            </a>
+
+            <ul class="navbar-list" data-nav-toggler>
+              <li class="navbar-item">
+                <a href="#section-destination" class="navbar-link"
+                  >Destination</a
+                >
+              </li>
+              <li class="navbar-item" data-nav-toggler>
+                <a href="#" class="navbar-link">Contact</a>
+              </li>
+            </ul>
+          </div> 
+        </nav>
+      </div>
+      <div class="overlay" data-overlay data-nav-toggler></div>
+    </header>
+
+    <!-- CUSTOM JS LINK -->
+    <script src="./assets/js/script.js" defer type="module"></script>
+
+    <!-- IONICON LINK -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
