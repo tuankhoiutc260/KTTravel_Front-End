@@ -1,4 +1,3 @@
-// Helper functions
 const isLeapYear = (year) => {
   return (
     (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) ||
@@ -10,7 +9,6 @@ const getFebDays = (year) => {
   return isLeapYear(year) ? 29 : 28;
 };
 
-// Array of month names
 const month_names = [
   "January",
   "February",
@@ -26,15 +24,13 @@ const month_names = [
   "December",
 ];
 
-// DOM elements
-let cont_calendar = document.querySelector(".cont-calendar");
-let month_picker = document.querySelector("#month-picker");
-let dayTextFormate = document.querySelector(".day-text-formate");
-let timeFormate = document.querySelector(".time-formate");
-let dateFormate = document.querySelector(".date-formate");
-let month_list = cont_calendar.querySelector(".month-list");
-let todayShowTime = document.querySelector(".time-formate");
-let todayShowDate = document.querySelector(".date-formate");
+const contCalendar = document.querySelector(".cont-calendar");
+const monthPicker = document.querySelector("#month-picker");
+const dayTextFormate = document.querySelector(".day-text-formate");
+const timeFormate = document.querySelector(".time-formate");
+const dateFormate = document.querySelector(".date-formate");
+const month_list = contCalendar.querySelector(".month-list");
+const dateInformation = document.querySelector(".date-information");
 
 // Current month and year
 let currentDate = new Date();
@@ -62,7 +58,7 @@ const generateCalendar = (month, year) => {
     31,
   ];
 
-  month_picker.innerHTML = month_names[month];
+  monthPicker.innerHTML = month_names[month];
   calendar_header_year.innerHTML = year;
 
   let first_day = new Date(year, month);
@@ -81,6 +77,9 @@ const generateCalendar = (month, year) => {
       ) {
         day.classList.add("current-date");
       }
+      if (year === currentDate.getFullYear() && month === currentDate.getMonth()) {
+        day.classList.add("current-month-day");
+    }
     }
 
     // Add day element to the calendar
@@ -90,62 +89,81 @@ const generateCalendar = (month, year) => {
   // Attach event listeners to the day elements
   attachEventListenersToDays();
 };
-//
-
-const contCalendar = document.querySelector(".cont-calendar");
-const dateInformation = document.querySelector(".date-information");
 
 dateInformation.addEventListener("click", function () {
-  console.log("Event Listener triggered");
   contCalendar.classList.toggle("active");
-  contCalendar.style.display = "block"; 
-  console.log("contCalendar display style:", contCalendar.style.display);
+  contCalendar.style.display = "block";
 });
 
+function removeActiveContCalendar(event) {
+  if (
+    !contCalendar.contains(event.target) &&
+    !dateInformation.contains(event.target)
+  ) {
+    hideCalendar();
+    checkAndHideMonthList();
+  }
+}
+
+document.addEventListener("click", removeActiveContCalendar);
 
 function hideCalendar() {
-  cont_calendar.classList.remove("active");
+  contCalendar.classList.remove("active");
   contCalendar.style.display = "none";
 }
-// Function to attach event listeners to day elements
+
 const attachEventListenersToDays = () => {
   const dayElements = document.querySelectorAll(".calendar-days > div");
-  let selectedDayElement = null; // Track the currently selected day
+  let selectedDayElement = null;
+
+  // Lấy ngày hiện tại
+  const today = new Date();
 
   dayElements.forEach((dayElement) => {
+    const day = parseInt(dayElement.innerHTML);
+
+    // Nếu ngày không hợp lệ (ví dụ như phần tử trống), bỏ qua sự kiện
+    if (isNaN(day)) return;
+
+    // Lấy tháng và năm hiện tại
+    const month = currentMonth.value;
+    const year = currentYear.value;
+
+    // Tạo một đối tượng Date với ngày, tháng, và năm hiện tại
+    const date = new Date(year, month, day);
+
+    // Kiểm tra nếu ngày đã qua
+    if (date < today) {
+      // Thêm lớp CSS để bôi màu xám cho ngày đã qua
+      dayElement.classList.add("past-day");
+    }
+
+    // Thêm sự kiện click cho ngày hiện tại và tương lai
     dayElement.addEventListener("click", function () {
-      // Remove selection from any previously selected day
+      // Kiểm tra nếu ngày đã qua
+      if (date < today) {
+        // Bỏ qua sự kiện nếu ngày đã qua
+        return;
+      }
+
+      // Loại bỏ lớp 'selected-day' từ phần tử được chọn trước đó
       if (selectedDayElement) {
         selectedDayElement.classList.remove("selected-day");
       }
 
-      // Set the new selected day element
-      selectedDayElement = this;
+      // Đặt ngày được chọn mới
+      selectedDayElement = dayElement;
 
-      // Add the selection class to the clicked day
+      // Thêm lớp 'selected-day' cho phần tử ngày được chọn
       selectedDayElement.classList.add("selected-day");
 
-      // Capture the clicked date
-      const day = parseInt(selectedDayElement.innerHTML);
-      // If the element does not contain a valid day, skip
-      if (isNaN(day)) return;
-
-      // Get the current month and year
-      const month = currentMonth.value;
-      const year = currentYear.value;
-
-      // Create a Date object with the clicked date
-      const clickedDate = new Date(year, month, day);
-
-      // Display date information
-
+      // Hiển thị thông tin ngày được chọn
       hideCalendar();
-      displayDateInfo(clickedDate);
+      displayDateInfo(date);
     });
   });
 };
 
-// Function to display information about the clicked date
 // Function to display information about the clicked date
 const displayDateInfo = (date) => {
   // Extract date information
@@ -156,32 +174,13 @@ const displayDateInfo = (date) => {
 
   // Format the clicked date in the Vietnamese format (dd/mm/yyyy)
   const formattedDate = date.toLocaleDateString("vi-VN");
-
-  // // Get the date-info element
-  // const dateInfoElement = document.querySelector(".date-info");
-
-  // Get the input element
   const inputElement = document.getElementById("soValueDate");
-
-  // Check if dateInfoElement and inputElement are not null before setting properties
   inputElement.placeholder = formattedDate;
-  // if (inputElement) {
-  //   // Display the clicked date information
-  //   // dateInfoElement.textContent = `Bạn đã nhấp vào: ${day} ${monthName} ${year} (${weekdayName})`;
-
-  //   // Set the input's placeholder with the formatted clicked date
-
-
-  //   // Optionally, alert the information
-  //   // alert(dateInfoElement.textContent);
-  // } else {
-  //   console.error("One or both of the elements ('.date-info' or '#soValueDate') were not found.");
-  // }
+  console.log(formattedDate);
 };
 
-
 // Month picker event
-month_picker.onclick = () => {
+monthPicker.onclick = () => {
   month_list.classList.remove("hideonce");
   month_list.classList.remove("hide");
   month_list.classList.add("show");
@@ -192,6 +191,16 @@ month_picker.onclick = () => {
   dateFormate.classList.remove("showtime");
   dateFormate.classList.add("hidetime");
 };
+
+function checkAndHideMonthList() {
+  if (
+    !contCalendar.classList.contains("active") &&
+    month_list.classList.contains("show")
+  ) {
+    month_list.classList.remove("show");
+    month_list.classList.add("hide");
+  }
+}
 
 // Event listener for month selection
 month_names.forEach((e, index) => {
@@ -218,7 +227,27 @@ month_names.forEach((e, index) => {
   generateCalendar(currentMonth.value, currentYear.value);
 })();
 
-// Event listeners for changing years
+
+// PRE-NEXT MONTH
+document.querySelector("#pre-month").onclick = () => {
+  currentMonth.value -= 1;
+  if (currentMonth.value < 0) {
+    currentMonth.value = 11;
+    currentYear.value -= 1;
+  }
+  generateCalendar(currentMonth.value, currentYear.value);
+}
+
+document.querySelector("#next-month").onclick = () => {
+  currentMonth.value += 1;
+  if (currentMonth.value > 0) {
+    currentMonth.value = 0;
+    currentYear.value += 1;
+  }
+  generateCalendar(currentMonth.value, currentYear.value);
+}
+
+// PRE-NEXT YEAR
 document.querySelector("#pre-year").onclick = () => {
   --currentYear.value;
   generateCalendar(currentMonth.value, currentYear.value);
@@ -228,34 +257,3 @@ document.querySelector("#next-year").onclick = () => {
   ++currentYear.value;
   generateCalendar(currentMonth.value, currentYear.value);
 };
-
-// Show current date and time
-const showCurrentDateTime = () => {
-  const currentDate = new Date();
-
-  // Format date
-  const dateOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-  };
-  const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(
-    currentDate
-  );
-  todayShowDate.textContent = formattedDate;
-
-  // Format time
-  const timeOptions = {
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  };
-  const formattedTime = new Intl.DateTimeFormat("en-US", timeOptions).format(
-    currentDate
-  );
-  todayShowTime.textContent = formattedTime;
-};
-
-// Update current date and time every second
-// setInterval(showCurrentDateTime, 1000);

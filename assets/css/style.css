@@ -744,15 +744,6 @@ body {
 }
 
 /* DEPARTURE CONTAINER */
-/* .home .home_cont-departure {
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 7%;
-} */
 
 .home .home_cont-departure {
   width: 100%;
@@ -797,7 +788,7 @@ body {
     color: var(--color-white);
     border-radius: 10px;
     cursor: pointer;
-    font-size: var(--fontSize-10);
+    font-size: var(--fontSize-11);
     align-content: center;
     z-index: 1;
     font-weight: bold;
@@ -822,16 +813,6 @@ body {
 }
 
 /* DESTINATION CONTAINER */
-/* .home .home_destination-point {
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 7%;
-} */
-
 .home .home_cont-destination {
   width: 100%;
   height: 100%;
@@ -874,7 +855,7 @@ body {
   color: var(--color-white);
   border-radius: 10px;
   cursor: pointer;
-  font-size: var(--fontSize-10);
+  font-size: var(--fontSize-11);
   align-content: center;
   z-index: 1;
   font-weight: bold;
@@ -936,7 +917,7 @@ body {
 
 .home .destination-search input {
   width: 100%;
-  font-size: 0.8rem;
+  font-size: var(--fontSize-10);
   padding: 5px;
   outline: 0;
   border: 1px solid rgb(216, 216, 216);
@@ -1037,50 +1018,6 @@ body {
   transform: rotate(-180deg);
 }
 
-/* CALLENDAR */
-
-/* .home .home-cont-date {
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* .home .select-date-box {
-  width: 100%;
-  height: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* .home .date-information {
-  position: relative;
-  width: 90%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid var(--color-white);
-  padding: 0 1rem;
-} */
-/* .home .select-date-box input::placeholder {
-  color: white;
-}
-
-.home .select-date-box input {
-  width: 100%;
-  height: 100%;
-  color: var(--color-white);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  z-index: 1;
-} */
-
 /* CALENDAR */
 .home .home_cont-date {
   width: 100%;
@@ -1090,7 +1027,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0 7%;
-
   position: relative;
 }
 
@@ -1124,13 +1060,11 @@ body {
 
 .home .date-information input{
   cursor: pointer;
-
 }
 
 .home .date-information input::placeholder {
   color: var(--color-white);
 }
-
 
 /* CALENDAR */
 :root {
@@ -1148,7 +1082,6 @@ body {
 }
 
 
-
 .cont-calendar {
   position: fixed;
   width: 100%;
@@ -1161,25 +1094,51 @@ body {
   z-index: 2;
   bottom: 0;
   transform: translateY(-50%);
+  /* display: none; */
 }
 
-.calendar-header {
+.home .calendar-header {
   background: var(--color-btn);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  /* font-weight: 700; */
-  font-size: 0.8rem;
-  color: var(--white);
+  font-size: var(--fontSize-10);
+    color: var(--white);
   padding: 10px;
   border-radius: var(--radius-10);
+}
+
+.home .calendar-month{
+  width: 50%;
+  display: flex;
+  align-items: center;
+justify-content: center;
+}
+.home .month-picker{
+  /* width: 50%; */
+  text-align: center;
+  justify-content: center;
+}
+
+.home .month-change {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0px 10px;
+  cursor: pointer;
+}
+
+.home .calendar-year{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .calendar-week-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  /* font-weight: 600; */
-  
   cursor: pointer;
   color: rgb(104, 104, 104);
 }
@@ -1195,50 +1154,42 @@ body {
   place-items: center;
   color: var(--bg-second);
   height: 50px;
-  font-size: 0.8rem;
+  font-size: var(--fontSize-11);
   font-weight: bold;
 }
 
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
   color: var(--color-txt);
   justify-items: center;
   align-items: center;
 }
 
 .calendar-days div {
-  width: 37px;
-  height: 33px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 80%;
+  height: 90%;
   padding: 5px;
   position: relative;
   cursor: pointer;
-  font-size: 0.8rem;
-
+  font-size: var(--fontSize-10);
 }
 
-.month-picker {
-  padding: 5px 10px;
-  border-radius: 10px;
+.home .month-picker {
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.month-picker:hover {
-  background-color: var(--color-hover);
+
+.home .month-picker:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease;
 }
 
-.month-picker:hover {
-  color: var(--color-txt);
-}
 
-.year-picker {
-  display: flex;
-  align-items: center;
-}
 
 .year-change {
   height: 30px;
@@ -1267,20 +1218,32 @@ body {
   align-items: center;
 }
 
-#year:hover {
+
+.home #year {
   cursor: pointer;
-  transform: scale(1.2);
-  transition: all 0.2 ease-in-out;
+  transition: all 0.2s ease;
+}.current-month-day {
+  background-color: #e0f7fa; /* Màu nền cho ngày của tháng hiện tại */
+  color: #006064; /* Màu chữ cho ngày của tháng hiện tại */
 }
+
+
+.home #year:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
 
 .calendar-days div span {
   position: absolute;
 }
 
+
+
 .calendar-days div:hover {
   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
   background-color: #fbc7d4;
-  border-radius: 20%;
+  border-radius: var(--radius-5);
   color: var(--dark-text);
 }
 
@@ -1292,22 +1255,37 @@ body {
 
 .month-list {
   position: absolute;
+  width: 100%;
+  height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ebebeb;
+  background-color: var(--color-background);
   color: var(--light-text);
-  grid-template-columns: repeat(3, auto);
-  gap: 5px;
+  grid-template-columns: repeat(3, calc(100% / 3));
+  /* gap: 5px; */
   border-radius: 20px;
   display: none;
 }
 
-.month-list > div {
+
+
+.past-day {
+  /* transition: width 0.2s ease-in-out, height 0.2s ease-in-out; */
+  background-color: #c7d4;
+  border-radius: var(--radius-5);
+  color: var(--dark-text);
+}
+
+.home .month-list > div {
+  /* width: calc(); */
+  width: auto;
   display: grid;
   place-content: center;
   margin: 5px 10px;
+  font-size: var(--fontSize-10);
 }
+
 
 .month-list > div > div {
   border-radius: 15px;
