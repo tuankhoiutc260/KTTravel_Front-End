@@ -12,12 +12,13 @@
   --color-ocean-blue: hsl(249, 63%, 54%);
   --color-red-salsa: hsl(357, 94%, 63%);
   --color-english-vermillion: hsl(357, 64%, 53%);
-  --color-gunmetal: hsl(209, 40%, 14%);
+  --color-gunmetal: hsl(209, 40%, 14%);     
   --color-gainsboro: hsl(0, 0%, 85%);
   --color-black-alpha-20: hsla(0, 0%, 0%, 0.2);
   --color-white-opcty-015: rgba(0, 0, 0, 0.15);
   --color-background: #f8f8f8;
-  --color-btn: rgb(62,175,245);
+  --color-main: rgb(62,175,245);
+  --color-light-main: rgb(122, 205, 255);
 
   /* RADIUS */
   --radius-pill: 200px;
@@ -731,7 +732,7 @@ body {
 .home .btn-search-tour {
   width: 100%;
   height: 20%;
-  background-color: var(--color-btn);
+  background-color: var(--color-main);
   font-size: var(--fontSize-9);
   color: var(--color-white);
   border-end-start-radius: var(--radius-25);
@@ -1043,7 +1044,7 @@ body {
 }
 
 .home .date-information{
-  width: 90%;
+  /* width: 90%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -1055,15 +1056,49 @@ body {
   font-size: var(--fontSize-10);
   align-content: center;
   z-index: 1;
-  font-weight: bold;
+  font-weight: bold; */
+
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 8%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 .home .date-information input{
+  width: 100%;
+  height: 100%;
+  color: var(--color-white);
+  border-radius: 10px;
   cursor: pointer;
+  font-size: var(--fontSize-10);
+  font-weight: 100;
+  z-index: 1;
 }
 
 .home .date-information input::placeholder {
   color: var(--color-white);
+}
+
+.home .select-date-content {
+  width: 100%;
+  height: 50%;
+  color: var(--color-white);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: var(--fontSize-11);
+  align-content: center;
+  z-index: 1;
+  font-weight: bold;
+}
+
+.home .select-date-option {
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+  z-index: 1;
 }
 
 /* CALENDAR */
@@ -1094,11 +1129,13 @@ body {
   z-index: 2;
   bottom: 0;
   transform: translateY(-50%);
-  /* display: none; */
+  box-shadow: 0px 5px 15px rgba(1, 1, 1, 1);
+
+  display: none;
 }
 
 .home .calendar-header {
-  background: var(--color-btn);
+  background: var(--color-main);
   display: flex;
   align-items: center;
   font-size: var(--fontSize-10);
@@ -1112,6 +1149,55 @@ body {
   display: flex;
   align-items: center;
 justify-content: center;
+}
+
+.home .calendar-description{
+  margin-top: 20px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home .cont-calendar .description-1{
+  width: 70%;
+  height: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.home .description-1-color{
+  height: 20px;
+  width: 20px;
+  background-color: var(--color-light-main);
+  border-radius: var(--radius-5);
+}
+
+.home .description-1-content{
+  width: 50%;
+  height: 100%;
+  font-size: var(--fontSize-11);
+}
+
+.home .cont-calendar .description-2{
+  width: 70%;
+  height: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.home .description-2-color{
+  height: 20px;
+  width: 20px;
+  background-color: var(--color-main);
+  border-radius: var(--radius-5);
+}
+
+.home .description-2-content{
+  width: 50%;
+  height: 100%;
+  font-size: var(--fontSize-11);
 }
 .home .month-picker{
   /* width: 50%; */
@@ -1202,7 +1288,7 @@ justify-content: center;
 }
 
 .year-change:hover {
-  background-color: var(--color-btn);
+  background-color: var(--color-main);
   transition: all 0.2s ease-in-out;
   transform: scale(1.12);
 }
@@ -1244,14 +1330,34 @@ justify-content: center;
   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
   background-color: #fbc7d4;
   border-radius: var(--radius-5);
-  color: var(--dark-text);
+  color: var(--color-white);
 }
 
 .calendar-days div.current-date {
-  color: var(--dark-text);
-  background-color: var(--color-btn);
+  color: var(--color-white);
+  background-color: var(--color-light-main);
   border-radius: 20%;
 }
+
+/* CSS class for highlighting the current month */
+.current-month {
+  font-weight: bold;
+  background-color: yellow;
+}
+
+.selected-day {
+  color: var(--color-white);
+  background-color: var(--color-main);
+  border-radius: 20%;
+}
+
+/* Styling for selected month */
+.selected-month {
+  background-color: #add8e6; /* Light blue */
+  color: white;
+  font-weight: bold;
+}
+
 
 .month-list {
   position: absolute;
@@ -1267,40 +1373,42 @@ justify-content: center;
   border-radius: 20px;
   display: none;
 }
-
-
-
-.past-day {
-  /* transition: width 0.2s ease-in-out, height 0.2s ease-in-out; */
-  background-color: #c7d4;
-  border-radius: var(--radius-5);
-  color: var(--dark-text);
-}
-
-.home .month-list > div {
-  /* width: calc(); */
-  width: auto;
+/* .month-list {
+  position: relative;
+  left: 0;
+  top: -50px;
+  background-color: #ebebeb;
+  color: var(--light-text);
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 5px;
+  border-radius: 20px;
+} */
+.month-list > div {
   display: grid;
   place-content: center;
   margin: 5px 10px;
+  transition: all 0.2s ease-in-out;
   font-size: var(--fontSize-10);
 }
-
-
 .month-list > div > div {
   border-radius: 15px;
   padding: 10px;
   cursor: pointer;
 }
-
 .month-list > div > div:hover {
-  background-color: var(--color-btn);
-  color: var(--dark-text);
+  background-color: var(--color-main);
+  color: var(--color-white);
   transform: scale(0.9);
+  transition: all 0.2s ease-in-out;
 }
 
 .month-list.show {
   display: grid;
+}
+.past-day {
+  background-color: #d3d3d3; /* Màu xám nhạt */
+  border-radius: var(--radius-5);
 }
 
 @keyframes from-middle {
