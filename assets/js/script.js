@@ -4,21 +4,13 @@ window.addEventListener("load", () => {
   preloader.classList.add("remove");
 });
 
-/**
- * add event on multiple elements
- */
-
 const addEventOnElements = function (elements, eventType, callback) {
   for (let i = 0, len = elements.length; i < len; i++) {
     elements[i].addEventListener(eventType, callback);
   }
 };
 
-
-/**
- * Navbar toggler for mobile
- */
-
+// NAVBAR TOGGLER FOR MOBILE
 const navbar = document.querySelector("[data-navbar]");
 const navTogglers = document.querySelectorAll("[data-nav-toggler]");
 const overlay = document.querySelector("[data-overlay]");
@@ -31,7 +23,6 @@ const toggleNav = function () {
 
 addEventOnElements(navTogglers, "click", toggleNav);
 
-//
 window.addEventListener("resize", function () {
   if (window.innerWidth >= 992) {
     navbar.classList.remove("active");
@@ -43,11 +34,10 @@ window.addEventListener("resize", function () {
 // HEADER
 const header = document.querySelector("[data-header]");
 window.addEventListener("scroll", function () {
-  header.classList[this.window.scrollY > 100 ? "add" : "remove"]("active");
+  header.classList[this.window.scrollY > 0 ? "add" : "remove"]("active");
 });
 
-
-
+// SWIPER
 const thumbnailsSwiper = new Swiper(".home_thumbnails", {
   slidesPerView: 2.5,
   spaceBetween: 20,
@@ -79,22 +69,71 @@ thumbnailsSwiper.on("slideChange", () => {
   document.querySelectorAll(".home_slide")[realIndex].classList.add("active");
 });
 
-
-const selectDepartureBox = document.querySelector(".home_cont-departure");
-const selectDepartureOption = document.querySelector(".select-departure-option");
+const homeContDeparture = document.querySelector(".home_cont-departure");
+const selectDepartureOption = document.querySelector(
+  ".select-departure-option"
+);
 const soValueDeparture = document.querySelector("#soValueDeparture");
+const departureContent = document.querySelector(".departure-content");
 const optionSearchDeparture = document.querySelector("#optionSearchDeparture");
 const departureOptions = document.querySelector(".departure-options");
 const departureOptionsList = document.querySelectorAll(".departure-options li");
+
+const homeContDestination = document.querySelector(".home_cont-destination");
+const selectDestinationOption = document.querySelector(
+  ".select-destination-option"
+);
+const soValueDestination = document.querySelector("#soValueDestination");
+const destinationContent = document.querySelector(".destination-content");
+const optionSearchDestination = document.querySelector(
+  "#optionSearchDestination"
+);
+const destinationOptions = document.querySelector(".destination-options");
+const destinationOptionsList = document.querySelectorAll(
+  ".destination-options li"
+);
+
 selectDepartureOption.addEventListener("click", function () {
-  selectDepartureBox.classList.toggle("active");
+  homeContDeparture.classList.toggle("active");
 });
+
+selectDestinationOption.addEventListener("click", function () {
+  homeContDestination.classList.toggle("active");
+});
+
+document.addEventListener("click", removeActiveContDeparture);
+function removeActiveContDeparture(event) {
+  if (
+    !departureContent.contains(event.target) &&
+    !soValueDeparture.contains(event.target)
+  ) {
+    homeContDeparture.classList.remove("active");
+  }
+}
+
+document.addEventListener("click", removeActiveContDestination);
+function removeActiveContDestination(event) {
+  if (
+    !destinationContent.contains(event.target) &&
+    !soValueDestination.contains(event.target)
+  ) {
+    homeContDestination.classList.remove("active");
+  }
+}
 
 departureOptionsList.forEach(function (departureOptionsListSingle) {
   departureOptionsListSingle.addEventListener("click", function () {
     var text = this.textContent;
     soValueDeparture.value = text;
-    selectDepartureBox.classList.remove("active");
+    homeContDeparture.classList.remove("active");
+  });
+});
+
+destinationOptionsList.forEach(function (destinationOptionsListSingle) {
+  destinationOptionsListSingle.addEventListener("click", function () {
+    var text = this.textContent;
+    soValueDestination.value = text;
+    homeContDestination.classList.remove("active");
   });
 });
 
@@ -113,30 +152,6 @@ optionSearchDeparture.addEventListener("keyup", function () {
   }
 });
 
-const selectDestinationBox = document.querySelector(".home_cont-destination");
-const selectDestinationOption = document.querySelector(
-  ".select-destination-option"
-);
-const soValueDestination = document.querySelector("#soValueDestination");
-const optionSearchDestination = document.querySelector(
-  "#optionSearchDestination"
-);
-const destinationOptions = document.querySelector(".destination-options");
-const destinationOptionsList = document.querySelectorAll(
-  ".destination-options li"
-);
-selectDestinationOption.addEventListener("click", function () {
-  selectDestinationBox.classList.toggle("active");
-});
-
-destinationOptionsList.forEach(function (destinationOptionsListSingle) {
-  destinationOptionsListSingle.addEventListener("click", function () {
-    var text = this.textContent;
-    soValueDestination.value = text;
-    selectDestinationBox.classList.remove("active");
-  });
-});
-
 optionSearchDestination.addEventListener("keyup", function () {
   var filter, li, i, textValue, liCount;
   filter = optionSearchDestination.value.toUpperCase();
@@ -151,12 +166,3 @@ optionSearchDestination.addEventListener("keyup", function () {
     }
   }
 });
-
-
-
-// JS FOR DATE OF CALENDAR
-const inputElement = document.getElementById("soValueDate");
-const today = new Date();
-const formattedDate = today.toLocaleDateString("vi-VN");
-inputElement.placeholder = formattedDate;
-// END JS FOR DATE OF CALENDAR

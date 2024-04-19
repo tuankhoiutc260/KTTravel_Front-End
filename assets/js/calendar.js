@@ -25,11 +25,9 @@ const month_names = [
 ];
 
 const contCalendar = document.querySelector(".cont-calendar");
+const contCalendarMonth = document.querySelector(".cont-calendar-month");
 const monthPicker = document.querySelector("#month-picker");
-// const dayTextFormate = document.querySelector(".day-text-formate");
-// const timeFormate = document.querySelector(".time-formate");
-// const dateFormate = document.querySelector(".date-formate");
-const month_list = contCalendar.querySelector(".month-list");
+const monthList = contCalendar.querySelector(".month-list");
 const dateInformation = document.querySelector(".date-information");
 
 // Current month and year
@@ -77,7 +75,6 @@ const generateCalendar = (month, year) => {
       ) {
         day.classList.add("current-date");
       }
-      
     }
 
     // Add day element to the calendar
@@ -88,15 +85,69 @@ const generateCalendar = (month, year) => {
   attachEventListenersToDays();
 };
 
-// const overlay = document.querySelector("[data-overlay]");
+const attachEventListenersToDays = () => {
+  const dayElements = document.querySelectorAll(".calendar-days > div");
+  let selectedDayElement = null;
 
+  const today = new Date();
 
-dateInformation.addEventListener("click", function () {
+  dayElements.forEach((dayElement) => {
+    const day = parseInt(dayElement.innerHTML);
+
+    // Nếu ngày không hợp lệ (ví dụ như phần tử trống), bỏ qua sự kiện
+    if (isNaN(day)) return;
+
+    const month = currentMonth.value;
+    const year = currentYear.value;
+    const date = new Date(year, month, day);
+
+    if (date < today) {
+      dayElement.classList.add("past-day");
+    }
+
+    dayElement.addEventListener("click", () => {
+      if (date < today) {
+        return;
+      }
+
+      selectDay(dayElement, date);
+    });
+  });
+};
+
+const selectDay = (dayElement, date) => {
+  const previousSelectedDay = document.querySelector(
+    ".calendar-days .selected-day"
+  );
+  if (previousSelectedDay) {
+    previousSelectedDay.classList.remove("selected-day");
+  }
+
+  dayElement.classList.add("selected-day");
+  displayDateInfo(date);
+  hideCalendar();
+};
+
+const selectDateOption = document.querySelector(".select-date-option");
+const displayDateElement = document.querySelector("#soValueDate");
+const displayDateInfo = (date) => {
+  const weekdayName = date.toLocaleDateString("vi-VN", { weekday: "long" });
+  const monthName = date.toLocaleDateString("vi-VN", { month: "long" });
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const formattedDate = date.toLocaleDateString("vi-VN");
+  displayDateElement.placeholder = formattedDate;
+};
+
+function hideCalendar() {
+  contCalendar.classList.remove("active");
+}
+
+function showCalendar() {
   contCalendar.classList.toggle("active");
-  contCalendar.style.display = "block";
-  // overlay.classList.toggle("active");
-});
+}
 
+document.addEventListener("click", removeActiveContCalendar);
 function removeActiveContCalendar(event) {
   if (
     !contCalendar.contains(event.target) &&
@@ -107,147 +158,59 @@ function removeActiveContCalendar(event) {
   }
 }
 
-document.addEventListener("click", removeActiveContCalendar);
-
-function hideCalendar() {
-  contCalendar.classList.remove("active");
-  contCalendar.style.display = "none";
-}
-
-// Attach event listeners to the day elements
-const attachEventListenersToDays = () => {
-  const dayElements = document.querySelectorAll('.calendar-days > div');
-  let selectedDayElement = null;
-
-  // Lấy ngày hiện tại
-  const today = new Date();
-
-  dayElements.forEach((dayElement) => {
-    const day = parseInt(dayElement.innerHTML);
-
-    // Nếu ngày không hợp lệ (ví dụ như phần tử trống), bỏ qua sự kiện
-    if (isNaN(day)) return;
-
-    // Lấy tháng và năm hiện tại
-    const month = currentMonth.value;
-    const year = currentYear.value;
-
-    // Tạo một đối tượng Date với ngày, tháng, và năm hiện tại
-    const date = new Date(year, month, day);
-
-    // Kiểm tra nếu ngày đã qua
-    if (date < today) {
-      // Thêm lớp CSS để bôi màu xám cho ngày đã qua
-      dayElement.classList.add('past-day');
-    }
-
-    // Thêm sự kiện click cho ngày hiện tại và tương lai
-    dayElement.addEventListener('click', () => {
-      // Kiểm tra nếu ngày đã qua
-      if (date < today) {
-        // Bỏ qua sự kiện nếu ngày đã qua
-        return;
-      }
-
-      // Gọi hàm selectDay để xử lý việc chọn ngày
-      selectDay(dayElement, date);
-    });
-  });
-};
-
-// Function to handle the selection of a specific day
-const selectDay = (dayElement, date) => {
-  // Remove the 'selected-day' class from the previously selected day (if any)
-  const previousSelectedDay = document.querySelector('.calendar-days .selected-day');
-  if (previousSelectedDay) {
-    previousSelectedDay.classList.remove('selected-day');
-  }
-
-  // Add the 'selected-day' class to the new day element
-  dayElement.classList.add('selected-day');
-
-  // Display information about the selected date
-  displayDateInfo(date);
-
-  // Hide the calendar if desired
-  hideCalendar();
-};
-
-// Function to display information about the clicked date
-const displayDateInfo = (date) => {
-  // Extract date information
-  const weekdayName = date.toLocaleDateString('vi-VN', { weekday: 'long' });
-  const monthName = date.toLocaleDateString('vi-VN', { month: 'long' });
-  const day = date.getDate();
-  const year = date.getFullYear();
-
-  // Format the clicked date in the Vietnamese format (dd/mm/yyyy)
-  const formattedDate = date.toLocaleDateString('vi-VN');
-  const inputElement = document.getElementById('soValueDate');
-  inputElement.placeholder = formattedDate;
-  console.log(formattedDate);
-};
-
-// Month picker event
-monthPicker.onclick = () => {
-  month_list.classList.remove("hideonce");
-  month_list.classList.remove("hide");
-  month_list.classList.add("show");
-  // dayTextFormate.classList.remove("showtime");
-  // dayTextFormate.classList.add("hidetime");
-  // timeFormate.classList.remove("showtime");
-  // timeFormate.classList.add("hidetime");
-  // dateFormate.classList.remove("showtime");
-  // dateFormate.classList.add("hidetime");
-};
-
-
-
 function checkAndHideMonthList() {
   if (
     !contCalendar.classList.contains("active") &&
-    month_list.classList.contains("show")
+    contCalendarMonth.classList.contains("show")
   ) {
-    month_list.classList.remove("show");
-    month_list.classList.add("hide");
+    contCalendarMonth.classList.remove("show");
+    contCalendarMonth.classList.add("hide");
   }
 }
 
+selectDateOption.addEventListener("click", function () {
+  showCalendar();
+});
 
 
+monthPicker.onclick = () => {
+  if (contCalendarMonth && contCalendar) {
+    const computedStyle = window.getComputedStyle(contCalendar);
+    const contCalendarHeight = computedStyle.getPropertyValue("height");
+    // console.log("Computed height of contCalendar:", contCalendarHeight);
+    contCalendarMonth.style.height = contCalendarHeight;
+    // contCalendarMonth.classList.remove("hideonce");
+    contCalendarMonth.classList.remove("hide");
+    contCalendarMonth.classList.add("show");
+  }
+};
 
-// Event listener for month selection
-// Event listener for month selection
 month_names.forEach((e, index) => {
   let month = document.createElement("div");
   month.innerHTML = `<div>${e}</div>`;
 
-  // Check if the current month matches the index and add the 'current-month' class
   if (index === currentMonth.value) {
-    // month.classList.add("selected-month");
-    month.classList.add('current-month');
+    month.classList.add("current-month");
   }
 
-  month_list.append(month);
+  monthList.append(month);
   month.onclick = () => {
     currentMonth.value = index;
     generateCalendar(currentMonth.value, currentYear.value);
-    month_list.classList.replace("show", "hide");
+    contCalendarMonth.classList.replace("show", "hide");
 
-    // Remove 'current-month' class from all months
-    document.querySelectorAll('.month-list > div').forEach(m => m.classList.remove('selected-month'));
-    // Add 'current-month' class to the selected month
-    month.classList.add('selected-month');
-    
+    document
+      .querySelectorAll(".month-list > div")
+      .forEach((m) => m.classList.remove("selected-month"));
+    month.classList.add("selected-month");
   };
 });
 
 // Initialize calendar
 (function () {
-  month_list.classList.add("hideonce");
+  // contCalendarMonth.classList.add("hideonce");
   generateCalendar(currentMonth.value, currentYear.value);
 })();
-
 
 // PRE-NEXT MONTH
 document.querySelector("#pre-month").onclick = () => {
@@ -257,7 +220,7 @@ document.querySelector("#pre-month").onclick = () => {
     currentYear.value -= 1;
   }
   generateCalendar(currentMonth.value, currentYear.value);
-}
+};
 
 document.querySelector("#next-month").onclick = () => {
   currentMonth.value += 1;
@@ -266,7 +229,7 @@ document.querySelector("#next-month").onclick = () => {
     currentYear.value += 1;
   }
   generateCalendar(currentMonth.value, currentYear.value);
-}
+};
 
 // PRE-NEXT YEAR
 document.querySelector("#pre-year").onclick = () => {

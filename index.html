@@ -365,7 +365,6 @@
           <div class="home_booking">
             <div class="home_cont-information-booking">
               <!-- DEPARTURE CONTAINER -->
-              <!-- <div class="home_cont-departure"> -->
               <div class="home_cont-departure">
                 <div class="img-departure">
                   <img
@@ -407,10 +406,8 @@
                   </ul>
                 </div>
               </div>
-              <!-- </div> -->
 
               <!-- DESTINATION CONTAINER -->
-              <!-- <div class="home_destination-point"> -->
               <div class="home_cont-destination">
                 <div class="img-destination">
                   <img
@@ -452,10 +449,7 @@
                   </ul>
                 </div>
               </div>
-              <!-- </div> -->
-              <!-- CALENDAR CONTAINER -->
               <div class="home_cont-date">
-                <!-- <div class="select-date-box"> -->
                 <div class="icon-calendar">
                   <img
                     src="./assets/images/ic_calendar.png"
@@ -463,30 +457,20 @@
                   />
                 </div>
 
-                <!-- <div class="date-information">
-                  <input
-                    type="text"
-                    placeholder=""
-                    id="soValueDate"
-                    readonly
-                    name=""
-                  />
-                </div> -->
-
                 <div class="date-information">
                   <div class="select-date-content">Departure Date</div>
                   <div class="select-date-option">
                     <input
-                    type="text"
-                    placeholder=""
-                    id="soValueDate"
-                    readonly
-                    name=""
-                  />
+                      type="text"
+                      placeholder="Select your departure date!"
+                      id="soValueDate"
+                      readonly
+                      name=""
+                    />
                   </div>
                 </div>
 
-                <!-- <div class="cont-calendar"> -->
+                <!-- CALENDAR -->
                 <div class="cont-calendar">
                   <div class="calendar-header">
                     <div class="calendar-month">
@@ -500,6 +484,7 @@
                       <span class="year-change" id="next-year">></span>
                     </div>
                   </div>
+
                   <div class="calendar-body">
                     <div class="calendar-week-days">
                       <div>Sun</div>
@@ -522,12 +507,22 @@
                       <div class="description-2-content">Selected date</div>
                     </div>
                   </div>
-                  <div class="month-list"></div>
-                  <!-- <div class="date-info"></div> -->
+
+                  <div class="cont-calendar-month">
+                    <div class="month-list"></div>
+                    <div class="calendar-description">
+                      <div class="description-1">
+                        <div class="description-1-color"></div>
+                        <div class="description-1-content">Current month</div>
+                      </div>
+                      <div class="description-2">
+                        <div class="description-2-color"></div>
+                        <div class="description-2-content">Selected month</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- </div> -->
-              <!-- </div> -->
             </div>
 
             <a href="#" class="btn-search-tour">Search Now</a>

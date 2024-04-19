@@ -5,6 +5,7 @@
   --color-lavender-blush: hsl(0, 100%, 98%);
   --color-granite-gray: hsl(210, 4%, 38%);
   --color-white: rgb(255, 255, 255);
+  --color-black: rgb(0, 0, 0);
   --color-white-opcty-40: rgba(255, 255, 255, 0.4);
   --color-white-opcty-90: rgba(255, 255, 255, 0.9);
   --color-blue-60-opcty-70: rgba(128, 177, 230, 0.7);
@@ -12,13 +13,15 @@
   --color-ocean-blue: hsl(249, 63%, 54%);
   --color-red-salsa: hsl(357, 94%, 63%);
   --color-english-vermillion: hsl(357, 64%, 53%);
-  --color-gunmetal: hsl(209, 40%, 14%);     
+  --color-gunmetal: hsl(209, 40%, 14%);
   --color-gainsboro: hsl(0, 0%, 85%);
   --color-black-alpha-20: hsla(0, 0%, 0%, 0.2);
   --color-white-opcty-015: rgba(0, 0, 0, 0.15);
   --color-background: #f8f8f8;
-  --color-main: rgb(62,175,245);
+  --color-main: rgb(62, 175, 245);
   --color-light-main: rgb(122, 205, 255);
+  --color-calendar-hover: #fbc7d4;
+  --color-block-element: #d3d3d3;
 
   /* RADIUS */
   --radius-pill: 200px;
@@ -59,7 +62,6 @@
   --fontSize-11: 0.7rem;
   --fontSize-12: 0.6rem;
 
-
   /* FONT FAMILY */
   --ff-poppins: "Poppins", sans-serif;
 
@@ -69,20 +71,6 @@
 
   /* DURATION */
   --fast-duration: 1500ms;
-
-  /* FOR CALENDAR */
-  --dark-text: #f8fbff;
-  --light-body: #f3f8fe;
-  --light-main: #fdfdfd;
-  --light-second: #c3c2c8;
-  --light-hover: #f0f0f0;
-  --light-text: #151426;
-  --light-btn: #9796f0;
-  --blue: #0000ff;
-  --white: #fff;
-  --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  --font-family: consolas;
-  /* END FOR CALENDAR */
 }
 
 /* RESET */
@@ -339,25 +327,11 @@ body {
 .header.active {
   position: fixed;
   background-color: var(--color-blue-60-opcty-70);
-  /* box-shadow: var(--shadow-gray-10); */
   backdrop-filter: blur(20px);
   transition: 0.5s ease;
   padding-block: 8px;
   height: 3.5rem;
 }
-
-/* .header .nav.active .navbar-link {
-    color: var(--color-granite-gray);
-  } */
-
-/* @keyframes slideIn {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  } */
 
 .header .logo-active {
   filter: drop-shadow(0 0 0.5rem var(--color-white));
@@ -370,12 +344,7 @@ body {
   width: 150px;
   height: auto;
 }
-/* .header.active .logo-active {
-    width: 140px;
-    height: auto;
-    transition: 0.5s ease;
-  }
-   */
+
 .header .nav-toggle-btn {
   font-size: 2rem;
   color: var(--color-white);
@@ -403,7 +372,6 @@ body {
 
 .header .navbar-item {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 }
 
@@ -449,7 +417,7 @@ body {
   top: 50%;
   left: -10px;
   transform: translateY(-50%);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   opacity: 0;
   transition: var(--transition-ease-250);
 }
@@ -463,7 +431,6 @@ body {
 }
 
 .overlay {
-  /* Nền khi bật Navbar != mobile */
   position: fixed;
   top: 0;
   left: 0;
@@ -551,7 +518,6 @@ body {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  /* position: relative; */
 }
 
 .home .home_slider-wrapper {
@@ -562,14 +528,10 @@ body {
 .home_slide {
   display: flex;
   position: absolute;
-  /* align-items: center; */
   width: 100%;
   height: 100%;
   opacity: 0;
 }
-/* .home .home_slide.active {
-  opacity: 1;
-} */
 
 .home .home_slide_image {
   width: 100%;
@@ -605,29 +567,22 @@ body {
   top: 10%;
   color: var(--color-white-opcty-90);
   z-index: 2;
-
-  /* Adding text-shadow to create a blurred effect */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adjust x, y, and blur radius as needed */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
 }
 
 .home .home_slide_text .heading {
-  /* font-size: clamp(var(--font-size-1) * 1.3, 3vw, var(--font-size-2)); */
   font-size: var(--fontSize-7);
   margin-bottom: var(--margin-1_5rem);
   max-height: 40%;
 }
 
 .home .home_slide_text .text {
-  line-height: 1.5em; /* Good for readability */
+  line-height: 1.5em; 
   font-size: var(--fontSize-9);
-  max-height: 60%; /* Retain max-height to control container height */
-
-  /* Additional properties to handle text overflow */
-  overflow: hidden; /* Hide overflowed content */
-  white-space: normal; /* Allow text to wrap onto multiple lines */
-
-  /* Use text-overflow as needed */
-  text-overflow: ellipsis; /* Add ellipsis when text overflows (optional) */
+  max-height: 60%;
+  overflow: hidden; 
+  white-space: normal; 
+  text-overflow: ellipsis; 
 }
 
 .home .home_slide.active {
@@ -659,8 +614,8 @@ body {
   z-index: 0;
   transform: translateY(-50%);
   opacity: 0;
-  transition: opacity var(--fast-duration) ease,
-    transform var(--fast-duration) ease;
+  /* transition: opacity var(--fast-duration) ease,
+    transform var(--fast-duration) ease; */
 }
 
 .home_thumbnails.reveal {
@@ -697,8 +652,6 @@ body {
 .home .home_booking {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -709,10 +662,8 @@ body {
   background-color: var(--color-white);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
   z-index: 2;
-
   backdrop-filter: blur(15px);
   background-color: rgb(255, 255, 255, 0.3);
-  /* border: 1px solid var(--color-white); */
 }
 
 .home .home_cont-information-booking {
@@ -740,73 +691,69 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds text shadow */
-
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* DEPARTURE CONTAINER */
-
 .home .home_cont-departure {
   width: 100%;
   height: 100%;
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 7%;
 }
 
-.home .home_cont-departure .img-departure{
-    width: 10%;
-    height: auto;
-    display: flex;
-    justify-content: center;
+.home .home_cont-departure .img-departure {
+  width: 10%;
+  height: auto;
+  display: flex;
+  justify-content: center;
 }
 
-.home .home_cont-departure .img-departure img{
-    width: 80%;
-    height: auto;
+.home .home_cont-departure .img-departure img {
+  width: 80%;
+  height: auto;
 }
 
-.home .departure-information{
-    width: 90%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 8%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+.home .departure-information {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 8%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
-
 
 .home .select-departure-option input::placeholder {
   color: var(--color-white);
 }
 
 .home .select-departure-content {
-    width: 100%;
-    height: 50%;
-    color: var(--color-white);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: var(--fontSize-11);
-    align-content: center;
-    z-index: 1;
-    font-weight: bold;
-  }
+  width: 100%;
+  height: 50%;
+  color: var(--color-white);
+  border-radius: var(--radius-10);
+  font-size: var(--fontSize-11);
+  align-content: center;
+  z-index: 1;
+  font-weight: bold;
+}
 
-  .home .select-departure-option {
-    width: 100%;
-    height: 50%;
-    cursor: pointer;
-    z-index: 1;
-  }
+.home .select-departure-option {
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+  z-index: 1;
+}
 
 .home .select-departure-option input {
   width: 100%;
   height: 100%;
   color: var(--color-white);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   cursor: pointer;
   font-size: var(--fontSize-10);
   font-weight: 100;
@@ -817,26 +764,26 @@ body {
 .home .home_cont-destination {
   width: 100%;
   height: 100%;
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 7%;
 }
 
-.home .home_cont-destination .img-destination{
+.home .home_cont-destination .img-destination {
   width: 10%;
   height: auto;
   display: flex;
   justify-content: center;
 }
 
-.home .home_cont-destination .img-destination img{
+.home .home_cont-destination .img-destination img {
   width: 80%;
   height: auto;
 }
 
-.home .destination-information{
+.home .destination-information {
   width: 90%;
   height: 100%;
   display: flex;
@@ -854,8 +801,7 @@ body {
   width: 100%;
   height: 50%;
   color: var(--color-white);
-  border-radius: 10px;
-  cursor: pointer;
+  border-radius: var(--radius-10);
   font-size: var(--fontSize-11);
   align-content: center;
   z-index: 1;
@@ -873,13 +819,12 @@ body {
   width: 100%;
   height: 100%;
   color: var(--color-white);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   cursor: pointer;
   font-size: var(--fontSize-10);
   font-weight: 100;
   z-index: 1;
 }
-
 
 .home .departure-content {
   background-color: #fff;
@@ -913,7 +858,7 @@ body {
   padding: 5px;
   outline: 0;
   border: 1px solid rgb(216, 216, 216);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .home .destination-search input {
@@ -922,7 +867,7 @@ body {
   padding: 5px;
   outline: 0;
   border: 1px solid rgb(216, 216, 216);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .home .departure-options {
@@ -942,53 +887,53 @@ body {
 /* Get scroll bar more smaller */
 /* For Webkit browsers */
 .home .departure-options::-webkit-scrollbar {
-  width: 5px; /* Set the width of the scrollbar */
+  width: 5px;
 }
 
 .home .destination-options::-webkit-scrollbar {
-  width: 5px; /* Set the width of the scrollbar */
+  width: 5px;
 }
 
 /* For Firefox */
 .home .departure-options {
-  scrollbar-width: thin; /* Set the width of the scrollbar */
+  scrollbar-width: thin;
 }
 
 .home .destination-options {
-  scrollbar-width: thin; /* Set the width of the scrollbar */
+  scrollbar-width: thin;
 }
 
 /* For Internet Explorer and Edge */
 .home .departure-options::-ms-scrollbar {
-  width: 5px; /* Set the width of the scrollbar */
+  width: 5px;
 }
 
 .home .destination-options::-ms-scrollbar {
-  width: 5px; /* Set the width of the scrollbar */
+  width: 5px;
 }
 
 /* Optional: Customize scrollbar appearance */
 .home .departure-options::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Customize scrollbar thumb color */
-  border-radius: 5px; /* Optional: Customize scrollbar thumb border radius */
+  background-color: #ccc;
+  border-radius: var(--radius-5);
 }
 
 .home .destination-options::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Customize scrollbar thumb color */
-  border-radius: 5px; /* Optional: Customize scrollbar thumb border radius */
+  background-color: #ccc;
+  border-radius: var(--radius-5);
 }
 /*End get scroll bar more smaller */
 
 .home .departure-options li {
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   font-size: 0.8rem;
   cursor: pointer;
 }
 
 .home .destination-options li {
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -1023,7 +968,7 @@ body {
 .home .home_cont-date {
   width: 100%;
   height: 100%;
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1031,33 +976,19 @@ body {
   position: relative;
 }
 
-.home .home_cont-date .icon-calendar{
+.home .home_cont-date .icon-calendar {
   width: 10%;
   height: auto;
   display: flex;
   justify-content: center;
 }
 
-.home .home_cont-date .icon-calendar img{
+.home .home_cont-date .icon-calendar img {
   width: 80%;
   height: auto;
 }
 
-.home .date-information{
-  /* width: 90%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 8%;
-  padding-top: 3%;
-  padding-bottom: 3%;
-  color: var(--color-white);
-  border-radius: 10px;
-  font-size: var(--fontSize-10);
-  align-content: center;
-  z-index: 1;
-  font-weight: bold; */
-
+.home .date-information {
   width: 90%;
   height: 100%;
   display: flex;
@@ -1067,11 +998,11 @@ body {
   padding-bottom: 3%;
 }
 
-.home .date-information input{
+.home .date-information input {
   width: 100%;
   height: 100%;
   color: var(--color-white);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   cursor: pointer;
   font-size: var(--fontSize-10);
   font-weight: 100;
@@ -1086,8 +1017,7 @@ body {
   width: 100%;
   height: 50%;
   color: var(--color-white);
-  border-radius: 10px;
-  cursor: pointer;
+  border-radius: var(--radius-10);
   font-size: var(--fontSize-11);
   align-content: center;
   z-index: 1;
@@ -1101,23 +1031,7 @@ body {
   z-index: 1;
 }
 
-/* CALENDAR */
-:root {
-  --dark-text: #f8fbff;
-  --light-body: #f3f8fe;
-  --light-main: #fdfdfd;
-  --light-second: #c3c2c8;
-  --light-hover: #f0f0f0;
-  --light-text: #151426;
-  --light-btn: #9796f0;
-  --blue: #0000ff;
-  --white: #fff;
-  --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  --font-family: consolas;
-}
-
-
-.cont-calendar {
+.home .cont-calendar {
   position: fixed;
   width: 100%;
   height: max-content;
@@ -1127,11 +1041,14 @@ body {
   padding: 5%;
   box-shadow: var(--shadow);
   z-index: 2;
-  bottom: 0;
-  transform: translateY(-50%);
+  top: 0;
+  transform: translateY(-80%);
   box-shadow: 0px 5px 15px rgba(1, 1, 1, 1);
-
   display: none;
+}
+
+.home .cont-calendar.active {
+  display: block;
 }
 
 .home .calendar-header {
@@ -1139,68 +1056,70 @@ body {
   display: flex;
   align-items: center;
   font-size: var(--fontSize-10);
-    color: var(--white);
+  color: var(--white);
   padding: 10px;
   border-radius: var(--radius-10);
 }
 
-.home .calendar-month{
+.home .calendar-month {
   width: 50%;
   display: flex;
   align-items: center;
-justify-content: center;
+  justify-content: center;
 }
 
-.home .calendar-description{
+.home .calendar-description {
   margin-top: 20px;
   width: 100%;
   height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-.home .cont-calendar .description-1{
-  width: 70%;
+.home .description-1 {
+  width: 100%;
   height: 50%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
-.home .description-1-color{
+.home .description-1-color {
   height: 20px;
   width: 20px;
   background-color: var(--color-light-main);
   border-radius: var(--radius-5);
 }
 
-.home .description-1-content{
+.home .description-1-content {
   width: 50%;
   height: 100%;
   font-size: var(--fontSize-11);
 }
 
-.home .cont-calendar .description-2{
-  width: 70%;
+.home .description-2 {
+  width: 100%;
   height: 50%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
-.home .description-2-color{
+.home .description-2-color {
   height: 20px;
   width: 20px;
   background-color: var(--color-main);
   border-radius: var(--radius-5);
 }
 
-.home .description-2-content{
+.home .description-2-content {
   width: 50%;
   height: 100%;
   font-size: var(--fontSize-11);
 }
-.home .month-picker{
-  /* width: 50%; */
+.home .month-picker {
   text-align: center;
   justify-content: center;
 }
@@ -1215,7 +1134,7 @@ justify-content: center;
   cursor: pointer;
 }
 
-.home .calendar-year{
+.home .calendar-year {
   width: 50%;
   display: flex;
   align-items: center;
@@ -1230,7 +1149,7 @@ justify-content: center;
 }
 
 .calendar-week-days div:hover {
-  color: black;
+  color: var(--color-black);
   transform: scale(1.2);
   transition: all 0.2s ease-in-out;
 }
@@ -1269,13 +1188,10 @@ justify-content: center;
   transition: all 0.2s ease;
 }
 
-
 .home .month-picker:hover {
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
-
-
 
 .year-change {
   height: 30px;
@@ -1304,31 +1220,23 @@ justify-content: center;
   align-items: center;
 }
 
-
 .home #year {
   cursor: pointer;
   transition: all 0.2s ease;
-}.current-month-day {
-  background-color: #e0f7fa; /* Màu nền cho ngày của tháng hiện tại */
-  color: #006064; /* Màu chữ cho ngày của tháng hiện tại */
 }
-
 
 .home #year:hover {
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
 
-
 .calendar-days div span {
   position: absolute;
 }
 
-
-
 .calendar-days div:hover {
   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
-  background-color: #fbc7d4;
+  background-color: var(--color-calendar-hover);
   border-radius: var(--radius-5);
   color: var(--color-white);
 }
@@ -1339,10 +1247,11 @@ justify-content: center;
   border-radius: 20%;
 }
 
-/* CSS class for highlighting the current month */
 .current-month {
   font-weight: bold;
-  background-color: yellow;
+  background-color: var(--color-light-main);
+  color: var(--color-white);
+  border-radius: var(--radius-5);
 }
 
 .selected-day {
@@ -1351,63 +1260,65 @@ justify-content: center;
   border-radius: 20%;
 }
 
-/* Styling for selected month */
 .selected-month {
-  background-color: #add8e6; /* Light blue */
-  color: white;
+  background-color: var(--color-main);
   font-weight: bold;
+  color: var(--color-white);
+
+  border-radius: var(--radius-5);
 }
 
-
-.month-list {
+.home .cont-calendar-month {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: max-content;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-background);
-  color: var(--light-text);
-  grid-template-columns: repeat(3, calc(100% / 3));
-  /* gap: 5px; */
-  border-radius: 20px;
+  flex-direction: column;
   display: none;
+  background-color: var(--color-white);
+  padding: 5%;
 }
-/* .month-list {
-  position: relative;
-  left: 0;
-  top: -50px;
-  background-color: #ebebeb;
-  color: var(--light-text);
+
+.month-list {
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 5px;
-  border-radius: 20px;
-} */
+  background-color: var(--color-background);
+  color: var(--color-black);
+  grid-template-columns: repeat(3, calc(100% / 3));
+  border-radius: var(--radius-15);
+}
+
 .month-list > div {
   display: grid;
   place-content: center;
   margin: 5px 10px;
   transition: all 0.2s ease-in-out;
-  font-size: var(--fontSize-10);
+  font-size: var(--fontSize-11);
 }
+
 .month-list > div > div {
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   padding: 10px;
   cursor: pointer;
 }
-.month-list > div > div:hover {
-  background-color: var(--color-main);
+.month-list > div:hover {
+  background-color: var(--color-calendar-hover);
   color: var(--color-white);
-  transform: scale(0.9);
   transition: all 0.2s ease-in-out;
+  color: white;
+  border-radius: var(--radius-5);
 }
 
-.month-list.show {
-  display: grid;
+.cont-calendar-month.show {
+  display: flex;
+  justify-content: space-evenly;
 }
+
 .past-day {
-  background-color: #d3d3d3; /* Màu xám nhạt */
+  background-color: var(--color-block-element);
   border-radius: var(--radius-5);
 }
 
@@ -1422,10 +1333,4 @@ justify-content: center;
     margin-left: 0;
     margin-right: 0;
   }
-}
-
-/* Define the CSS class for the selected day */
-.date-info {
-  position: absolute;
-  bottom: 20px;
 }
