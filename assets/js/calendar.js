@@ -136,7 +136,7 @@ const displayDateInfo = (date) => {
   const day = date.getDate();
   const year = date.getFullYear();
   const formattedDate = date.toLocaleDateString("vi-VN");
-  displayDateElement.placeholder = formattedDate;
+  displayDateElement.textContent = formattedDate;
 };
 
 function hideCalendar() {
@@ -170,7 +170,31 @@ function checkAndHideMonthList() {
 
 selectDateOption.addEventListener("click", function () {
   showCalendar();
+
+  // Select the container element
+  const container = document.querySelector('.cont-calendar');
+
+  // Get the bounding client rect of the container
+  const rect = container.getBoundingClientRect();
+
+  // Calculate the bottom position of the container relative to the top of the document
+  const bottomPosition = rect.bottom + window.scrollY;
+
+  // Calculate the height of the window
+  const windowHeight = window.innerHeight;
+
+  // Calculate the adjusted scroll position
+  // This position ensures there is a padding of 10 pixels between the bottom of the container and the bottom of the screen
+  const adjustedScrollPosition = bottomPosition - windowHeight + 10;
+
+  // Scroll the window to the adjusted position using the 'top' parameter
+  window.scrollTo({
+      top: adjustedScrollPosition,
+      behavior: 'smooth' // Optional: Adds smooth scrolling animation
+  });
 });
+
+
 
 
 monthPicker.onclick = () => {

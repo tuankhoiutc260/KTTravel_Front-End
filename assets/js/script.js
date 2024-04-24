@@ -69,7 +69,7 @@ thumbnailsSwiper.on("slideChange", () => {
   document.querySelectorAll(".home_slide")[realIndex].classList.add("active");
 });
 
-const homeContDeparture = document.querySelector(".home_cont-departure");
+const contDeparture = document.querySelector(".cont-departure");
 const selectDepartureOption = document.querySelector(
   ".select-departure-option"
 );
@@ -79,7 +79,7 @@ const optionSearchDeparture = document.querySelector("#optionSearchDeparture");
 const departureOptions = document.querySelector(".departure-options");
 const departureOptionsList = document.querySelectorAll(".departure-options li");
 
-const homeContDestination = document.querySelector(".home_cont-destination");
+const contDestination = document.querySelector(".cont-destination");
 const selectDestinationOption = document.querySelector(
   ".select-destination-option"
 );
@@ -94,11 +94,27 @@ const destinationOptionsList = document.querySelectorAll(
 );
 
 selectDepartureOption.addEventListener("click", function () {
-  homeContDeparture.classList.toggle("active");
+  contDeparture.classList.toggle("active");
+  const rect = departureContent.getBoundingClientRect();
+  const bottomPosition = rect.bottom + window.scrollY;
+  const windowHeight = window.innerHeight;
+  const adjustedScrollPosition = bottomPosition - windowHeight + 10;
+  window.scrollTo({
+    top: adjustedScrollPosition,
+    behavior: "smooth",
+  });
 });
 
 selectDestinationOption.addEventListener("click", function () {
-  homeContDestination.classList.toggle("active");
+  contDestination.classList.toggle("active");
+  const rect = destinationContent.getBoundingClientRect();
+  const bottomPosition = rect.bottom + window.scrollY;
+  const windowHeight = window.innerHeight;
+  const adjustedScrollPosition = bottomPosition - windowHeight + 10;
+  window.scrollTo({
+    top: adjustedScrollPosition,
+    behavior: "smooth",
+  });
 });
 
 document.addEventListener("click", removeActiveContDeparture);
@@ -107,7 +123,7 @@ function removeActiveContDeparture(event) {
     !departureContent.contains(event.target) &&
     !soValueDeparture.contains(event.target)
   ) {
-    homeContDeparture.classList.remove("active");
+    contDeparture.classList.remove("active");
   }
 }
 
@@ -117,23 +133,23 @@ function removeActiveContDestination(event) {
     !destinationContent.contains(event.target) &&
     !soValueDestination.contains(event.target)
   ) {
-    homeContDestination.classList.remove("active");
+    contDestination.classList.remove("active");
   }
 }
 
 departureOptionsList.forEach(function (departureOptionsListSingle) {
   departureOptionsListSingle.addEventListener("click", function () {
     var text = this.textContent;
-    soValueDeparture.value = text;
-    homeContDeparture.classList.remove("active");
+    soValueDeparture.textContent = text;
+    contDeparture.classList.remove("active");
   });
 });
 
 destinationOptionsList.forEach(function (destinationOptionsListSingle) {
   destinationOptionsListSingle.addEventListener("click", function () {
     var text = this.textContent;
-    soValueDestination.value = text;
-    homeContDestination.classList.remove("active");
+    soValueDestination.textContent = text;
+    contDestination.classList.remove("active");
   });
 });
 
@@ -165,4 +181,45 @@ optionSearchDestination.addEventListener("keyup", function () {
       li[i].style.display = "none";
     }
   }
+});
+
+
+
+const btnSearchTour = document.querySelector(".btn-search-tour");
+let currentPage = window.location.pathname.split("/").pop(); // Change this to the actual current page
+console.log(currentPage);
+(function () {
+  // if (currentPage === "index.html") {
+    const viewportHeight = window.innerHeight;
+    console.log(window.innerHeight)
+    const btnSearchTourHeight = (viewportHeight / 10) * 0.7;
+    btnSearchTour.style.height = `${btnSearchTourHeight}px`;
+  // }
+})();
+
+
+// selectDepartureOption.addEventListener("click", function () {
+//   const rect = departureContent.getBoundingClientRect();
+//   const bottomPosition = rect.bottom + window.scrollY;
+//   const windowHeight = window.innerHeight;
+//   const adjustedScrollPosition = bottomPosition - windowHeight + 10;
+//   window.scrollTo({
+//       top: adjustedScrollPosition,
+//       behavior: 'smooth'
+//   });
+// });
+
+
+
+window.addEventListener('DOMContentLoaded', function() {
+  const imgCover = document.querySelectorAll(".img-cover");
+
+  function setHeight() {
+    imgCover.forEach(function(imgCover){
+      imgCover.style.height = imgCover.width * 0.6 + "px"; 
+    });
+  }
+
+  setHeight();
+  window.addEventListener('resize', setHeight);
 });

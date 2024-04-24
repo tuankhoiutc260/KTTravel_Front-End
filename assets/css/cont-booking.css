@@ -1,0 +1,656 @@
+.cont-information-booking {
+    display: grid;
+    width: 100%;
+    height: auto;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.btn-search-tour {
+    /* width: 100%;
+    background-color: var(--color-main);
+    font-size: var(--fontSize-9);
+    color: var(--color-white);
+    border-end-start-radius: var(--radius-25);
+    border-end-end-radius: var(--radius-25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+
+    width: 100%;
+    font-size: var(--fontSize-9);
+    border-end-start-radius: var(--radius-25);
+    border-end-end-radius: var(--radius-25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+    background-color: var(--color-main);
+    color: var(--color-white);
+    border: none;             /* No border */
+    /* padding: 10px 20px;  */
+    cursor: pointer;          /* Cursor style */
+ 
+  }
+/* DEPARTURE CONTAINER */
+.cont-departure {
+    width: 100%;
+    height: max-content;
+    border-radius: var(--radius-15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 7%;
+    position: relative;
+}
+
+.cont-departure .img-departure {
+    width: 10%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.cont-departure .img-departure img {
+    width: 80%;
+    height: auto;
+}
+
+.departure-information {
+    width: 90%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    padding-left: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.select-departure-option label::placeholder {
+    color: var(--color-white);
+}
+
+.select-departure-content {
+    width: 100%;
+    height: max-content;
+    color: var(--color-white);
+    border-radius: var(--radius-10);
+    font-size: var(--fontSize-11);
+    align-content: center;
+    z-index: 1;
+    font-weight: bold;
+}
+
+.select-departure-option {
+    width: 100%;
+    height: max-content;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+}
+
+.select-departure-option label {
+    width: 100%;
+    height: 100%;
+    color: var(--color-white);
+    border-radius: var(--radius-10);
+    cursor: pointer;
+    font-size: var(--fontSize-10);
+    font-weight: 100;
+    z-index: 1;
+}
+
+/* DESTINATION CONTAINER */
+.cont-destination {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 7%;
+    position: relative;
+}
+
+.cont-destination .img-destination {
+    width: 10%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.cont-destination .img-destination img {
+    width: 80%;
+    height: auto;
+}
+
+.destination-information {
+    width: 90%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    padding-left: 8%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+.select-destination-option label::placeholder {
+    color: var(--color-white);
+}
+
+.select-destination-content {
+    width: 100%;
+    height: max-content;
+    color: var(--color-white);
+    border-radius: var(--radius-10);
+    font-size: var(--fontSize-11);
+    align-content: center;
+    z-index: 1;
+    font-weight: bold;
+}
+
+.select-destination-option {
+    width: 100%;
+    height: max-content;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+}
+
+.select-destination-option label {
+    width: 100%;
+    height: 100%;
+    color: var(--color-white);
+    border-radius: var(--radius-10);
+    cursor: pointer;
+    font-size: var(--fontSize-10);
+    font-weight: 100;
+    z-index: 1;
+}
+
+.departure-content {
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border-radius: var(--radius-15);
+    width: 100%;
+    padding: 5%;
+    display: none;
+    box-shadow: var(--shadow-black-opcty-25);
+    position: absolute;
+    top: 50%;
+}
+
+.destination-content {
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border-radius: var(--radius-15);
+    width: 100%;
+    padding: 5%;
+    display: none;
+    box-shadow: var(--shadow-black-opcty-25);
+    position: absolute;
+    top: 50%;
+}
+
+.departure-search input {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 5px;
+    outline: 0;
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: var(--radius-5);
+}
+
+.destination-search input {
+    width: 100%;
+    font-size: var(--fontSize-10);
+    padding: 5px;
+    outline: 0;
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: var(--radius-5);
+}
+
+.departure-options {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.destination-options {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Get scroll bar more smaller */
+/* For Webkit browsers */
+.departure-options::-webkit-scrollbar {
+    width: 5px;
+}
+
+.destination-options::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* For Firefox */
+.departure-options {
+    scrollbar-width: thin;
+}
+
+.destination-options {
+    scrollbar-width: thin;
+}
+
+/* Optional: Customize scrollbar appearance */
+.departure-options::-webkit-scrollbar-thumb {
+    background-color: var(--color-block-element);
+    border-radius: var(--radius-5);
+}
+
+.destination-options::-webkit-scrollbar-thumb {
+    background-color: var(--color-block-element);
+    border-radius: var(--radius-5);
+}
+/*End get scroll bar more smaller */
+
+.departure-options li {
+    padding: 10px 15px;
+    border-radius: var(--radius-5);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.destination-options li {
+    padding: 10px 15px;
+    border-radius: var(--radius-5);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.departure-options li:hover {
+    background-color: var(--color-hover-option);
+}
+
+.destination-options li:hover {
+    background-color: var(--color-hover-option);
+}
+
+.cont-departure.active .departure-content {
+    display: block;
+    z-index: 10;
+}
+
+.cont-destination.active .destination-content {
+    display: block;
+    z-index: 10;
+}
+
+.cont-departure.active .select-departure-option:after {
+    transform: rotate(-180deg);
+}
+
+.cont-destination.active .select-destination-option:after {
+    transform: rotate(-180deg);
+}
+
+/* CALENDAR */
+.cont-date {
+    width: 100%;
+    height: max-content;
+    border-radius: var(--radius-15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 7%;
+    position: relative;
+}
+
+.cont-date .icon-calendar {
+    width: 10%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.cont-date .icon-calendar img {
+    width: 80%;
+    height: auto;
+}
+
+.date-information {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 8%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.date-information label {
+    width: 100%;
+    height: 100%;
+    color: var(--color-white);
+    border-radius: var(--radius-10);
+    cursor: pointer;
+    font-size: var(--fontSize-10);
+    font-weight: 100;
+    z-index: 1;
+}
+
+.date-information label::placeholder {
+    color: var(--color-white);
+}
+
+.select-date-content {
+    width: 100%;
+    height: max-content;
+    color: var(--color-white);
+    border-radius: var(--radius-10);
+    font-size: var(--fontSize-11);
+    align-content: center;
+    z-index: 1;
+    font-weight: bold;
+}
+
+.select-date-option {
+    width: 100%;
+    height: max-content;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+}
+
+.cont-calendar {
+    position: absolute;
+    width: 100%;
+    height: max-content;
+    background-color: white;
+    border-radius: var(--radius-15);
+    overflow: hidden;
+    padding: 5%;
+    z-index: 2;
+    top: 50%;
+    /* transform: translateY(-50%); */
+    box-shadow: var(--shadow-black-opcty-25);
+    display: none;
+}
+
+.cont-calendar.active {
+    display: block;
+}
+
+.calendar-header {
+    background: var(--color-main);
+    display: flex;
+    align-items: center;
+    font-size: var(--fontSize-10);
+    color: var(--color-white);
+    padding: 10px;
+    border-radius: var(--radius-10);
+}
+
+.calendar-month {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-description {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.description-1 {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.description-1-color {
+    height: 20px;
+    width: 20px;
+    background-color: var(--color-light-main);
+    border-radius: var(--radius-5);
+}
+
+.description-1-content {
+    width: 50%;
+    height: 100%;
+    font-size: var(--fontSize-11);
+}
+
+.description-2 {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.description-2-color {
+    height: 20px;
+    width: 20px;
+    background-color: var(--color-main);
+    border-radius: var(--radius-5);
+}
+
+.description-2-content {
+    width: 50%;
+    height: 100%;
+    font-size: var(--fontSize-11);
+}
+.month-picker {
+    text-align: center;
+    justify-content: center;
+}
+
+.month-change {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.calendar-year {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    cursor: pointer;
+    color: rgb(104, 104, 104);
+}
+
+.calendar-week-days div:hover {
+    transform: scale(1.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.calendar-week-days div {
+    display: grid;
+    place-items: center;
+    color: var(--color-black);
+    height: 50px;
+    font-size: var(--fontSize-11);
+    font-weight: bold;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    color: var(--color-black);
+    justify-items: center;
+    align-items: center;
+}
+
+.calendar-days div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 90%;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+    font-size: var(--fontSize-10);
+}
+
+.month-picker {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.month-picker:hover {
+    transform: scale(1.2);
+    transition: all 0.2s ease;
+}
+
+.month-change:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.2);
+}
+
+.year-change {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.year-change:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.2);
+}
+
+
+.calendar-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.home #year {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.home #year:hover {
+    transform: scale(1.2);
+    transition: all 0.2s ease;
+}
+
+.calendar-days div span {
+    position: absolute;
+}
+
+.calendar-days div:hover {
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    background-color: var(--color-calendar-hover);
+    border-radius: var(--radius-5);
+    color: var(--color-white);
+}
+
+.calendar-days div.current-date {
+    color: var(--color-white);
+    background-color: var(--color-light-main);
+    border-radius: 20%;
+}
+
+.current-month {
+    font-weight: bold;
+    background-color: var(--color-light-main);
+    color: var(--color-white);
+    border-radius: var(--radius-5);
+}
+
+.selected-day {
+    color: var(--color-white);
+    background-color: var(--color-main);
+    border-radius: 20%;
+}
+
+.selected-month {
+    background-color: var(--color-main);
+    font-weight: bold;
+    color: var(--color-white);
+
+    border-radius: var(--radius-5);
+}
+
+.cont-calendar-month {
+    position: absolute;
+    width: 100%;
+    height: max-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    display: none;
+    background-color: var(--color-white);
+    padding: 5%;
+}
+
+.month-list {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    background-color: var(--color-background);
+    color: var(--color-black);
+    grid-template-columns: repeat(3, calc(100% / 3));
+    border-radius: var(--radius-15);
+}
+
+.month-list > div {
+    display: grid;
+    place-content: center;
+    margin: 5px 10px;
+    transition: all 0.2s ease-in-out;
+    font-size: var(--fontSize-11);
+}
+
+.month-list > div > div {
+    border-radius: var(--radius-15);
+    padding: 10px;
+    cursor: pointer;
+}
+.month-list > div:hover {
+    background-color: var(--color-calendar-hover);
+    color: var(--color-white);
+    transition: all 0.2s ease-in-out;
+    border-radius: var(--radius-5);
+}
+
+.cont-calendar-month.show {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.past-day {
+    background-color: var(--color-block-element);
+    border-radius: var(--radius-5);
+}
