@@ -17,15 +17,6 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <!-- <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-    />
-
-    <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
-  /> -->
 
     <!-- GOOGLE FONT LINK -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -66,7 +57,6 @@
         </a>
 
         <button class="nav-toggle-btn" aria-label="open menu" data-nav-toggler>
-          <!-- <ion-icon name="menu-outline" aria-hidden="true"></ion-icon> -->
           <i class="fa-solid fa-bars"></i>
         </button>
 
@@ -77,7 +67,6 @@
               aria-label="close menu"
               data-nav-toggler
             >
-              <!-- <ion-icon name="close-outline" aria-hidden="true"></ion-icon> -->
               <i class="fa-solid fa-xmark"></i>
             </button>
             <a href="#" class="logo">
@@ -128,7 +117,6 @@
     <main>
       <!-- <article> -->
       <section class="section-booking" id="booking">
-        <!-- <div class="cont-main-booking"> -->
         <div class="cont-booking">
           <div class="cont-information-booking">
             <!-- DEPARTURE CONTAINER -->
@@ -288,13 +276,16 @@
       <section class="section-search-information">
         <div class="cont-filters-tools">
           <div class="cont-btn-filters">
-            <a href="search-tour.html" class="btn-secondary">Filters</a>
-            <a href="search-tour.html" class="btn-secondary">Search Now</a>
+            <div class="btn-filter btn-secondary">
+              <span class="material-symbols-outlined"> tune </span>
+              <a href="search-tour.html" class="">Filters</a>
+            </div>
+            <div class="btn-sort btn-secondary">
+              <span class="material-symbols-outlined"> sort </span>
+              <a href="search-tour.html" class="">Sort</a>
+            </div>
           </div>
-          <h6>24 tours found</h6>
-          <!-- <div class="cont-ing-filters">
-
-                </div> -->
+          <span class="tours-found">24 tours found</span>
         </div>
 
         <div class="cont-inf-filtered container destination">
@@ -308,7 +299,7 @@
                   class="img-cover"
                 />
 
-                <span class="card-price">$340</span>
+                <!-- <span class="card-price">$340</span> -->
               </div>
 
               <div class="card-content">
@@ -333,7 +324,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="price sub-title">
-                    <span style="text-decoration: line-through;">$100</span>
+                    <span style="text-decoration: line-through">$100</span>
                     <div style="display: flex">
                       <span>From:</span>
                       <span style="font-weight: bold"> $91,00</span>
@@ -358,7 +349,7 @@
                   class="img-cover"
                 />
 
-                <span class="card-price">$340</span>
+                <!-- <span class="card-price">$340</span> -->
               </div>
 
               <div class="card-content">
@@ -408,7 +399,7 @@
                   class="img-cover"
                 />
 
-                <span class="card-price">$340</span>
+                <!-- <span class="card-price">$340</span> -->
               </div>
 
               <div class="card-content">
@@ -458,7 +449,7 @@
                   class="img-cover"
                 />
 
-                <span class="card-price">$340</span>
+                <!-- <span class="card-price">$340</span> -->
               </div>
 
               <div class="card-content">
@@ -508,7 +499,7 @@
                   class="img-cover"
                 />
 
-                <span class="card-price">$340</span>
+                <!-- <span class="card-price">$340</span> -->
               </div>
 
               <div class="card-content">
@@ -551,26 +542,116 @@
           </ul>
           <!-- <a href="#" class="btn btn-primary">View All Destination</a> -->
         </div>
-        <!-- <div class="cont-inf-filters">
-
-            </div> -->
       </section>
       <!-- </article> -->
     </main>
-    <!-- END HEADER -->
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="#" class="logo">
+              <img
+                src="./assets/images/logo.svg"
+                width="187"
+                height="38"
+                alt="logo"
+              />
+            </a>
+            <span class="send-email-title"
+              >Receive special offers and more from KTTravel</span
+            >
+            <span class="send-email-subtitle"
+              >Subscribe to see secret deals prices drop the moment you sign
+              up!</span
+            >
+            <div class="cont-email">
+              <input
+                type="email"
+                name="EMAIL"
+                class="form-control"
+                placeholder="Email Address"
+              />
+              <input
+                class="btn-send-email"
+                type="submit"
+                name="submit"
+                value="Subscribe"
+              />
+            </div>
+          </div>
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">About</p>
+            </li>
+            <li>
+              <p class="footer-link">About Us</p>
+            </li>
+            <li>
+              <p class="footer-link">Features</p>
+            </li>
+            <li>
+              <p class="footer-link">News</p>
+            </li>
+            <li>
+              <p class="footer-link">Menu</p>
+            </li>
+          </ul>
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">Company</p>
+            </li>
+            <li>
+              <p class="footer-link">Why Company</p>
+            </li>
+            <li>
+              <p class="footer-link">Partner With Us</p>
+            </li>
+            <li>
+              <p class="footer-link">FAQ</p>
+            </li>
+            <li>
+              <p class="footer-link">Blog</p>
+            </li>
+          </ul>
+          <ul class="footer-list">
+            <li>
+              <p class="footer-list-title">Support</p>
+            </li>
+            <li>
+              <p class="footer-link">Account</p>
+            </li>
+            <li>
+              <p class="footer-link">Support Center</p>
+            </li>
+            <li>
+              <p class="footer-link">Feedback</p>
+            </li>
+            <li>
+              <p class="footer-link">Contact Us</p>
+            </li>
+            <li>
+              <p class="footer-link">Accessibility</p>
+            </li>
+          </ul>
+
+          <div class="social">
+            <div class="social-content">
+              <span class="footer-list-title"> Social </span>
+            </div>
+            <div class="social-icon">
+              <i class="fa-brands fa-facebook"></i>
+              <i class="fa-brands fa-linkedin"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom"></div>
+      </div>
+    </footer>
     <!-- CUSTOM JS LINK -->
     <script src="./assets/js/swiper.js"></script>
     <script src="./assets/js/calendar.js"></script>
     <script src="./assets/js/script.js" defer type="module"></script>
-
-    <!-- IONICON LINK -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
   </body>
 </html>

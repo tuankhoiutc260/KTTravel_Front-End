@@ -187,6 +187,9 @@ optionSearchDestination.addEventListener("keyup", function () {
 
 const btnSearchTour = document.querySelector(".btn-search-tour");
 let currentPage = window.location.pathname.split("/").pop(); // Change this to the actual current page
+
+
+const sectionBooking = document.querySelector(".section-booking");
 console.log(currentPage);
 (function () {
   // if (currentPage === "index.html") {
@@ -194,6 +197,11 @@ console.log(currentPage);
     console.log(window.innerHeight)
     const btnSearchTourHeight = (viewportHeight / 10) * 0.7;
     btnSearchTour.style.height = `${btnSearchTourHeight}px`;
+
+    const sectionBookingHeight = sectionBooking.offsetHeight;
+
+sectionBooking.style.height = sectionBookingHeight + 20 + "px"
+console.log("sectionBookingHeight: " + sectionBookingHeight)
   // }
 })();
 
@@ -213,7 +221,6 @@ console.log(currentPage);
 
 window.addEventListener('DOMContentLoaded', function() {
   const imgCover = document.querySelectorAll(".img-cover");
-
   function setHeight() {
     imgCover.forEach(function(imgCover){
       imgCover.style.height = imgCover.width * 0.6 + "px"; 
@@ -223,3 +230,5 @@ window.addEventListener('DOMContentLoaded', function() {
   setHeight();
   window.addEventListener('resize', setHeight);
 });
+
+
