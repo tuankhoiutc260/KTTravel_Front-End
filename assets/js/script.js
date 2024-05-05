@@ -183,28 +183,24 @@ optionSearchDestination.addEventListener("keyup", function () {
   }
 });
 
-
-
 const btnSearchTour = document.querySelector(".btn-search-tour");
 let currentPage = window.location.pathname.split("/").pop(); // Change this to the actual current page
-
 
 const sectionBooking = document.querySelector(".section-booking");
 console.log(currentPage);
 (function () {
   // if (currentPage === "index.html") {
-    const viewportHeight = window.innerHeight;
-    console.log(window.innerHeight)
-    const btnSearchTourHeight = (viewportHeight / 10) * 0.7;
-    btnSearchTour.style.height = `${btnSearchTourHeight}px`;
+  const viewportHeight = window.innerHeight;
+  console.log(window.innerHeight);
+  const btnSearchTourHeight = (viewportHeight / 10) * 0.7;
+  btnSearchTour.style.height = `${btnSearchTourHeight}px`;
 
-    const sectionBookingHeight = sectionBooking.offsetHeight;
+  const sectionBookingHeight = sectionBooking.offsetHeight;
 
-sectionBooking.style.height = sectionBookingHeight + 20 + "px"
-console.log("sectionBookingHeight: " + sectionBookingHeight)
+  sectionBooking.style.height = sectionBookingHeight + 20 + "px";
+  console.log("sectionBookingHeight: " + sectionBookingHeight);
   // }
 })();
-
 
 // selectDepartureOption.addEventListener("click", function () {
 //   const rect = departureContent.getBoundingClientRect();
@@ -217,18 +213,87 @@ console.log("sectionBookingHeight: " + sectionBookingHeight)
 //   });
 // });
 
-
-
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener("DOMContentLoaded", function () {
   const imgCover = document.querySelectorAll(".img-cover");
   function setHeight() {
-    imgCover.forEach(function(imgCover){
-      imgCover.style.height = imgCover.width * 0.6 + "px"; 
+    imgCover.forEach(function (imgCover) {
+      imgCover.style.height = imgCover.width * 0.6 + "px";
     });
   }
 
   setHeight();
-  window.addEventListener('resize', setHeight);
+  window.addEventListener("resize", setHeight);
 });
 
+const btnFilter = document.querySelector(".btn-filter");
+const filterTours = document.querySelector(".filter-tours");
+btnFilter.addEventListener("click", function () {
+  filterTours.classList.toggle("active");
+});
 
+document.addEventListener("DOMContentLoaded", function () {
+  const slider = document.querySelector("#slider");
+  const endValueRange = document.querySelector(".end-value-range");
+  slider.oninput = function () {
+    endValueRange.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    var value = ((this.value - this.min) / (this.max - this.min)) * 100;
+    this.style.background =
+      "linear-gradient(to right, var(--color-main) 0%, var(--color-main) " +
+      value +
+      "%, #fff " +
+      value +
+      "%, white 100%)";
+  };
+
+  slider.style.background =
+    "linear-gradient(to right, var(--color-main) 0%, var(--color-main) " +
+    0 +
+    "%, #fff " +
+    0 +
+    "%, white 100%)";
+  var max = parseInt(endValueRange.getAttribute("max"));
+  endValueRange.onkeyup = function () {
+    var removeChar = this.value.replace(/[^0-9\.]/g, "");
+    console.log("remove char: " + removeChar);
+    removeChar = removeChar.replace(/^0+(?=\d)/, "");
+    var removeDot = removeChar.replace(/\./g, "");
+    this.value = removeDot;
+    console.log(formattedNumber);
+    if (this.value > max)
+      this.value = this.value.substring(0, this.value.length - 1);
+    var formattedNumber = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    slider.value = this.value;
+    this.value = formattedNumber;
+  };
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const btnDuration = document.querySelectorAll(".btn-duration");
+  const btnNumOfPeople = document.querySelectorAll(".btn-num-of-people");
+  btnDuration.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Remove active class from all buttons
+      btnDuration.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      this.classList.add("active");
+    });
+  });
+
+  btnNumOfPeople.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Remove active class from all buttons
+      btnNumOfPeople.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      this.classList.add("active");
+    });
+  });
+
+  const btnCloseContFilter = document.querySelector(".btn-close-cont-filter");
+  btnCloseContFilter.addEventListener("click", function () {
+    filterTours.classList.remove("active");
+  });
+});

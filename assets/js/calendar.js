@@ -136,7 +136,8 @@ const displayDateInfo = (date) => {
   const day = date.getDate();
   const year = date.getFullYear();
   const formattedDate = date.toLocaleDateString("vi-VN");
-  displayDateElement.textContent = formattedDate;
+  // displayDateElement.placeholder = '';
+  displayDateElement.value = formattedDate;
 };
 
 function hideCalendar() {

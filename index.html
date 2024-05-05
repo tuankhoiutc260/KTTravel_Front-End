@@ -25,6 +25,7 @@
 
     <!-- CUSTOM CSS LINK -->
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/header.css" />
     <link rel="stylesheet" href="./assets/css/preloader.css" />
     <link rel="stylesheet" href="./assets/css/cont-booking.css" />
 
@@ -53,7 +54,6 @@
         </a>
 
         <button class="nav-toggle-btn" aria-label="open menu" data-nav-toggler>
-          <!-- <ion-icon name="menu-outline" aria-hidden="true"></ion-icon> -->
           <i class="fa-solid fa-bars"></i>
         </button>
 
@@ -64,7 +64,6 @@
               aria-label="close menu"
               data-nav-toggler
             >
-              <!-- <ion-icon name="close-outline" aria-hidden="true"></ion-icon> -->
               <i class="fa-solid fa-xmark"></i>
             </button>
             <a href="#" class="logo">
@@ -445,7 +444,10 @@
                 <div class="date-information">
                   <div class="select-date-content">Departure Date</div>
                   <div class="select-date-option">
-                    <label id="soValueDate">Select your departure date!</label>
+                    <!-- <label id="soValueDate">Select your departure date!</label> -->
+                    <label for="soValueDate"></label>
+                    <input id="soValueDate" placeholder="Select your departure date!"></input>
+
                   </div>
                 </div>
 
@@ -453,14 +455,14 @@
                 <div class="cont-calendar">
                   <div class="calendar-header">
                     <div class="calendar-month">
-                      <span class="month-change" id="pre-month"><</span>
+                      <span class="month-change" id="pre-month">&lt;</span>
                       <span class="month-picker" id="month-picker">May</span>
-                      <span class="month-change" id="next-month">></span>
+                      <span class="month-change" id="next-month">&gt;</span>
                     </div>
                     <div class="calendar-year">
-                      <span class="year-change" id="pre-year"><</span>
+                      <span class="year-change" id="pre-year">&lt;</span>
                       <span id="year">2020</span>
-                      <span class="year-change" id="next-year">></span>
+                      <span class="year-change" id="next-year">&gt;</span>
                     </div>
                   </div>
 
@@ -504,7 +506,9 @@
               </div>
             </div>
 
-            <a href="search-tour.html" class="btn-search-tour btn-primary">Search Now</a>
+            <a href="search-tour.html" class="btn-search-tour btn-primary"
+              >Search Now</a
+            >
           </div>
         </section>
         <!-- END HOME -->
@@ -516,15 +520,5 @@
     <script src="./assets/js/swiper.js"></script>
     <script src="./assets/js/calendar.js"></script>
     <script src="./assets/js/script.js" defer type="module"></script>
-
-    <!-- IONICON LINK -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
   </body>
 </html>

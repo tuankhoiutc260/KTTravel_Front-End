@@ -49,6 +49,93 @@
       </div>
     </div>
 
+    <div class="filter-tours active">
+      <div class="container">
+        <div class="cont-search-filter">
+          <span class="material-symbols-outlined btn-close-cont-filter"> close </span>
+
+          <span class="filter-subtitle">Search Filter</span>
+
+          <div class="filter-duration">
+            <span class="filter-title">Duration</span>
+            <div class="cont-duration">
+              <div class="btn-duration btn-secondary" id="btn-duration-1">
+                1 - 3 days
+              </div>
+              <div class="btn-duration btn-secondary" id="btn-duration-2">
+                4 - 7 days
+              </div>
+              <div class="btn-duration btn-secondary" id="btn-duration-3">
+                8 - 14 days
+              </div>
+              <div class="btn-duration btn-secondary" id="btn-duration-4">
+                Over 14 days
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-num-of-people">
+            <span class="filter-title">Amount of people</span>
+            <div class="cont-num-of-people">
+              <div
+                class="btn-num-of-people btn-secondary"
+                id="btn-num-of-people-1"
+              >
+                1 person
+              </div>
+              <div
+                class="btn-num-of-people btn-secondary"
+                id="btn-num-of-people-2"
+              >
+                2 people
+              </div>
+              <div
+                class="btn-num-of-people btn-secondary"
+                id="btn-num-of-people-3"
+              >
+                3 - 5 people
+              </div>
+              <div
+                class="btn-num-of-people btn-secondary"
+                id="btn-num-of-people-4"
+              >
+                Over 5 people
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-range">
+            <span class="filter-title">Your budget</span>
+            <div class="cont-range">
+              <input
+                type="range"
+                id="slider"
+                min="0"
+                max="100000000"
+                value="0"
+                step="1"
+              />
+
+              <div class="slider-value">
+                <div class="cont-start-value-range btn-secondary">
+                  <span>0</span>
+                  <span>đ</span>
+                </div>
+
+                <span> - </span>
+                <div class="cont-end-value-range btn-secondary">
+                  <input type="text" class="end-value-range" value="0" max="100000000" min="0"/>
+
+                  <span>đ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="" class="btn-search-filter btn-primary">Search</a>
+      </div>
+    </div>
+
     <!-- HEADER -->
     <header class="header" data-header>
       <div class="container">
@@ -276,11 +363,11 @@
       <section class="section-search-information">
         <div class="cont-filters-tools">
           <div class="cont-btn-filters">
-            <div class="btn-filter btn-secondary">
+            <div class="btn-function-filter btn-filter btn-secondary">
               <span class="material-symbols-outlined"> tune </span>
-              <a href="search-tour.html" class="">Filters</a>
+              <a class="btn-filter">Filters</a>
             </div>
-            <div class="btn-sort btn-secondary">
+            <div class="btn-function-filter btn-sort btn-secondary">
               <span class="material-symbols-outlined"> sort </span>
               <a href="search-tour.html" class="">Sort</a>
             </div>
@@ -403,11 +490,11 @@
               </div>
 
               <div class="card-content">
-                <div class="card-address sub-title">
+                <div class="card-address">
                   <span class="material-symbols-outlined location-icon">
                     location_on
                   </span>
-                  <span>Nevada, USA</span>
+                  <span class="sub-title">Nevada, USA</span>
                 </div>
                 <a href="#" class="title"
                   >Cannes and Antibes Night Tour the Seine Extraordinaire

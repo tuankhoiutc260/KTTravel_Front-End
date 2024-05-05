@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./assets/css/dashboard.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="material-symbols-outlined icon-btn">
+                dashboard
+              </span>
+              <span class="title">Logo</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="#">
+              <span class="tool-tip">Dashboard</span>
+              <span class="material-symbols-outlined icon-btn">
+                dashboard
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="tool-tip">Tour</span>
+              <span class="material-symbols-outlined icon-btn"> travel </span>
+              <span class="title">Tour</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="tool-tip">Booking</span>
+
+              <span class="material-symbols-outlined icon-btn">
+                confirmation_number
+              </span>
+              <span class="title">Booking</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="tool-tip">Customer</span>
+
+              <span class="material-symbols-outlined icon-btn">
+                perm_contact_calendar
+              </span>
+              <span class="title">Customer</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="tool-tip">Setting</span>
+
+              <span class="material-symbols-outlined icon-btn"> settings </span>
+              <span class="title">Setting</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="tool-tip">Password</span>
+              <span class="material-symbols-outlined icon-btn">
+                manage_accounts
+              </span>
+              <span class="title">Password</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="tool-tip">Sign Out</span>
+
+              <span class="material-symbols-outlined icon-btn"> logout </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main">
+        <header class="top-bar">
+          <span class="material-symbols-outlined icon-btn toggle"> menu </span>
+          <label for=""><input type="text" placeholder="Search" /> </label>
+          <img src="/assets/images/destination-2.jpg" alt="" />
+        </header>
+
+        <div class="cont-tour-dashboard-inf">
+          <div class="sub-cont-tour-dashboard-inf">
+            <div class="cont-tour-dashboard-filter">
+              <div class="entries">
+                Show
+                <select name="" id="table_size">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                entries
+              </div>
+              <div class="filter">
+                <span class="material-symbols-outlined"> search </span>
+                <input type="search" name="" id="search" placeholder="Enter Tour name to find" />
+              </div>
+              <div class="add-new-tour btn btn-tertiary">
+                <span class="material-symbols-outlined"> add </span>
+                <a href="#" id="btn-add-new-tour">New Tour</a>
+              </div>
+            </div>
+            <div class="cont-table">
+              <table>
+                <thead>
+                  <tr class="heading">
+                    <th><input type="checkbox" /></th>
+                    <th>Tour Name</th>
+                    <th style="text-align: center">Total Earnings($)</th>
+                    <th style="text-align: center">Total Booking</th>
+                    <th style="text-align: center">Duration</th>
+                    <th style="text-align: center">Price/head($)</th>
+                    <th style="text-align: center">Timeline</th>
+                    <th style="text-align: center">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>
+                      <div class="cell-tour-name">
+                        <div class="tour-img-inf">
+                          <img src="/assets/images/destination-1.jpg" alt="" />
+                        </div>
+                        <div class="tour-name-inf">
+                          <span class="tour-name">Destination name21</span>
+                          <span class="tour-id">#ID23</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="total-earnings-value">
+                      <div class="cell-total-earnings">
+                        <span class="main-total-earnings-value">150K</span>
+                        <span class="rate-value">5.5k</span>
+                      </div>
+                    </td>
+                    <td class="total-booking-value">250</td>
+                    <td class="duration-value">10 Days</td>
+                    <td class="price-value">$490</td>
+                    <td class="timeline-value">
+                      <div class="cell-timeline">
+                        <span>June 1, 2023</span>
+                        <span>June 10, 2023</span>
+                      </div>
+                    </td>
+                    <td class="action-value">
+                      <div class="cell-action">
+                        <span class="material-symbols-outlined"> edit </span>
+                        <span class="material-symbols-outlined"> delete </span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>
+                      <div class="cell-tour-name">
+                        <div class="tour-img-inf">
+                          <img src="/assets/images/destination-1.jpg" alt="" />
+                        </div>
+                        <div class="tour-name-inf">
+                          <span class="tour-name">Destination name21</span>
+                          <span class="tour-id">#ID23</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="total-earnings-value">
+                      <div class="cell-total-earnings">
+                        <span class="main-total-earnings-value">150K</span>
+                        <span class="rate-value">5.5k</span>
+                      </div>
+                    </td>
+                    <td class="total-booking-value">250</td>
+                    <td class="duration-value">10 Days</td>
+                    <td class="price-value">$490</td>
+                    <td class="timeline-value">
+                      <div class="cell-timeline">
+                        <span>June 1, 2023</span>
+                        <span>June 10, 2023</span>
+                      </div>
+                    </td>
+                    <td class="action-value">
+                      <div class="cell-action">
+                        <span class="material-symbols-outlined"> edit </span>
+                        <span class="material-symbols-outlined"> delete </span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>
+                      <div class="cell-tour-name">
+                        <div class="tour-img-inf">
+                          <img src="/assets/images/destination-1.jpg" alt="" />
+                        </div>
+                        <div class="tour-name-inf">
+                          <span class="tour-name">Destination name21</span>
+                          <span class="tour-id">#ID23</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="total-earnings-value">
+                      <div class="cell-total-earnings">
+                        <span class="main-total-earnings-value">150K</span>
+                        <span class="rate-value">5.5k</span>
+                      </div>
+                    </td>
+                    <td class="total-booking-value">250</td>
+                    <td class="duration-value">10 Days</td>
+                    <td class="price-value">$490</td>
+                    <td class="timeline-value">
+                      <div class="cell-timeline">
+                        <span>June 1, 2023</span>
+                        <span>June 10, 2023</span>
+                      </div>
+                    </td>
+                    <td class="action-value">
+                      <div class="cell-action">
+                        <span class="material-symbols-outlined"> edit </span>
+                        <span class="material-symbols-outlined"> delete </span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>
+                      <div class="cell-tour-name">
+                        <div class="tour-img-inf">
+                          <img src="/assets/images/destination-1.jpg" alt="" />
+                        </div>
+                        <div class="tour-name-inf">
+                          <span class="tour-name">Destination name21</span>
+                          <span class="tour-id">#ID23</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="total-earnings-value">
+                      <div class="cell-total-earnings">
+                        <span class="main-total-earnings-value">150K</span>
+                        <span class="rate-value">5.5k</span>
+                      </div>
+                    </td>
+                    <td class="total-booking-value">250</td>
+                    <td class="duration-value">10 Days</td>
+                    <td class="price-value">$490</td>
+                    <td class="timeline-value">
+                      <div class="cell-timeline">
+                        <span>June 1, 2023</span>
+                        <span>June 10, 2023</span>
+                      </div>
+                    </td>
+                    <td class="action-value">
+                      <div class="cell-action">
+                        <span class="material-symbols-outlined"> edit </span>
+                        <span class="material-symbols-outlined"> delete </span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>
+                      <div class="cell-tour-name">
+                        <div class="tour-img-inf">
+                          <img src="/assets/images/destination-1.jpg" alt="" />
+                        </div>
+                        <div class="tour-name-inf">
+                          <span class="tour-name">Destination name21</span>
+                          <span class="tour-id">#ID23</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="total-earnings-value">
+                      <div class="cell-total-earnings">
+                        <span class="main-total-earnings-value">150K</span>
+                        <span class="rate-value">5.5k</span>
+                      </div>
+                    </td>
+                    <td class="total-booking-value">250</td>
+                    <td class="duration-value">10 Days</td>
+                    <td class="price-value">$490</td>
+                    <td class="timeline-value">
+                      <div class="cell-timeline">
+                        <span>June 1, 2023</span>
+                        <span>June 10, 2023</span>
+                      </div>
+                    </td>
+                    <td class="action-value">
+                      <div class="cell-action">
+                        <span class="material-symbols-outlined"> edit </span>
+                        <span class="material-symbols-outlined"> delete </span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="cont-pagination">
+              <span class="show-entries">Showing 1 to 10 of 50 entries</span>
+              <div class="btn-pagination">
+                <a href="#" class="btn btn-tertiary">&lt;</a>
+                <a href="#" class="btn btn-tertiary btn-number active">1</a>
+                <a href="#" class="btn btn-tertiary btn-number">2</a>
+                <a href="#" class="btn btn-tertiary btn-number">3</a>
+                <a href="#" class="btn btn-tertiary btn-number">4</a>
+                <a href="#" class="btn btn-tertiary btn-number">5</a>
+                <a href="#" class="btn btn-tertiary">&gt;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cont-add-new-tour active">
+          <div class="sub-cont-add-new-tour">
+            <div class="main-cont-progress">
+              <div class="cont-progress">
+                <div class="cont-main-sub-progress-1 cont-main-sub-progress active">
+                  <div class="cont-progress-1 sub-cont-progress active">
+                    <div class="cont-numb"><span></span></div>
+                  </div>
+                </div>
+                <div class="cont-main-sub-progress-2 cont-main-sub-progress">
+                  <div class="cont-progress-1 sub-cont-progress">
+                    <div class="cont-numb"><span>2</span></div>
+                  </div>
+                </div>
+                <div class="cont-main-sub-progress-3 cont-main-sub-progress">
+                  <div class="cont-progress-1 sub-cont-progress">
+                    <div class="cont-numb finish"><span>3</span></div>
+                  </div>
+                </div>
+                <div class="cont-main-sub-progress-4 cont-main-sub-progress">
+                  <div class="cont-progress-1 sub-cont-progress">
+                    <div class="cont-numb finish"><span>4</span></div>
+                  </div>
+                </div>
+                <div class="cont-main-sub-progress-5 cont-main-sub-progress">
+                  <div class="cont-progress-1 sub-cont-progress">
+                    <div class="cont-numb finish"><span>5</span></div>
+                  </div>
+                </div>
+                <div class="cont-progress-bar">
+                  <span id="icon-progress-bar" class="material-symbols-outlined">
+                    flight_takeoff
+                  </span>
+                  <div class="sub-cont-success-progress-bar"></div>
+                  <div class="sub-cont-not-success-progress-bar"></div>
+                </div>
+              </div>
+            </div>
+            <div class="main-cont-inf-new-tour">
+              <div class="sub-2-cont-inf-new-tour">
+                <form action="submit">
+                  <div class="sub-cont-inf-new-tour ">
+                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
+                      <label for="input-tour-name" class="title-field">Tour Name <span>(required)</span></label>
+                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="tour-name-char-count char-count">100/100</span>
+                    </div>
+                    <div class="cont-inf-field cont-inf">
+                      <label for="input-tour-description" class="title-field">Tour Name <span>(required)</span></label>
+
+                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="tour-description-char-count char-count">100/100</span>
+                    </div>
+                    <!-- <button id="btn-next-progress" style="cursor: pointer">Next</button> -->
+                  </div>
+                  <div class="sub-cont-inf-new-tour active">
+                    <div class="cont-date-add-new-tour">
+                      <div id="cont-date-of-department" class="cont-inf-field cont-inf">
+                        <div class="date-information">
+                          <!-- <div class="select-date-content">Departure Date</div> -->
+                          <div class="select-date-option">
+                            <label for="soValueDate"></label>
+                            <input class="input-field" id="soValueDate" placeholder="Select your departure date!"></input>
+                          </div>
+                        </div>
+
+                        <!-- CALENDAR -->
+                        <div class="cont-calendar active">
+                          <div class="calendar-header">
+                            <div class="calendar-month">
+                              <span class="month-change" id="pre-month">&lt;</span>
+                              <span class="month-picker" id="month-picker">May</span>
+                              <span class="month-change" id="next-month">&gt;</span>
+                            </div>
+                            <div class="calendar-year">
+                              <span class="year-change" id="pre-year">&lt;</span>
+                              <span id="year">2020</span>
+                              <span class="year-change" id="next-year">&gt;</span>
+                            </div>
+                          </div>
+
+                          <div class="calendar-body">
+                            <div class="calendar-week-days">
+                              <div>Sun</div>
+                              <div>Mon</div>
+                              <div>Tue</div>
+                              <div>Wed</div>
+                              <div>Thu</div>
+                              <div>Fri</div>
+                              <div>Sat</div>
+                            </div>
+                            <div class="calendar-days"></div>
+                          </div>
+                          <div class="calendar-description">
+                            <div class="description-1">
+                              <div class="description-1-color"></div>
+                              <div class="description-1-content">
+                                Current date
+                              </div>
+                            </div>
+                            <div class="description-2">
+                              <div class="description-2-color"></div>
+                              <div class="description-2-content">
+                                Selected date
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="cont-calendar-month">
+                            <div class="month-list"></div>
+                            <div class="calendar-description">
+                              <div class="description-1">
+                                <div class="description-1-color"></div>
+                                <div class="description-1-content">
+                                  Current month
+                                </div>
+                              </div>
+                              <div class="description-2">
+                                <div class="description-2-color"></div>
+                                <div class="description-2-content">
+                                  Selected month
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="cont-date-of-department" class="cont-inf-field cont-inf">
+                        <div class="date-information">
+                          <!-- <div class="select-date-content">Departure Date</div> -->
+                          <div class="select-date-option">
+                            <label id="soValueDate">Select your departure date!</label>
+                          </div>
+                        </div>
+
+                        <!-- CALENDAR -->
+                        <div class="cont-calendar">
+                          <div class="calendar-header">
+                            <div class="calendar-month">
+                              <span class="month-change" id="pre-month"></span>
+                              <span class="month-picker" id="month-picker">May</span>
+                              <span class="month-change" id="next-month">></span>
+                            </div>
+                            <div class="calendar-year">
+                              <span class="year-change" id="pre-year">&lt;</span>
+                              <span id="year">2020</span>
+                              <span class="year-change" id="next-year">&gt;</span>
+                            </div>
+                          </div>
+
+                          <div class="calendar-body">
+                            <div class="calendar-week-days">
+                              <div>Sun</div>
+                              <div>Mon</div>
+                              <div>Tue</div>
+                              <div>Wed</div>
+                              <div>Thu</div>
+                              <div>Fri</div>
+                              <div>Sat</div>
+                            </div>
+                            <div class="calendar-days"></div>
+                          </div>
+                          <div class="calendar-description">
+                            <div class="description-1">
+                              <div class="description-1-color"></div>
+                              <div class="description-1-content">
+                                Current date
+                              </div>
+                            </div>
+                            <div class="description-2">
+                              <div class="description-2-color"></div>
+                              <div class="description-2-content">
+                                Selected date
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="cont-calendar-month">
+                            <div class="month-list"></div>
+                            <div class="calendar-description">
+                              <div class="description-1">
+                                <div class="description-1-color"></div>
+                                <div class="description-1-content">
+                                  Current month
+                                </div>
+                              </div>
+                              <div class="description-2">
+                                <div class="description-2-color"></div>
+                                <div class="description-2-content">
+                                  Selected month
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sub-cont-inf-new-tour">
+                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
+                      <span class="title-field">Tour Name</span>
+
+                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="tour-name-char-count char-count">100/100</span>
+                    </div>
+                    <div class="cont-inf-field cont-inf">
+                      <span class="title-field">Description</span>
+
+                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="tour-description-char-count char-count">100/100</span>
+                    </div>
+                  </div>
+                  <div class="sub-cont-inf-new-tour">
+                    <span style="
+                        text-align: center;
+                        font-size: 2rem;
+                        margin-bottom: 20px;
+                      "><strong>New Tour 4</strong></span>
+                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
+                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="title-field">Tour Name</span>
+                      <span class="tour-name-char-count char-count">100/100</span>
+                    </div>
+                    <div class="cont-inf-field cont-inf">
+                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="title-field">Description</span>
+                      <span class="tour-description-char-count char-count">100/100</span>
+                    </div>
+                  </div>
+                  <div class="sub-cont-inf-new-tour">
+                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
+                      <span class="title-field">Tour Name</span>
+
+                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="tour-name-char-count char-count">100/100</span>
+                    </div>
+                    <div class="cont-inf-field cont-inf">
+                      <span class="title-field">Description</span>
+
+                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
+Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
+                      <span class="tour-description-char-count char-count">100/100</span>
+                    </div>
+                  </div>
+                  <div class="main-cont-btn-next-progress">
+                    <button id="btn-next-progress" style="cursor: pointer" type="button">
+                      Next
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <span id="btn-close-cont-add-new-tour" class="material-symbols-outlined">
+                close
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="/assets/js/dashboard.js"></script>
+  <script src="/assets/js/calendar.js"></script>
+
+</html>
