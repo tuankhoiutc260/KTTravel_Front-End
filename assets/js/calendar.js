@@ -128,7 +128,6 @@ const selectDay = (dayElement, date) => {
   hideCalendar();
 };
 
-const selectDateOption = document.querySelector(".select-date-option");
 const displayDateElement = document.querySelector("#soValueDate");
 const displayDateInfo = (date) => {
   const weekdayName = date.toLocaleDateString("vi-VN", { weekday: "long" });
@@ -136,7 +135,6 @@ const displayDateInfo = (date) => {
   const day = date.getDate();
   const year = date.getFullYear();
   const formattedDate = date.toLocaleDateString("vi-VN");
-  // displayDateElement.placeholder = '';
   displayDateElement.value = formattedDate;
 };
 
@@ -168,6 +166,9 @@ function checkAndHideMonthList() {
     contCalendarMonth.classList.add("hide");
   }
 }
+
+
+const selectDateOption = document.querySelector(".select-date-option");
 
 selectDateOption.addEventListener("click", function () {
   showCalendar();

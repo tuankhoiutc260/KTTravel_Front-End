@@ -335,12 +335,12 @@
                     <div class="cont-numb"><span></span></div>
                   </div>
                 </div>
-                <div class="cont-main-sub-progress-2 cont-main-sub-progress">
+                <div class="cont-main-sub-progress-2 cont-main-sub-progress ">
                   <div class="cont-progress-1 sub-cont-progress">
                     <div class="cont-numb"><span>2</span></div>
                   </div>
                 </div>
-                <div class="cont-main-sub-progress-3 cont-main-sub-progress">
+                <div class="cont-main-sub-progress-3 cont-main-sub-progress ">
                   <div class="cont-progress-1 sub-cont-progress">
                     <div class="cont-numb finish"><span>3</span></div>
                   </div>
@@ -366,221 +366,301 @@
             </div>
             <div class="main-cont-inf-new-tour">
               <div class="sub-2-cont-inf-new-tour">
-                <form action="submit">
-                  <div class="sub-cont-inf-new-tour ">
-                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
+                <form id="form-add-new-tour" action="submit">
+                  <div class="sub-cont-inf-new-tour cont-process-1 active">
+                    <div id="cont-tour-name" class="cont-inf-field ">
+                      <label for="input-tour-name" class="title-field">Tour Name <span>(required)</span></label>
+                      <input type="text" id="input-tour-name" class="input-field" placeholder="e.g: Khám phá Đà Lạt" maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-name-char-count'))">
+                      <span class="tour-name-char-count char-count">100/100</span>
+                    </div>
+                    <div id="cont-tour-description" class="cont-inf-field ">
+                      <label for="input-tour-description" class="title-field">Tour Description <span>(required)</span></label>
+                      <textarea id="input-tour-description" class="input-field" placeholder="e.g: Hòa mình vào vẻ đẹp huyền bí của Đà Lạt - thành phố sương mù và hoa..." maxlength="250" required oninput="countChar250(this, document.querySelector('.tour-description-char-count'))"></textarea>
+                      <span class="tour-description-char-count char-count">100/100</span>
+                    </div>
+                  </div>
+                  <div class="sub-cont-inf-new-tour cont-process-2 ">
+                    <div id="cont-date">
+                      <div class="cont-departure-date-add-new-tour cont-inf-field ">
+                        <label class="title-field" for="input-departure-date">Departure Date <span>(required)</span></label>
+                        <input class="input-field" id="input-departure-date" placeholder="Select departure date!" readonly style="cursor: pointer;">
+                        <div id="cont-departure-calendar" class="cont-calendar">
+                          <div class="sub-cont-calendar">
+                            <div class="calendar-header">
+                              <div class="calendar-month">
+                                <span class="month-change" id="pre-departure-month">&lt;</span>
+                                <span class="month-picker" id="month-departure-picker">May</span>
+                                <span class="month-change" id="next-departure-month">&gt;</span>
+                              </div>
+                              <div class="calendar-year">
+                                <span class="year-change" id="pre-departure-year">&lt;</span>
+                                <span id="departure-year" class="year">2020</span>
+                                <span class="year-change" id="next-departure-year">&gt;</span>
+                              </div>
+                            </div>
+                            <div class="calendar-body">
+                              <div class="calendar-week-days">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                              </div>
+                              <div class="departure-calendar-days"></div>
+                            </div>
+                            <div class="calendar-description">
+                              <div class="description-1">
+                                <div class="description-1-color"></div>
+                                <div class="description-1-content">
+                                  Current date
+                                </div>
+                              </div>
+                              <div class="description-2">
+                                <div class="description-2-color"></div>
+                                <div class="description-2-content">
+                                  Selected date
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="cont-departure-calendar-month hide">
+                            <div id="departure-month-list" class="month-list"></div>
+                            <div class="calendar-description">
+                              <div class="description-1">
+                                <div class="description-1-color"></div>
+                                <div class="description-1-content">
+                                  Current month
+                                </div>
+                              </div>
+                              <div class="description-2">
+                                <div class="description-2-color"></div>
+                                <div class="description-2-content">
+                                  Selected month
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cont-destination-date-add-new-tour cont-inf-field ">
+                        <label class="title-field" for="input-destination-date">Destination Date <span>(required)</span></label>
+                        <input class="input-field" id="input-destination-date" placeholder="Select destination date!" readonly style="cursor: pointer;">
+                        <div id="cont-destination-calendar" class="cont-calendar">
+                          <div class="sub-cont-calendar">
+                            <div class="calendar-header">
+                              <div class="calendar-month">
+                                <span class="month-change" id="pre-destination-month">&lt;</span>
+                                <span class="month-picker" id="month-destination-picker">May</span>
+                                <span class="month-change" id="next-destination-month">&gt;</span>
+                              </div>
+                              <div class="calendar-year">
+                                <span class="year-change" id="pre-destination-year">&lt;</span>
+                                <span id="destination-year" class="year">2020</span>
+                                <span class="year-change" id="next-destination-year">&gt;</span>
+                              </div>
+                            </div>
+                            <div class="calendar-body">
+                              <div class="calendar-week-days">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                              </div>
+                              <div class="destination-calendar-days"></div>
+                            </div>
+                            <div class="calendar-description">
+                              <div class="description-1">
+                                <div class="description-1-color"></div>
+                                <div class="description-1-content">
+                                  Current date
+                                </div>
+                              </div>
+                              <div class="description-2">
+                                <div class="description-2-color"></div>
+                                <div class="description-2-content">
+                                  Selected date
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="cont-destination-calendar-month hide">
+                            <div id="destination-month-list" class="month-list"></div>
+                            <div class="calendar-description">
+                              <div class="description-1">
+                                <div class="description-1-color"></div>
+                                <div class="description-1-content">
+                                  Current month
+                                </div>
+                              </div>
+                              <div class="description-2">
+                                <div class="description-2-color"></div>
+                                <div class="description-2-content">
+                                  Selected month
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cont-position-add-new-tour">
+                      <div id="cont-position-departure" class="cont-inf-field ">
+                        <label for="input-position-departure" class="title-field">Departure <span>(required)</span></label>
+                        <input id="input-position-departure" class="input-field" type="text" placeholder="Select Departure" readonly>
+                        <div class="departure-position-content">
+                          <div class="position-search">
+                            <!-- <label for="optionSearchDeparturePosition"></label> -->
+                            <input type="text" id="optionSearchDeparturePosition" placeholder="Search Departure" class="input-field">
+                          </div>
+                          <ul class="departure-position-options">
+                            <li>Hà Nội</li>
+                            <li>Thành phố Hồ Chí Minh</li>
+                            <li>Đà Nẵng</li>
+                            <li>Phú Yên</li>
+                            <li>Đà Lạt</li>
+                            <li>Phú Quốc</li>
+                            <li>Cao Bằng</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div id="cont-position-destination" class="cont-inf-field ">
+                        <label for="input-position-destination" class="title-field">Destination <span>(required)</span></label>
+                        <input id="input-position-destination" class="input-field" type="text" placeholder="Select Destination" readonly>
+                        <div class="destination-position-content">
+                          <div class="position-search">
+                            <!-- <label for="optionSearchDestinationPosition"></label> -->
+                            <input type="text" id="optionSearchDestinationPosition" placeholder="Search Destination" class="input-field">
+                          </div>
+                          <ul class="destination-position-options">
+                            <li>Hà Nội</li>
+                            <li>Thành phố Hồ Chí Minh</li>
+                            <li>Đà Nẵng</li>
+                            <li>Phú Yên</li>
+                            <li>Đà Lạt</li>
+                            <li>Phú Quốc</li>
+                            <li>Cao Bằng</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="sub-cont-inf-new-tour cont-process-3 ">
+                    <div id="cont-tour-schedule" class="cont-inf-field ">
+                      <!-- <div class="cont-date-schedule">
+                        <div id="cont-tour-schedule-title" class="cont-inf-field ">
+                          <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
+                          <label for="input-tour-schedule-title" class="title-field">Title Schedule <span>(required)</span></label>
+                          <input type="text" id="input-tour-schedule-title" class="input-field" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
+                          <span class="tour-schedule-title-char-count char-count">100/100</span>
+                        </div>
+                        <div class="cont-schedule-content cont-inf-field ">
+                          <label for="input-tour-description-schedule" class="title-field">Description Schedule <span>(required)</span></label>
+                          
+                          <div class="sub-cont-schedule-content input-field">
+                            <div id="input-tour-description-schedule" class=" input-field"  contenteditable="true"> </div>
+                            <div class="cont-tool-editor">
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold',true,'' )"><strong>B</strong></a>
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <!-- <div class="cont-date-schedule">
+                        <div id="cont-tour-schedule-title" class="cont-inf-field ">
+                          <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
+                          <label for="input-tour-schedule-title" class="title-field">Title Schedule <span>(required)</span></label>
+                          <input type="text" id="input-tour-schedule-title" class="input-field" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
+                          <span class="tour-schedule-title-char-count char-count">100/100</span>
+                        </div>
+                        <div class="cont-schedule-content cont-inf-field ">
+                          <label for="input-tour-description-schedule" class="title-field">Description Schedule <span>(required)</span></label>
+                          
+                          <div class="sub-cont-schedule-content input-field">
+                            <div id="input-tour-description-schedule" class=" input-field"  contenteditable="true"> </div>
+                            <div class="cont-tool-editor">
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold',true,'' )"><strong>B</strong></a>
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cont-date-schedule">
+                        <div id="cont-tour-schedule-title" class="cont-inf-field ">
+                          <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
+                          <label for="input-tour-schedule-title" class="title-field">Title Schedule <span>(required)</span></label>
+                          <input type="text" id="input-tour-schedule-title" class="input-field" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
+                          <span class="tour-schedule-title-char-count char-count">100/100</span>
+                        </div>
+                        <div class="cont-schedule-content cont-inf-field ">
+                          <label for="input-tour-description-schedule" class="title-field">Description Schedule <span>(required)</span></label>
+                          
+                          <div class="sub-cont-schedule-content input-field">
+                            <div id="input-tour-description-schedule" class=" input-field"  contenteditable="true"> </div>
+                            <div class="cont-tool-editor">
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold',true,'' )"><strong>B</strong></a>
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
+                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>           -->
+                    </div>  
+                  </div>
+                  <div class="sub-cont-inf-new-tour cont-process-4 ">
+                    <div id="cont-main-price" class="cont-inf-field">
+                      <label for="input-tour-main-price" class="title-field">Price per once <span>(required)</span></label>
+                      <input type="text" id="input-tour-main-price" class="input-field input-price" value="0" max="100000000" min="0"/>
+                      <span class="char-count">VND</span>
+                    </div>
+                    <div class="cont-sub-price">
+                      <div id="cont-tour-adult-price" class="cont-inf-field ">
+                        <label for="input-tour-adult-price" class="title-field">Adult <span>(Ages 12 and above) (required)</span></label>
+                        <input type="text" id="input-tour-adult-price" class="input-field input-price" value="0" max="100000000" min="0"/>
+                        <span class="char-count">VND</span>
+                      </div>
+                      <div id="cont-tour-children-price" class="cont-inf-field ">
+                        <label for="input-tour-children-price" class="title-field">Children <span>(Ages 5 - 11 and above) (required)</span></label>
+                        <input type="text" id="input-tour-children-price" class="input-field input-price" value="0" max="100000000" min="0"/>
+                        <span class="char-count">VND</span>
+                      </div>
+                      <div id="cont-tour-toddler-price" class="cont-inf-field ">
+                        <label for="input-tour-toddler-price" class="title-field">Toddler <span>(Ages 2 - 4 and above) (required)</span></label>
+                        <input type="text" id="input-tour-toddler-price" class="input-field input-price" value="0" max="100000000" min="0"/>
+                        <span class="char-count">VND</span>
+                      </div>
+                      <div id="cont-tour-infant-price" class="cont-inf-field ">
+                        <label for="input-tour-infant-price" class="title-field">Infant <span>(Ages 0 - 2 and above) (required)</span></label>
+                        <input type="text" id="input-tour-infant-price" class="input-field input-price"value="0" max="100000000" min="0"/>
+                        <span class="char-count">VND</span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="sub-cont-inf-new-tour cont-process-5">
+                    <div id="cont-tour-name" class="cont-inf-field ">
                       <label for="input-tour-name" class="title-field">Tour Name <span>(required)</span></label>
                       <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
 Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
                       <span class="tour-name-char-count char-count">100/100</span>
                     </div>
-                    <div class="cont-inf-field cont-inf">
-                      <label for="input-tour-description" class="title-field">Tour Name <span>(required)</span></label>
-
+                    <div id="cont-tour-description" class="cont-inf-field ">
+                      <label for="input-tour-description" class="title-field">Tour Description <span>(required)</span></label>
                       <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
 Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
                       <span class="tour-description-char-count char-count">100/100</span>
                     </div>
                     <!-- <button id="btn-next-progress" style="cursor: pointer">Next</button> -->
                   </div>
-                  <div class="sub-cont-inf-new-tour active">
-                    <div class="cont-date-add-new-tour">
-                      <div id="cont-date-of-department" class="cont-inf-field cont-inf">
-                        <div class="date-information">
-                          <!-- <div class="select-date-content">Departure Date</div> -->
-                          <div class="select-date-option">
-                            <label for="soValueDate"></label>
-                            <input class="input-field" id="soValueDate" placeholder="Select your departure date!"></input>
-                          </div>
-                        </div>
-
-                        <!-- CALENDAR -->
-                        <div class="cont-calendar active">
-                          <div class="calendar-header">
-                            <div class="calendar-month">
-                              <span class="month-change" id="pre-month">&lt;</span>
-                              <span class="month-picker" id="month-picker">May</span>
-                              <span class="month-change" id="next-month">&gt;</span>
-                            </div>
-                            <div class="calendar-year">
-                              <span class="year-change" id="pre-year">&lt;</span>
-                              <span id="year">2020</span>
-                              <span class="year-change" id="next-year">&gt;</span>
-                            </div>
-                          </div>
-
-                          <div class="calendar-body">
-                            <div class="calendar-week-days">
-                              <div>Sun</div>
-                              <div>Mon</div>
-                              <div>Tue</div>
-                              <div>Wed</div>
-                              <div>Thu</div>
-                              <div>Fri</div>
-                              <div>Sat</div>
-                            </div>
-                            <div class="calendar-days"></div>
-                          </div>
-                          <div class="calendar-description">
-                            <div class="description-1">
-                              <div class="description-1-color"></div>
-                              <div class="description-1-content">
-                                Current date
-                              </div>
-                            </div>
-                            <div class="description-2">
-                              <div class="description-2-color"></div>
-                              <div class="description-2-content">
-                                Selected date
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="cont-calendar-month">
-                            <div class="month-list"></div>
-                            <div class="calendar-description">
-                              <div class="description-1">
-                                <div class="description-1-color"></div>
-                                <div class="description-1-content">
-                                  Current month
-                                </div>
-                              </div>
-                              <div class="description-2">
-                                <div class="description-2-color"></div>
-                                <div class="description-2-content">
-                                  Selected month
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="cont-date-of-department" class="cont-inf-field cont-inf">
-                        <div class="date-information">
-                          <!-- <div class="select-date-content">Departure Date</div> -->
-                          <div class="select-date-option">
-                            <label id="soValueDate">Select your departure date!</label>
-                          </div>
-                        </div>
-
-                        <!-- CALENDAR -->
-                        <div class="cont-calendar">
-                          <div class="calendar-header">
-                            <div class="calendar-month">
-                              <span class="month-change" id="pre-month"></span>
-                              <span class="month-picker" id="month-picker">May</span>
-                              <span class="month-change" id="next-month">></span>
-                            </div>
-                            <div class="calendar-year">
-                              <span class="year-change" id="pre-year">&lt;</span>
-                              <span id="year">2020</span>
-                              <span class="year-change" id="next-year">&gt;</span>
-                            </div>
-                          </div>
-
-                          <div class="calendar-body">
-                            <div class="calendar-week-days">
-                              <div>Sun</div>
-                              <div>Mon</div>
-                              <div>Tue</div>
-                              <div>Wed</div>
-                              <div>Thu</div>
-                              <div>Fri</div>
-                              <div>Sat</div>
-                            </div>
-                            <div class="calendar-days"></div>
-                          </div>
-                          <div class="calendar-description">
-                            <div class="description-1">
-                              <div class="description-1-color"></div>
-                              <div class="description-1-content">
-                                Current date
-                              </div>
-                            </div>
-                            <div class="description-2">
-                              <div class="description-2-color"></div>
-                              <div class="description-2-content">
-                                Selected date
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="cont-calendar-month">
-                            <div class="month-list"></div>
-                            <div class="calendar-description">
-                              <div class="description-1">
-                                <div class="description-1-color"></div>
-                                <div class="description-1-content">
-                                  Current month
-                                </div>
-                              </div>
-                              <div class="description-2">
-                                <div class="description-2-color"></div>
-                                <div class="description-2-content">
-                                  Selected month
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="sub-cont-inf-new-tour">
-                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
-                      <span class="title-field">Tour Name</span>
-
-                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
-Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
-                      <span class="tour-name-char-count char-count">100/100</span>
-                    </div>
-                    <div class="cont-inf-field cont-inf">
-                      <span class="title-field">Description</span>
-
-                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
-Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
-                      <span class="tour-description-char-count char-count">100/100</span>
-                    </div>
-                  </div>
-                  <div class="sub-cont-inf-new-tour">
-                    <span style="
-                        text-align: center;
-                        font-size: 2rem;
-                        margin-bottom: 20px;
-                      "><strong>New Tour 4</strong></span>
-                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
-                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
-Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
-                      <span class="title-field">Tour Name</span>
-                      <span class="tour-name-char-count char-count">100/100</span>
-                    </div>
-                    <div class="cont-inf-field cont-inf">
-                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
-Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
-                      <span class="title-field">Description</span>
-                      <span class="tour-description-char-count char-count">100/100</span>
-                    </div>
-                  </div>
-                  <div class="sub-cont-inf-new-tour">
-                    <div id="cont-tour-name" class="cont-inf-field cont-inf">
-                      <span class="title-field">Tour Name</span>
-
-                      <textarea id="input-tour-name" class="input-field" placeholder="Write Tour Name" maxlength="100" required>
-Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
-                      <span class="tour-name-char-count char-count">100/100</span>
-                    </div>
-                    <div class="cont-inf-field cont-inf">
-                      <span class="title-field">Description</span>
-
-                      <textarea id="input-tour-description" class="input-field" placeholder="Write Tour Description" maxlength="250" required>
-Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
-                      <span class="tour-description-char-count char-count">100/100</span>
-                    </div>
-                  </div>
                   <div class="main-cont-btn-next-progress">
-                    <button id="btn-next-progress" style="cursor: pointer" type="button">
-                      Next
-                    </button>
+                    <button id="btn-next-progress" class="btn btn-primary" type="button">Next</button>
                   </div>
                 </form>
               </div>
@@ -595,6 +675,5 @@ Cannes and Antibes Night Tour the Seine Extraordinaire</textarea>
   </body>
 
   <script src="/assets/js/dashboard.js"></script>
-  <script src="/assets/js/calendar.js"></script>
 
 </html>

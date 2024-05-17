@@ -239,7 +239,6 @@ section {
   border: none;
   cursor: pointer;
   box-shadow: var(--shadow-block);
-
 }
 
 .btn-secondary {
@@ -649,3 +648,6 @@ footer {
 }
 
 
+.input-error {
+  border-color: red;
+}
