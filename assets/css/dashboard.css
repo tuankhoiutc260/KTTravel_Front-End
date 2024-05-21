@@ -25,6 +25,7 @@
   --color-tertiary: rgb(122, 205, 255);
   --color-quaternary: #dff5ff;
   --color-white: #ffffff;
+  --color-calendar-hover: #fbc7d4;
 
   --shadow-block: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
 
@@ -60,6 +61,33 @@ body {
   display: flex;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* time */
+input[type="time"] {
+  cursor: pointer;
+}
+input[type=time]::-webkit-datetime-edit-hour-field,
+input[type=time]::-webkit-datetime-edit-minute-field,
+input[type=time]::-webkit-datetime-edit-second-field,
+input[type=time]::-webkit-datetime-edit-ampm-field {
+  padding: 5px;
+  border-radius: 4px;
+}
+input[type=time]::-webkit-datetime-edit-hour-field:focus,
+input[type=time]::-webkit-datetime-edit-minute-field:focus,
+input[type=time]::-webkit-datetime-edit-second-field:focus,
+input[type=time]::-webkit-datetime-edit-ampm-field:focus {
+  background-color: var(--color-secondary);
+}
+/* end time */
+
+/* input[type="time"]::-webkit-inner-spin-button {
+  cursor: pointer;
+} */
 .navigation {
   width: 300px;
   height: 100%;
@@ -286,7 +314,7 @@ body {
   color: var(--color-primary);
 }
 
-.btn:hover{
+.btn:hover {
   transform: scale(1.05);
 }
 
@@ -537,8 +565,6 @@ td:not(td:nth-child(2)) {
   /* transition: var(--time-fast) ease; */
 }
 
-
-
 #btn-close-cont-add-new-tour {
   position: absolute;
   top: 20px;
@@ -584,7 +610,6 @@ td:not(td:nth-child(2)) {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  
 }
 
 .sub-2-cont-inf-new-tour #form-add-new-tour {
@@ -778,7 +803,8 @@ td:not(td:nth-child(2)) {
   gap: 10px;
 }
 
-.input-field {
+.input-field,
+.sub-input-field {
   width: 100%;
   /* overflow-y: auto; */
   overflow: hidden;
@@ -795,8 +821,8 @@ td:not(td:nth-child(2)) {
   line-height: 30px;
   /* color: #757575; */
   /* box-shadow: var(--shadow-block); */
+  /* transition: 0.3 var(--time-fast); */
 }
-
 
 #input-tour-description {
   /* padding-top: 13px; */
@@ -870,7 +896,6 @@ textarea::-webkit-scrollbar-thumb:hover {
   transition: 0.3s ease;
   height: max-content;
   font-size: var(--font-size-normal); */
-
 }
 
 /* #btn-next-progress:hover {
@@ -1115,7 +1140,8 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 .departure-calendar-days div:hover,
-.destination-calendar-days div:hover {
+.destination-calendar-days div:hover,
+.month-list > div:hover {
   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
   /* background-color: var(--color-calendar-hover); */
   background: var(--color-quaternary);
@@ -1140,11 +1166,24 @@ textarea::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
 
-.selected-day {
+.selected-day,
+.departure-selected-date,
+.destination-selected-date {
   color: var(--color-white);
   background: var(--color-primary);
   border-radius: var(--radius-5);
 }
+
+/* .departure-selected-date{
+  color: var(--color-white);
+  background: green;
+  border-radius: var(--radius-5);
+} */
+/* .future-day {
+  color: var(--color-white);
+  background: pink;
+  border-radius: var(--radius-5);
+} */
 
 .selected-departure-month,
 .selected-destination-month {
@@ -1191,6 +1230,7 @@ textarea::-webkit-scrollbar-thumb:hover {
   margin: 5px 10px;
   transition: all 0.2s ease-in-out;
   font-size: var(--font-size-almost-small);
+  border: 1px solid transparent;
 }
 
 .month-list > div > div {
@@ -1200,19 +1240,26 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 .month-list > div:hover {
-  background-color: var(--color-calendar-hover);
+  /* background-color: var(--color-calendar-hover);
   color: var(--color-white);
   transition: all 0.2s ease-in-out;
+  border-radius: var(--radius-5); */
+
+  /* transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+  background: var(--color-quaternary);
+  color: black;
   border-radius: var(--radius-5);
+  border: 1px solid var(--color-primary); */
 }
 
-.past-day {
+.past-day,
+.future-day {
   background-color: var(--color-block-element);
   border-radius: var(--radius-5);
 }
 /* End Calendar Progress 2 */
 
-.cont-position-add-new-tour {
+.cont-position {
   display: flex;
   gap: 50px;
 }
@@ -1231,7 +1278,6 @@ textarea::-webkit-scrollbar-thumb:hover {
   border-radius: 14px;
   color: var(--color-black);
 
-  
   padding: 5%;
   opacity: 0;
   visibility: hidden;
@@ -1240,6 +1286,7 @@ textarea::-webkit-scrollbar-thumb:hover {
   /* top: 100%; */
   transition: var(--time-fast) ease;
 
+  z-index: 1;
   /* 
  
   overflow: hidden;
@@ -1376,7 +1423,7 @@ textarea::-webkit-scrollbar-thumb:hover {
   background: var(--color-quaternary);
 }
 
-#form-add-new-tour .sub-cont-schedule-content{
+#form-add-new-tour .sub-cont-schedule-content {
   width: 100%;
   height: 100%;
   padding: 50px 20px 10px 20px;
@@ -1384,21 +1431,19 @@ textarea::-webkit-scrollbar-thumb:hover {
   position: relative;
 }
 
-#form-add-new-tour .sub-cont-schedule-content:hover::-webkit-scrollbar{
+#form-add-new-tour .sub-cont-schedule-content:hover::-webkit-scrollbar {
   width: 0px;
 }
 
-#form-add-new-tour .sub-cont-schedule-content::-webkit-scrollbar, 
+#form-add-new-tour .sub-cont-schedule-content::-webkit-scrollbar,
 #form-add-new-tour .cont-inf-field::-webkit-scrollbar {
   width: 7px;
   transition: 0.3s ease;
 }
 
-
-
-#form-add-new-tour .sub-cont-schedule-contents::-webkit-scrollbar-track, 
+#form-add-new-tour .sub-cont-schedule-contents::-webkit-scrollbar-track,
 #form-add-new-tour .cont-inf-field::-webkit-scrollbar-track {
-  background: var(--color-light-gray)
+  background: var(--color-light-gray);
 }
 
 #form-add-new-tour .sub-cont-schedule-content::-webkit-scrollbar-thumb,
@@ -1412,8 +1457,7 @@ textarea::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
 
-
-#form-add-new-tour #input-tour-description-schedule{
+#form-add-new-tour .input-tour-description-schedule {
   padding: 0;
   border: none;
   height: auto;
@@ -1422,29 +1466,28 @@ textarea::-webkit-scrollbar-thumb:hover {
   transition: 1s ease;
 }
 
-#form-add-new-tour #input-tour-description-schedule::-webkit-scrollbar {
+#form-add-new-tour .input-tour-description-schedule::-webkit-scrollbar {
   width: 0px;
   transition: width 1s ease;
 }
 
-#form-add-new-tour #input-tour-description-schedule:hover::-webkit-scrollbar {
+#form-add-new-tour .input-tour-description-schedule:hover::-webkit-scrollbar {
   width: 5px;
 }
 
-#form-add-new-tour #input-tour-description-schedule::-webkit-scrollbar-track {
+#form-add-new-tour .input-tour-description-schedule::-webkit-scrollbar-track {
   background: var(--color-border);
 }
 
-#form-add-new-tour #input-tour-description-schedule::-webkit-scrollbar-thumb {
+#form-add-new-tour .input-tour-description-schedule::-webkit-scrollbar-thumb {
   background: var(--color-tertiary);
   border-radius: 5px;
 }
 
-#form-add-new-tour #input-tour-description-schedule::-webkit-scrollbar-thumb:hover {
+#form-add-new-tour
+  .input-tour-description-schedule::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
-
-
 
 /* #form-add-new-tour .cont-process-1.active, 
 #form-add-new-tour .cont-process-2.active, 
@@ -1453,10 +1496,9 @@ textarea::-webkit-scrollbar-thumb:hover {
   display: flex;
 } */
 
-#form-add-new-tour .cont-sub-price{
+#form-add-new-tour .cont-sub-price {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, auto);
   gap: 30px 50px;
-} 
-
+}

@@ -5,22 +5,32 @@ window.addEventListener("DOMContentLoaded", function () {
   countChar250(inputTourDescription, tourDescriptionCharCount);
 
   allInputPrice.forEach((inputPrice) => {
-    formatPrice(inputPrice);
+    inputPrice.addEventListener("keyup", function () {
+      formatPrice(inputPrice);
+    });
   });
 });
 
 function formatPrice(element) {
-  var max = parseInt(element.getAttribute("max"));
-  element.onkeyup = function () {
-    var removeChar = this.value.replace(/[^0-9\.]/g, "");
-    removeChar = removeChar.replace(/^0+(?=\d)/, "");
-    var removeDot = removeChar.replace(/\./g, "");
-    this.value = removeDot;
-    if (this.value > max)
-      this.value = this.value.substring(0, this.value.length - 1);
-    var formattedNumber = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    this.value = formattedNumber;
-  };
+  var inputPriceRemovedChar = element.value.replace(/[^0-9\.]/g, "");
+  var inputPriceRemovedDot = inputPriceRemovedChar.replace(/\./g, "");
+  var inputPriceValue = inputPriceRemovedDot;
+  if (inputPriceValue.length < 1) {
+    inputPriceValue = "0";
+  }
+  inputPriceValue = inputPriceValue.replace(/^0+/, "");
+  if (inputPriceValue.length < 1) {
+    inputPriceValue = "0";
+  }
+  var maxTourMainPrice = parseInt(element.getAttribute("max"), 10);
+  if (parseInt(inputPriceValue, 10) > maxTourMainPrice) {
+    inputPriceValue = inputPriceValue.substring(0, inputPriceValue.length - 1);
+  }
+  var inputTourPriceFormatted = inputPriceValue.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    "."
+  );
+  element.value = inputTourPriceFormatted;
 }
 
 const subContAddNewTour = document.querySelector(".sub-cont-add-new-tour");
@@ -42,7 +52,6 @@ toggle.addEventListener("click", function () {
   titles.forEach((title) => {
     title.classList.toggle("active");
   });
-  // Resize li navigation
   const iconSize = iconBtn.width;
   const paddingLiNavigation = liNavigation.padding;
   liNavigationActive.style.width = iconSize + paddingLiNavigation;
@@ -83,9 +92,10 @@ const inputTourDescription = document.getElementById("input-tour-description");
 const tourDescriptionCharCount = document.querySelector(
   ".tour-description-char-count"
 );
-const inputTourScheduleTitle = document.getElementById(
-  "input-tour-schedule-title"
-);
+// const inputTourScheduleTitle = document.getElementById(
+//   "input-tour-schedule-title"
+// );
+
 const tourScheduleTitleCharCount = document.querySelector(
   ".tour-schedule-title-char-count"
 );
@@ -112,7 +122,7 @@ function checkContainerOverview() {
     inputTourName.style.borderColor = "red";
     isValid = false;
   } else {
-    inputTourName.style.borderColor = ""; 
+    inputTourName.style.borderColor = "";
   }
   if (inputTourDescription.value.trim() === "") {
     inputTourDescription.style.borderColor = "red";
@@ -123,39 +133,191 @@ function checkContainerOverview() {
   return isValid;
 }
 
+function checkEmptyInputField() {
+  const alInputField = document.querySelectorAll(".input-field");
+  // const allDivInputField = document.querySelectorAll(
+  //   "div.input-field.input-tour-description-schedule"
+  // );
+  // alInputField.forEach((inputField) => {
+  //   inputField.addEventListener("keyup", function () {
+  //     if (inputField.value.trim() === "") {
+  //       inputField.style.borderColor = "red";
+  //     } else {
+  //       inputField.style.borderColor = "";
+  //     }
+  //   });
+  // });
+
+  // allDivInputField.forEach((divInputField) => {
+  //   const parentDivInputField = divInputField.parentElement;
+  //   divInputField.addEventListener("keyup", function () {
+  //     if (divInputField.textContent.trim() === "") {
+  //       parentDivInputField.style.borderColor = "red";
+  //       console.log('true')
+
+  //     } else {
+  //       parentDivInputField.style.borderColor = "";
+  //     }
+  //   });
+  // });
+
+  alInputField.forEach((inputField) => {
+    const subContScheduleContent = inputField.closest(
+      ".sub-cont-schedule-content"
+    );
+    inputField.addEventListener("keyup", function () {
+      if (subContScheduleContent) {
+        if (inputField.textContent.trim() === "") {
+          subContScheduleContent.style.borderColor = "red";
+        } else {
+          subContScheduleContent.style.borderColor = "";
+        }
+        // console.log(inputField.textContent.trim() === "")
+        // console.log(inputField.textContent)
+      } else {
+        if (inputField.value.trim() === "") {
+          inputField.style.borderColor = "red";
+        } else {
+          inputField.style.borderColor = "";
+        }
+      }
+    });
+  });
+}
+
+checkEmptyInputField();
+
+function resetInputField() {
+  const allInputReset = document.querySelectorAll(".input-reset");
+  let needConfirmation = false;
+
+  allInputReset.forEach((inputReset) => {
+    if (inputReset.textContent.trim() !== "") {
+      needConfirmation = true;
+    }
+  });
+
+  allInputReset.forEach((inputReset) => {
+    if (inputReset.value.trim() !== "") {
+      needConfirmation = true;
+    }
+  });
+
+  if (needConfirmation) {
+    const confirmReset = confirm("Are you sure you want to close  ?");
+    if (confirmReset) {
+      allInputReset.forEach((inputReset) => {
+        inputReset.value = "";
+        inputReset.textContent = "";
+      });
+      contAddNewTour.classList.remove("active");
+    }
+  } else {
+    // alert("All input fields are already empty.");
+    contAddNewTour.classList.remove("active");
+  }
+}
+
+// Call the function with the appropriate input ID and character count selector
+
+// inputTourName.addEventListener('keyup', function(){
+//   if(this.value.trim() === ''){
+//     this.style.borderColor = "red";
+//   } else {
+//     this.style.borderColor = "";
+//   }
+// })
+
 function checkContainerDetails() {
   let isValid = true;
   if (inputDepartureDate.value.trim() === "") {
     inputDepartureDate.style.borderColor = "red";
     isValid = false;
   } else {
-    inputDepartureDate.style.borderColor = ""; 
+    inputDepartureDate.style.borderColor = "";
   }
   if (inputDestinationDate.value.trim() === "") {
     inputDestinationDate.style.borderColor = "red";
     isValid = false;
   } else {
-    inputDestinationDate.style.borderColor = ""; 
+    inputDestinationDate.style.borderColor = "";
   }
   if (inputPositionDeparture.value.trim() === "") {
     inputPositionDeparture.style.borderColor = "red";
     isValid = false;
   } else {
-    inputPositionDeparture.style.borderColor = ""; 
+    inputPositionDeparture.style.borderColor = "";
   }
   if (inputPositionDestination.value.trim() === "") {
     inputPositionDestination.style.borderColor = "red";
     isValid = false;
   } else {
-    inputPositionDestination.style.borderColor = ""; 
+    inputPositionDestination.style.borderColor = "";
+  }
+  console.log;
+  return isValid;
+}
+
+function checkContainerSchedule() {
+  let isValid = true;
+  const allInputTourScheduleTitle = document.querySelectorAll(
+    ".input-tour-schedule-title"
+  );
+
+  const allInputTourDescriptionSchedule = document.querySelectorAll(
+    ".input-tour-description-schedule"
+  );
+  allInputTourScheduleTitle.forEach((inputTourScheduleTitle) => {
+    if (inputTourScheduleTitle.value.trim() === "") {
+      inputTourScheduleTitle.style.borderColor = "red";
+      isValid = false;
+    } else {
+      inputTourScheduleTitle.style.borderColor = "";
+    }
+  });
+  allInputTourDescriptionSchedule.forEach((inputTourDescriptionSchedule) => {
+    const parentInputTourDescriptionSchedule =
+      inputTourDescriptionSchedule.parentElement;
+
+    if (inputTourDescriptionSchedule.textContent.trim() === "") {
+      parentInputTourDescriptionSchedule.style.borderColor = "red";
+      isValid = false;
+    } else {
+      parentInputTourDescriptionSchedule.style.borderColor = "";
+    }
+  });
+
+  return isValid;
+}
+const inputTourMainPrice = document.getElementById("input-tour-main-price");
+const inputTourAdultPrice = document.getElementById("input-tour-adult-price");
+const inputTourChildrenPrice = document.getElementById(
+  "input-tour-children-price"
+);
+function checkContainerPriceList() {
+  let isValid = true;
+  if (inputTourMainPrice.value == 0) {
+    inputTourMainPrice.style.borderColor = "red";
+    isValid = false;
+  } else {
+    inputTourMainPrice.style.borderColor = "";
+  }
+  if (inputTourAdultPrice.value == 0) {
+    inputTourAdultPrice.style.borderColor = "red";
+    isValid = false;
+  } else {
+    inputTourAdultPrice.style.borderColor = "";
+  }
+  if (inputTourChildrenPrice.value == 0) {
+    inputTourChildrenPrice.style.borderColor = "red";
+    isValid = false;
+  } else {
+    inputTourChildrenPrice.style.borderColor = "";
   }
   return isValid;
 }
 
-
-
 let currentActiveIndex = 0;
-
 btnNextProgress.addEventListener("click", function () {
   let lastActiveIndex = -1;
   const currentProgressBarWidth = subContSuccessProgressBar.offsetWidth;
@@ -185,37 +347,55 @@ btnNextProgress.addEventListener("click", function () {
       allSubContInfNewTour[lastActiveIndex].classList.remove("active");
       allSubContInfNewTour[lastActiveIndex + 1].classList.add("active");
       currentActiveIndex++;
-      console.log("Updated currentActiveIndex: ", currentActiveIndex);
     }
   }
-  console.log("Before switch, currentActiveIndex: ", currentActiveIndex);
-
+  // updateProgressAndNavigation();
   switch (currentActiveIndex) {
     case 0:
-      if (checkContainerOverview()) {
-        updateProgressAndNavigation();
-      }
-      console.log("Finish case 0, currentActiveIndex: ", currentActiveIndex);
+      // if (checkContainerOverview()) {
+      updateProgressAndNavigation();
+      // console.log("finish case 0");
+      // }
       break;
     case 1:
       if (checkContainerDetails()) {
         updateProgressAndNavigation();
+        // console.log("finish case 1");
       }
-      console.log("Finish case 1, currentActiveIndex: ", currentActiveIndex);
+
       break;
-    default:
-      
+    case 2:
+      // console.log(checkContainerSchedule());
+
+      if (checkContainerSchedule()) {
+        updateProgressAndNavigation();
+        // console.log("finish case 2");
+      }
+      break;
+    case 3:
+      if (checkContainerPriceList()) {
+        updateProgressAndNavigation();
+      }
+      break;
   }
   if (currentActiveIndex == 1) {
     sub2ContInfNewTour.style.overflowX = "visible";
   } else {
     sub2ContInfNewTour.style.overflowX = "hidden";
   }
- if (lastActiveIndex == 1) {
+  if (lastActiveIndex == 1) {
     var departureDateParts = inputDepartureDate.value.split("/");
     var destinationDateParts = inputDestinationDate.value.split("/");
-    departureDate = new Date(departureDateParts[2], departureDateParts[1] - 1, departureDateParts[0]);
-    destinationDate = new Date(destinationDateParts[2], destinationDateParts[1] - 1, destinationDateParts[0]);
+    departureDate = new Date(
+      departureDateParts[2],
+      departureDateParts[1] - 1,
+      departureDateParts[0]
+    );
+    destinationDate = new Date(
+      destinationDateParts[2],
+      destinationDateParts[1] - 1,
+      destinationDateParts[0]
+    );
     var timeDifference = destinationDate - departureDate;
     var dayDifference = timeDifference / (1000 * 60 * 60 * 24) + 1;
 
@@ -231,9 +411,8 @@ btnNextProgress.addEventListener("click", function () {
         addSchedule(i); // Re-add schedules based on new day count
       }
     }
-
+    // checkEmptyInputField();
   }
-
 });
 
 let dayCount = 0;
@@ -244,24 +423,21 @@ function addSchedule(dayIndex) {
   dayCount++;
   const container = document.getElementById("cont-tour-schedule");
   const scheduleDate = new Date(departureDate);
-  scheduleDate.setDate(departureDate.getDate() + dayIndex); // Calculate the date for the current dayIndex
-
-  // Format the schedule date to the desired format (dd/mm/yyyy)
+  scheduleDate.setDate(departureDate.getDate() + dayIndex);
   const formattedDate = scheduleDate.toLocaleDateString("vi-VN");
-
   const newSchedule = document.createElement("div");
   newSchedule.className = "cont-date-schedule";
   newSchedule.innerHTML = `
                 <div id="cont-tour-schedule-title" class="cont-inf-field">
                     <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day ${dayCount} - ${formattedDate}</span>
-                    <label for="input-tour-schedule-title" class="title-field">Title Schedule <span>(required)</span></label>
-                    <input type="text" id="input-tour-schedule-title" class="input-field" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
+                    <label for="input-tour-schedule-title-${dayCount}" class="title-field">Title Schedule <span>(required)</span></label>
+                    <input type="text" id="input-tour-schedule-title-${dayCount}" class="input-field input-reset input-tour-schedule-title" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
                     <span class="tour-schedule-title-char-count char-count">0/100</span>
                 </div>
                 <div class="cont-schedule-content cont-inf-field">
-                    <label for="input-tour-description-schedule" class="title-field">Description Schedule <span>(required)</span></label>
-                    <div class="sub-cont-schedule-content input-field">
-                        <div style="border: none;" id="input-tour-description-schedule" class="input-field" contenteditable="true"></div>
+                    <label for="input-tour-description-schedule-${dayCount}" class="title-field">Description Schedule <span>(required)</span></label>
+                    <div class="sub-cont-schedule-content sub-input-field">
+                        <div style="border: none;" id="input-tour-description-schedule-${dayCount}" class="input-field input-reset input-tour-description-schedule" contenteditable="true"></div>
                         <div class="cont-tool-editor">
                             <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold', true, '')"><strong>B</strong></a>
                             <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
@@ -271,6 +447,9 @@ function addSchedule(dayIndex) {
                 </div>
             `;
   container.appendChild(newSchedule);
+  // const alInputField = document.querySelectorAll(".input-field");
+
+  checkEmptyInputField();
 }
 
 function removeAllSchedules() {
@@ -346,7 +525,7 @@ const btnCloseContAddNewTour = document.getElementById(
 const contAddNewTour = document.querySelector(".cont-add-new-tour");
 const btnAddNewTour = document.getElementById("btn-add-new-tour");
 btnCloseContAddNewTour.addEventListener("click", function () {
-  contAddNewTour.classList.toggle("active");
+  resetInputField();
 });
 
 btnAddNewTour.addEventListener("click", function () {
@@ -463,49 +642,101 @@ const generateDepartureCalendar = (departureMonth, departureYear) => {
   // Attach event listeners to the day elements
   attachEventListenersDepartureToDays();
 };
-
 const attachEventListenersDepartureToDays = () => {
   const departureDayElements = document.querySelectorAll(
     ".departure-calendar-days > div"
   );
   const departureToday = new Date();
-
   departureDayElements.forEach((departureDayElement) => {
     const departureDay = parseInt(departureDayElement.innerHTML);
     if (isNaN(departureDay)) return;
     const departureMonth = currentDepartureMonth.value;
     const departureYear = currentDepartureYear.value;
     const departureDate = new Date(departureYear, departureMonth, departureDay);
+    departureDayElement.classList.remove("future-day");
+    if (destinationSelectedDate !== "") {
+      if (departureDate > destinationSelectedDate)
+        departureDayElement.classList.add("future-day");
+      departureDayElement.classList.remove("destination-selected-date");
+      if (departureDate.getTime() === destinationSelectedDate.getTime()) {
+        departureDayElement.classList.add("destination-selected-date");
+      }
+      if (departureSelectedDate) {
+        departureDayElement.classList.remove("departure-selected-date");
+        if (departureDate.getTime() === departureSelectedDate.getTime()) {
+          departureDayElement.classList.add("departure-selected-date");
+        }
+      }
+    }
     if (departureDate < departureToday) {
       departureDayElement.classList.add("past-day");
     }
     departureDayElement.addEventListener("click", () => {
-      if (departureDate < departureToday) {
-        return;
+      if (destinationSelectedDate) {
+        if (departureDate > destinationSelectedDate) {
+          return;
+        }
+      } else {
+        if (departureDate < departureToday) {
+          return;
+        }
       }
       selectDepartureDay(departureDayElement, departureDate);
     });
   });
 };
 
+let departureSelectedDate = "";
+let destinationSelectedDate = "";
+let click1 = null;
+let click2 = null;
+let clickCount = 0;
+
 const selectDepartureDay = (departureDayElement, departureDate) => {
-  const previousSelectedDepartureDay = document.querySelector(
+  const allPreviousSelectedDepartureDay = document.querySelectorAll(
     ".departure-calendar-days .selected-day"
   );
-  if (previousSelectedDepartureDay) {
-    previousSelectedDepartureDay.classList.remove("selected-day");
-  }
+  // if (previousSelectedDepartureDay) {
+  //   previousSelectedDepartureDay.classList.remove("selected-day");
+  // }
 
-  departureDayElement.classList.add("selected-day");
+  // departureDayElement.classList.add("selected-day");
+  // hideDepartureCalendar();
+
+  clickCount++;
+  if (clickCount === 1) {
+    click1 = departureDate;
+    console.log("First click date:", click1);
+    departureDayElement.classList.add("selected-day");
+
+  } else if (clickCount === 2) {
+    click2 = departureDate;
+    console.log("Second click date:", click2);
+    departureDayElement.classList.add("selected-day");
+  } else if(clickCount == 3) {
+    allPreviousSelectedDepartureDay.forEach((previousSelectedDepartureDay) => {
+      previousSelectedDepartureDay.classList.remove("selected-day");
+    });
+
+    clickCount = 1;
+    click1 = departureDate;
+    click2 = null;
+    departureDayElement.classList.add("selected-day");
+
+    console.log("Resetting, new first click date:", click1);
+  }
+  console.log("count: " + clickCount);
+
   displayDepartureDateInfo(departureDate);
-  hideDepartureCalendar();
+
+  departureSelectedDate = departureDate;
 };
 
 const inputDepartureDate = document.getElementById("input-departure-date");
 const displayDepartureDateInfo = (departureDate) => {
   const formattedDepartureDate = departureDate.toLocaleDateString("vi-VN");
   inputDepartureDate.value = formattedDepartureDate;
-  inputDepartureDate.style.borderColor = ""
+  inputDepartureDate.style.borderColor = "";
 };
 
 function hideDepartureCalendar() {
@@ -517,6 +748,7 @@ function showDepartureCalendar() {
 }
 
 inputDepartureDate.addEventListener("click", function () {
+  // attachEventListenersDepartureToDays();
   showDepartureCalendar();
 });
 
@@ -556,6 +788,9 @@ document.getElementById("pre-departure-month").onclick = () => {
     currentDepartureMonth.value,
     currentDepartureYear.value
   );
+
+  // console.log(departureSelectedDate);
+  // console.log(destinationSelectedDate);
 };
 
 document.getElementById("next-departure-month").onclick = () => {
@@ -568,6 +803,9 @@ document.getElementById("next-departure-month").onclick = () => {
     currentDepartureMonth.value,
     currentDepartureYear.value
   );
+  // console.log(departureSelectedDate)
+  // console.log(destinationSelectedDate)
+  // attachEventListenersDepartureToDays();
 };
 
 document.getElementById("pre-departure-year").onclick = () => {
@@ -651,11 +889,28 @@ const attachEventListenersDestinationToDays = () => {
       destinationMonth,
       destinationDay
     );
-    if (destinationDate < destinationToday) {
+    destinationDayElement.classList.remove("past-day");
+    if (departureSelectedDate !== "") {
+      if (destinationDate < departureSelectedDate)
+        destinationDayElement.classList.add("past-day");
+      destinationDayElement.classList.remove("departure-selected-date");
+      if (destinationDate.getTime() === departureSelectedDate.getTime()) {
+        destinationDayElement.classList.add("departure-selected-date");
+      }
+      if (destinationSelectedDate) {
+        destinationDayElement.classList.remove("destination-selected-date");
+        if (destinationDate.getTime() === destinationSelectedDate.getTime()) {
+          destinationDayElement.classList.add("destination-selected-date");
+        }
+      }
+    } else if (
+      departureSelectedDate === "" &&
+      destinationDate < destinationToday
+    ) {
       destinationDayElement.classList.add("past-day");
     }
     destinationDayElement.addEventListener("click", () => {
-      if (destinationDate < destinationToday) {
+      if (destinationDate < departureSelectedDate) {
         return;
       }
       selectDestinationDay(destinationDayElement, destinationDate);
@@ -663,23 +918,30 @@ const attachEventListenersDestinationToDays = () => {
   });
 };
 
+// const selectDestinationDay = (destinationDayElement, destinationDate) => {
 const selectDestinationDay = (destinationDayElement, destinationDate) => {
   const previousSelectedDestinationDay = document.querySelector(
     ".destination-calendar-days .selected-day"
   );
   if (previousSelectedDestinationDay) {
     previousSelectedDestinationDay.classList.remove("selected-day");
+    // const pastDays = document.querySelectorAll(
+    //   ".destination-calendar-days .past-day"
+    // );
+    // pastDays.forEach((day) => day.classList.remove("past-day"));
   }
+
   destinationDayElement.classList.add("selected-day");
   displayDestinationDateInfo(destinationDate);
   hideDestinationCalendar();
+  destinationSelectedDate = destinationDate;
 };
 
 const inputDestinationDate = document.getElementById("input-destination-date");
 const displayDestinationDateInfo = (destinationDate) => {
   const formattedDestinationDate = destinationDate.toLocaleDateString("vi-VN");
   inputDestinationDate.value = formattedDestinationDate;
-  inputDestinationDate.style.borderColor = ""
+  inputDestinationDate.style.borderColor = "";
 };
 
 function hideDestinationCalendar() {
@@ -691,6 +953,7 @@ function showDestinationCalendar() {
 }
 
 inputDestinationDate.addEventListener("click", function () {
+  attachEventListenersDestinationToDays();
   showDestinationCalendar();
 });
 
@@ -820,7 +1083,7 @@ departurePositionOptionsList.forEach(function (
   departurePositionOptionsListSingle.addEventListener("click", function () {
     var departurePositionValue = this.textContent;
     inputPositionDeparture.value = departurePositionValue;
-    inputPositionDeparture.style.borderColor = ""    
+    inputPositionDeparture.style.borderColor = "";
     departurePositionContent.classList.remove("active");
   });
 });
@@ -843,9 +1106,7 @@ optionSearchDeparturePosition.addEventListener("keyup", function () {
 const destinationPositionOptionsList = document.querySelectorAll(
   ".destination-position-options li"
 );
-// const inputPositionDestination = document.getElementById(
-//   "input-position-destination"
-// );
+
 const optionSearchDestinationPosition = document.getElementById(
   "optionSearchDestinationPosition"
 );
@@ -859,7 +1120,7 @@ destinationPositionOptionsList.forEach(function (
   destinationPositionOptionsListSingle.addEventListener("click", function () {
     var destinationPositionValue = this.textContent;
     inputPositionDestination.value = destinationPositionValue;
-    inputPositionDestination.style.borderColor = ""
+    inputPositionDestination.style.borderColor = "";
     destinationPositionContent.classList.remove("active");
   });
 });
@@ -878,38 +1139,6 @@ optionSearchDestinationPosition.addEventListener("keyup", function () {
     }
   }
 });
-
-// document.addEventListener("click", removeActiveContCalendar);
-// function removeActiveContCalendar(event) {
-//   var target = event.target;
-//   if (
-//     !contDepartureCalendar.contains(target) &&
-//     !inputDepartureDate.contains(target)
-//   ) {
-//     hideDepartureCalendar();
-//   }
-
-//   if (
-//     !contDestinationCalendar.contains(target) &&
-//     !inputDestinationDate.contains(target)
-//   ) {
-//     hideDestinationCalendar();
-//   }
-
-//   if (
-//     !departurePositionContent.contains(target) &&
-//     !inputPositionDeparture.contains(target)
-//   ) {
-//     departurePositionContent.classList.remove("active");
-//   }
-
-//   if (
-//     !destinationPositionContent.contains(target) &&
-//     !inputPositionDestination.contains(target)
-//   ) {
-//     destinationPositionContent.classList.remove("active");
-//   }
-// }
 
 document.addEventListener("click", function () {
   var target = event.target;
@@ -941,39 +1170,6 @@ document.addEventListener("click", function () {
     destinationPositionContent.classList.remove("active");
   }
 });
-function removeActiveContCalendar(event) {}
-// edit text
-// const scheduleTitle = document.querySelector('.schedule-title')
-// function clearPlaceholderInputTitleSchedule(element) {
-//   if (element.textContent === 'Type day 1 schedule') {
-//       element.textContent = '';
-//       element.style.color = 'black'
-//       element.style.fontWeight = 'bold'
-//   }
-// }
-
-// function restorePlaceholderInputTitleSchedule(element) {
-//   if (element.textContent === '') {
-//       element.textContent = 'Type day 1 schedule';
-//       element.style.color = '#757575';
-//       element.style.fontWeight = 'normal'
-//   }
-// }
-
-// function clearPlaceholderInputTourName(element){
-//   if(element.textContent === 'Write Tour Name'){
-//     element.textContent = ''
-//     element.style.color = 'black'
-//   }
-// }
-
-// function restorePlaceholderInputTourName(element) {
-//   if (element.textContent === '') {
-//       element.textContent = 'Write Tour Name';
-//       element.style.color = '#757575';
-
-//   }
-// }
 
 function clearPlaceholderInput(
   element,
@@ -1001,24 +1197,79 @@ function restorePlaceholderInput(
   }
 }
 
-const inputTourMainPrice = document.getElementById("input-tour-main-price");
-const inputTourAdultPrice = document.getElementById("input-tour-adult-price");
-const inputTourChildrenPrice = document.getElementById(
-  "input-tour-children-price"
-);
 inputTourMainPrice.addEventListener("keyup", function () {
-  this.value = this.value.replace(/\./g, "");
-  let adultPrice = this.value;
-  let childrenPrice = Math.round(adultPrice / 2);
-  if (this.value > parseInt(this.getAttribute("max"))) {
-    adultPrice = adultPrice.substring(0, this.value.length - 1);
-    childrenPrice = Math.round(adultPrice / 2);
-  }
-
-  inputTourAdultPrice.value = adultPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  inputTourChildrenPrice.value = String(childrenPrice).replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    "."
+  formatPrice(this);
+  var inputTourMainPriceRemovedChar = this.value.replace(/[^0-9\.]/g, "");
+  var inputTourMainPriceRemovedDot = inputTourMainPriceRemovedChar.replace(
+    /\./g,
+    ""
   );
-  // formatPrice(inputTourMainPrice)
+  inputTourAdultPrice.value = inputTourMainPriceRemovedDot;
+  formatPrice(inputTourAdultPrice);
+
+  inputTourChildrenPrice.value = Math.round(inputTourMainPriceRemovedDot / 2);
+  formatPrice(inputTourChildrenPrice);
+  if (inputTourMainPriceRemovedDot == 0) {
+    inputTourAdultPrice.style.borderColor = "red";
+    inputTourChildrenPrice.style.borderColor = "red";
+  }
+  if (inputTourMainPriceRemovedDot > 0) {
+    inputTourAdultPrice.style.borderColor = "";
+    inputTourChildrenPrice.style.borderColor = "";
+  }
 });
+
+inputTourAdultPrice.addEventListener("keyup", function () {
+  formatPrice(this);
+  var inputTourMainPriceValue = parseInt(
+    inputTourMainPrice.value.replace(/\./g, ""),
+    10
+  );
+  var inputTourAdultPriceRemovedChar = this.value.replace(/[^0-9\.]/g, "");
+  var inputTourAdultPriceRemovedDot = inputTourAdultPriceRemovedChar.replace(
+    /\./g,
+    ""
+  );
+  var inputTourAdultPriceValue = parseInt(inputTourAdultPriceRemovedDot, 10);
+  if (inputTourAdultPriceValue > inputTourMainPriceValue) {
+    inputTourAdultPriceValue = Math.floor(inputTourAdultPriceValue / 10);
+  }
+  var inputTourPriceFormatted = inputTourAdultPriceValue
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  this.value = inputTourPriceFormatted;
+});
+
+inputTourChildrenPrice.addEventListener("keyup", function () {
+  formatPrice(this);
+  var inputTourMainPriceValue = parseInt(
+    inputTourMainPrice.value.replace(/\./g, ""),
+    10
+  );
+  var inputTourChildrenPriceRemovedChar = this.value.replace(/[^0-9\.]/g, "");
+  var inputTourChildrenPriceRemovedDot =
+    inputTourChildrenPriceRemovedChar.replace(/\./g, "");
+  var inputTourChildrenPriceValue = parseInt(
+    inputTourChildrenPriceRemovedDot,
+    10
+  );
+  if (inputTourChildrenPriceValue > inputTourMainPriceValue) {
+    inputTourChildrenPriceValue = Math.floor(inputTourChildrenPriceValue / 10);
+  }
+  var inputTourPriceFormatted = inputTourChildrenPriceValue
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  this.value = inputTourPriceFormatted;
+});
+
+// const input = document.createElement("input");
+// input.type = "time";
+// input.min = "23:00";
+// input.max = "01:00";
+// input.value = "23:59";
+
+// if (input.validity.valid && input.type === "time") {
+//   // <input type=time> reversed range supported
+// } else {
+//   // <input type=time> reversed range unsupported
+// }
