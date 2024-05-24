@@ -112,7 +112,7 @@ textareas.forEach((textarea) => {
     textarea.style.height = `${scHeigth}px`;
   });
 });
-const progressBarsText = document.querySelectorAll(
+const allProgressBarsText = document.querySelectorAll(
   ".cont-add-new-tour .sub-cont-progress span"
 );
 
@@ -133,38 +133,27 @@ function checkContainerOverview() {
   return isValid;
 }
 
+
 function checkEmptyInputField() {
+  const timeInput = document.getElementById("input-centralized-time-inf");
+  timeInput.addEventListener("change", () => {
+    if (timeInput.value) {
+      timeInput.classList.add("selected");
+      timeInput.style.borderColor = "";
+    } else {
+      timeInput.classList.remove("selected");
+    }
+  });
+
   const alInputField = document.querySelectorAll(".input-field");
-  // const allDivInputField = document.querySelectorAll(
-  //   "div.input-field.input-tour-description-schedule"
-  // );
-  // alInputField.forEach((inputField) => {
-  //   inputField.addEventListener("keyup", function () {
-  //     if (inputField.value.trim() === "") {
-  //       inputField.style.borderColor = "red";
-  //     } else {
-  //       inputField.style.borderColor = "";
-  //     }
-  //   });
-  // });
-
-  // allDivInputField.forEach((divInputField) => {
-  //   const parentDivInputField = divInputField.parentElement;
-  //   divInputField.addEventListener("keyup", function () {
-  //     if (divInputField.textContent.trim() === "") {
-  //       parentDivInputField.style.borderColor = "red";
-  //       console.log('true')
-
-  //     } else {
-  //       parentDivInputField.style.borderColor = "";
-  //     }
-  //   });
-  // });
-
   alInputField.forEach((inputField) => {
     const subContScheduleContent = inputField.closest(
       ".sub-cont-schedule-content"
     );
+    const inputTourHighlightCloset = inputField.closest(
+      ".input-tour-highlight-field.active"
+    );
+
     inputField.addEventListener("keyup", function () {
       if (subContScheduleContent) {
         if (inputField.textContent.trim() === "") {
@@ -172,8 +161,13 @@ function checkEmptyInputField() {
         } else {
           subContScheduleContent.style.borderColor = "";
         }
-        // console.log(inputField.textContent.trim() === "")
-        // console.log(inputField.textContent)
+      } else if (inputTourHighlightCloset) {
+        if (inputField.value.trim() === "") {
+          inputTourHighlightCloset.style.borderColor = "red";
+          isValid = false;
+        } else {
+          inputTourHighlightCloset.style.borderColor = "";
+        }
       } else {
         if (inputField.value.trim() === "") {
           inputField.style.borderColor = "red";
@@ -187,34 +181,79 @@ function checkEmptyInputField() {
 
 checkEmptyInputField();
 
+function closeContAddNewTour() {
+  const contProcess1 = document.querySelector(".cont-process-1");
+  allSubContInfNewTour.forEach((subContInfNewTour) => {
+    subContInfNewTour.classList.remove("active");
+    contProcess1.classList.add("active");
+  });
+
+  const contMainSubProgress1 = document.querySelector(
+    ".cont-main-sub-progress-1"
+  );
+  const allContMainSubProgress = document.querySelectorAll(
+    ".cont-main-sub-progress"
+  );
+  allContMainSubProgress.forEach((contMainSubProgress) => {
+    contMainSubProgress.classList.remove("active");
+    contMainSubProgress1.classList.add("active");
+  });
+  subContSuccessProgressBar.style.width = 0 + "px";
+  iconProgressBar.style.left = -iconProgressBarWidth / 2 + "px";
+  allProgressBarsText[0].textContent = "";
+
+  for (let i = 2; i <= contNumbs.length; i++) {
+    allProgressBarsText[i - 1].textContent = i;
+  }
+  lastActiveIndex = -1;
+  currentActiveIndex = 0;
+  contAddNewTour.classList.remove("active");
+}
+
 function resetInputField() {
   const allInputReset = document.querySelectorAll(".input-reset");
   let needConfirmation = false;
-
   allInputReset.forEach((inputReset) => {
-    if (inputReset.textContent.trim() !== "") {
-      needConfirmation = true;
+    // Kiểm tra nếu phần tử là một input hoặc textarea
+    if (inputReset.tagName === "INPUT" || inputReset.tagName === "TEXTAREA") {
+      if (inputReset.value.trim() !== "") {
+        needConfirmation = true;
+      }
+    } else {
+      // Kiểm tra nếu là các phần tử khác (như <div>, <span>, ...)
+      if (inputReset.textContent.trim() !== "") {
+        needConfirmation = true;
+      }
     }
   });
+  // allInputReset.forEach((inputReset) => {
+  //   if (inputReset.textContent.trim() !== "") {
+  //     needConfirmation = true;
+  //   }
+  // });
 
+  // allInputReset.forEach((inputReset) => {
+  //   if (inputReset.value.trim() !== "") {
+  //     needConfirmation = true;
+
+  //   }
+  // });
+  
   allInputReset.forEach((inputReset) => {
-    if (inputReset.value.trim() !== "") {
-      needConfirmation = true;
-    }
+      inputReset.style.borderColor = ''
   });
 
   if (needConfirmation) {
-    const confirmReset = confirm("Are you sure you want to close  ?");
+    const confirmReset = confirm("Are you sure you want to close?");
     if (confirmReset) {
       allInputReset.forEach((inputReset) => {
         inputReset.value = "";
         inputReset.textContent = "";
       });
-      contAddNewTour.classList.remove("active");
+      closeContAddNewTour();
     }
   } else {
-    // alert("All input fields are already empty.");
-    contAddNewTour.classList.remove("active");
+    closeContAddNewTour();
   }
 }
 
@@ -227,7 +266,12 @@ function resetInputField() {
 //     this.style.borderColor = "";
 //   }
 // })
-
+const inputCentralizedPositionInf = document.getElementById(
+  "input-centralized-position-inf"
+);
+const inputCentralizedTimeInf = document.getElementById(
+  "input-centralized-time-inf"
+);
 function checkContainerDetails() {
   let isValid = true;
   if (inputDepartureDate.value.trim() === "") {
@@ -253,6 +297,18 @@ function checkContainerDetails() {
     isValid = false;
   } else {
     inputPositionDestination.style.borderColor = "";
+  }
+  if (inputCentralizedTimeInf.value.trim() === "") {
+    inputCentralizedTimeInf.style.borderColor = "red";
+    isValid = false;
+  } else {
+    inputCentralizedTimeInf.style.borderColor = "";
+  }
+  if (inputCentralizedPositionInf.value.trim() === "") {
+    inputCentralizedPositionInf.style.borderColor = "red";
+    isValid = false;
+  } else {
+    inputCentralizedPositionInf.style.borderColor = "";
   }
   console.log;
   return isValid;
@@ -317,9 +373,29 @@ function checkContainerPriceList() {
   return isValid;
 }
 
+function checkNote() {
+  let isValid = true;
+  const allInputTourHighlights = document.querySelectorAll(
+    "#input-tour-highlight"
+  );
+  allInputTourHighlights.forEach((inputTourHighlight) => {
+    const inputTourHighlightCloset = inputTourHighlight.closest(
+      ".input-tour-highlight-field.active"
+    );
+    if (inputTourHighlight.value.trim() === "") {
+      inputTourHighlightCloset.style.borderColor = "red";
+      isValid = false;
+    } else {
+      inputTourHighlightCloset.style.borderColor = "";
+    }
+  });
+  return isValid;
+}
+
 let currentActiveIndex = 0;
+let lastActiveIndex = -1;
+
 btnNextProgress.addEventListener("click", function () {
-  let lastActiveIndex = -1;
   const currentProgressBarWidth = subContSuccessProgressBar.offsetWidth;
   const newProgressBarWidth = currentProgressBarWidth + contProgressWidth * 0.2;
   const currentIconProgressBarLeft = parseFloat(
@@ -341,8 +417,8 @@ btnNextProgress.addEventListener("click", function () {
         .classList.add("active");
       iconProgressBar.style.left = newIconProgressBarLeft + "px";
       subContSuccessProgressBar.style.width = newProgressBarWidth + "px";
-      progressBarsText[lastActiveIndex + 1].textContent = "";
-      progressBarsText[lastActiveIndex].innerHTML =
+      allProgressBarsText[lastActiveIndex + 1].textContent = "";
+      allProgressBarsText[lastActiveIndex].innerHTML =
         '<span class="material-symbols-outlined">done</span>';
       allSubContInfNewTour[lastActiveIndex].classList.remove("active");
       allSubContInfNewTour[lastActiveIndex + 1].classList.add("active");
@@ -352,31 +428,34 @@ btnNextProgress.addEventListener("click", function () {
   // updateProgressAndNavigation();
   switch (currentActiveIndex) {
     case 0:
+      checkEmptyInputField();
       // if (checkContainerOverview()) {
-      updateProgressAndNavigation();
-      // console.log("finish case 0");
+        updateProgressAndNavigation();
       // }
       break;
     case 1:
-      if (checkContainerDetails()) {
+      checkEmptyInputField();
+      // if (checkContainerDetails()) {
         updateProgressAndNavigation();
-        // console.log("finish case 1");
-      }
-
+      // }
       break;
     case 2:
-      // console.log(checkContainerSchedule());
-
-      if (checkContainerSchedule()) {
+      checkEmptyInputField();
+      // if (checkContainerSchedule()) {
         updateProgressAndNavigation();
-        // console.log("finish case 2");
-      }
+      // }
       break;
     case 3:
-      if (checkContainerPriceList()) {
+      checkEmptyInputField();
+      // if (checkContainerPriceList()) {
         updateProgressAndNavigation();
-      }
+      // }
       break;
+    case 4:
+      checkEmptyInputField();
+      if (checkNote()) {
+        console.log("finish");
+      }
   }
   if (currentActiveIndex == 1) {
     sub2ContInfNewTour.style.overflowX = "visible";
@@ -411,7 +490,6 @@ btnNextProgress.addEventListener("click", function () {
         addSchedule(i); // Re-add schedules based on new day count
       }
     }
-    // checkEmptyInputField();
   }
 });
 
@@ -469,7 +547,7 @@ contNumbs.forEach((contNumb, index) => {
         contNumbs[i]
           .closest(".cont-main-sub-progress")
           .classList.remove("active");
-        progressBarsText[i - 1].innerHTML = "";
+        allProgressBarsText[i - 1].innerHTML = "";
       }
 
       const activeCount = index;
@@ -487,7 +565,7 @@ contNumbs.forEach((contNumb, index) => {
         -iconProgressBarWidth / 2 + newProgressBarWidth + "px";
 
       for (let i = contNumbs.length; i > activeCount + 1; i--) {
-        progressBarsText[i - 1].textContent = i;
+        allProgressBarsText[i - 1].textContent = i;
         allSubContInfNewTour[i - 1].classList.remove("active");
       }
 
@@ -526,6 +604,12 @@ const contAddNewTour = document.querySelector(".cont-add-new-tour");
 const btnAddNewTour = document.getElementById("btn-add-new-tour");
 btnCloseContAddNewTour.addEventListener("click", function () {
   resetInputField();
+  const highlights = document.querySelectorAll(".input-tour-highlight-field");
+
+  // Iterate over each highlight element and remove it
+  highlights.forEach((highlight) => {
+    highlight.remove();
+  });
 });
 
 btnAddNewTour.addEventListener("click", function () {
@@ -676,10 +760,9 @@ const attachEventListenersDepartureToDays = () => {
         if (departureDate > destinationSelectedDate) {
           return;
         }
-      } else {
-        if (departureDate < departureToday) {
-          return;
-        }
+      }
+      if (departureDate < departureToday) {
+        return;
       }
       selectDepartureDay(departureDayElement, departureDate);
     });
@@ -693,39 +776,39 @@ let click2 = null;
 let clickCount = 0;
 
 const selectDepartureDay = (departureDayElement, departureDate) => {
-  const allPreviousSelectedDepartureDay = document.querySelectorAll(
+  const previousSelectedDepartureDay = document.querySelector(
     ".departure-calendar-days .selected-day"
   );
-  // if (previousSelectedDepartureDay) {
-  //   previousSelectedDepartureDay.classList.remove("selected-day");
-  // }
-
-  // departureDayElement.classList.add("selected-day");
-  // hideDepartureCalendar();
-
-  clickCount++;
-  if (clickCount === 1) {
-    click1 = departureDate;
-    console.log("First click date:", click1);
-    departureDayElement.classList.add("selected-day");
-
-  } else if (clickCount === 2) {
-    click2 = departureDate;
-    console.log("Second click date:", click2);
-    departureDayElement.classList.add("selected-day");
-  } else if(clickCount == 3) {
-    allPreviousSelectedDepartureDay.forEach((previousSelectedDepartureDay) => {
-      previousSelectedDepartureDay.classList.remove("selected-day");
-    });
-
-    clickCount = 1;
-    click1 = departureDate;
-    click2 = null;
-    departureDayElement.classList.add("selected-day");
-
-    console.log("Resetting, new first click date:", click1);
+  if (previousSelectedDepartureDay) {
+    previousSelectedDepartureDay.classList.remove("selected-day");
   }
-  console.log("count: " + clickCount);
+
+  departureDayElement.classList.add("selected-day");
+  hideDepartureCalendar();
+
+  // clickCount++;
+  // if (clickCount === 1) {
+  //   click1 = departureDate;
+  //   console.log("First click date:", click1);
+  //   departureDayElement.classList.add("selected-day");
+
+  // } else if (clickCount === 2) {
+  //   click2 = departureDate;
+  //   console.log("Second click date:", click2);
+  //   departureDayElement.classList.add("selected-day");
+  // } else if(clickCount == 3) {
+  //   allPreviousSelectedDepartureDay.forEach((previousSelectedDepartureDay) => {
+  //     previousSelectedDepartureDay.classList.remove("selected-day");
+  //   });
+
+  //   clickCount = 1;
+  //   click1 = departureDate;
+  //   click2 = null;
+  //   departureDayElement.classList.add("selected-day");
+
+  //   console.log("Resetting, new first click date:", click1);
+  // }
+  // console.log("count: " + clickCount);
 
   displayDepartureDateInfo(departureDate);
 
@@ -748,7 +831,7 @@ function showDepartureCalendar() {
 }
 
 inputDepartureDate.addEventListener("click", function () {
-  // attachEventListenersDepartureToDays();
+  attachEventListenersDepartureToDays();
   showDepartureCalendar();
 });
 
@@ -910,9 +993,19 @@ const attachEventListenersDestinationToDays = () => {
       destinationDayElement.classList.add("past-day");
     }
     destinationDayElement.addEventListener("click", () => {
-      if (destinationDate < departureSelectedDate) {
-        return;
+      // if (destinationDate < departureSelectedDate) {
+      //   return;
+      // }
+      if (departureDate) {
+        if (destinationDate < departureSelectedDate) {
+          return;
+        }
+      } else {
+        if (destinationDate < destinationToday) {
+          return;
+        }
       }
+
       selectDestinationDay(destinationDayElement, destinationDate);
     });
   });
@@ -1273,3 +1366,69 @@ inputTourChildrenPrice.addEventListener("keyup", function () {
 // } else {
 //   // <input type=time> reversed range unsupported
 // }
+
+const btnAddNewHighlight = document
+  .getElementById("btn-add-new-highlight")
+  .addEventListener("click", function () {
+    checkEmptyInputField();
+    const subInputTourHighlightField = document.querySelector(
+      ".sub-input-tour-highlight-field"
+    );
+    const newHighlight = document.createElement("div");
+    newHighlight.className = "input-tour-highlight-field  active";
+    newHighlight.innerHTML = `<div class="sub-input-tour-highlight-field ">
+    <input type="text" id="input-tour-highlight" class="input-field input-reset" placeholder="e.g: Khám phá Thung Lũng Tình Yêu, tận hưởng những khu vườn lãng mạn, hồ nước yên bình và những con đường mòn tuyệt đẹp.">
+  </div>
+  <div class="btn-function-add-highlight-field active">
+    <a href="#" id="btn-accept-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
+    check
+    </span></a>
+    <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
+    close
+    </span></a>
+  </div>
+
+  <div class="btn-function-update-highlight-field ">
+    <a href="#" id="btn-update-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
+      edit
+      </span></a>
+    <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
+      delete
+      </span></a>
+  </div>   `;
+    subInputTourHighlightField.appendChild(newHighlight);
+    const btnFunctionUpdateHighlightField = newHighlight.querySelector(
+      ".btn-function-update-highlight-field"
+    );
+    const btnFunctionAddHighlightField = newHighlight.querySelector(
+      ".btn-function-add-highlight-field"
+    );
+    const inputTourHighlight = newHighlight.querySelector(
+      "#input-tour-highlight"
+    );
+    newHighlight
+      .querySelector("#btn-accept-new-highlight")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        btnFunctionAddHighlightField.classList.remove("active");
+        btnFunctionUpdateHighlightField.classList.add("active");
+      });
+    const allBtnDeleteNewHighlight = newHighlight.querySelectorAll(
+      "#btn-delete-new-highlight"
+    );
+
+    allBtnDeleteNewHighlight.forEach((btnDeleteNewHighlight) => {
+      btnDeleteNewHighlight.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default anchor behavior
+        newHighlight.remove(); // Remove the container
+      });
+    });
+
+    newHighlight
+      .querySelector("#btn-update-new-highlight")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        btnFunctionUpdateHighlightField.classList.remove("active");
+        btnFunctionAddHighlightField.classList.add("active");
+      });
+  });

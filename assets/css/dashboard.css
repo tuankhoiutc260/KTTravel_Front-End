@@ -19,6 +19,7 @@
   --color-light-gray: #f8f8f8;
   --color-border: #dedede;
   --color-primary: #287bff;
+  --color-primary-light: #eaf2ff;
   --color-secondary: rgb(62, 175, 245);
   --color-primary-15: rgb(62, 175, 245, 0.15);
   --color-placeholder-text: #757575;
@@ -26,6 +27,10 @@
   --color-quaternary: #dff5ff;
   --color-white: #ffffff;
   --color-calendar-hover: #fbc7d4;
+  --color-accept: #40C258;
+  --color-accept-light: #ecf9ee;
+  --color-cancel: #FA5252;
+  --color-cancel-light: #ffeeee;
 
   --shadow-block: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
 
@@ -69,8 +74,10 @@ input::-webkit-inner-spin-button {
 /* time */
 input[type="time"] {
   cursor: pointer;
+  width: 100%;
+  
 }
-input[type=time]::-webkit-datetime-edit-hour-field,
+input[type=time]::-webkit-datetime-edit-hour-fie  ld,
 input[type=time]::-webkit-datetime-edit-minute-field,
 input[type=time]::-webkit-datetime-edit-second-field,
 input[type=time]::-webkit-datetime-edit-ampm-field {
@@ -314,7 +321,48 @@ input[type=time]::-webkit-datetime-edit-ampm-field:focus {
   color: var(--color-primary);
 }
 
-.btn:hover {
+.btn-accept{
+  display: flex;
+  color: var(--color-accept);
+  border: 1px solid var(--color-accept);
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: var(--color-accept-light);
+ 
+}
+
+.btn-accept:hover{
+  /* transform: none; */
+  transition: var(--time-fast) ease;
+  background: var(--color-accept);
+  color: var(--color-white);
+}
+
+.btn-delete{
+  display: flex;
+  color:  var(--color-cancel);
+  border: 1px solid  var(--color-cancel);
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: var(--color-cancel-light);
+}
+
+.btn-delete:hover{
+  /* transform: none; */
+  transition: var(--time-fast) ease;
+  background: var(--color-cancel);
+  color: var(--color-white);
+}
+
+.btn-accept:hover{
+  transform: none;
+  transition: var(--time-fast) ease;
+  background: var(--color-accept);
+  color: var(--color-white);
+}
+
+
+.btn-primary:hover, .btn-secondary:hover, .btn-tertiary:hover {
   transform: scale(1.05);
 }
 
@@ -819,9 +867,10 @@ td:not(td:nth-child(2)) {
   background: #fafcfe;
   cursor: auto;
   line-height: 30px;
+  text-overflow: ellipsis;
   /* color: #757575; */
   /* box-shadow: var(--shadow-block); */
-  /* transition: 0.3 var(--time-fast); */
+  transition: var(--time-fast) ease;
 }
 
 #input-tour-description {
@@ -1259,10 +1308,11 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 /* End Calendar Progress 2 */
 
-.cont-position {
+.cont-position, .cont-centralized-inf {
   display: flex;
   gap: 50px;
 }
+
 
 #input-position-departure,
 #input-position-destination {
@@ -1502,3 +1552,114 @@ textarea::-webkit-scrollbar-thumb:hover {
   grid-template-rows: repeat(2, auto);
   gap: 30px 50px;
 }
+
+#form-add-new-tour .sub-input-tour-highlight-field{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#form-add-new-tour .input-tour-highlight-field{
+  width: 100%;
+  overflow: hidden;
+  border-radius: 7px;
+  border: 2px solid transparent;
+  background: #fafcfe;
+  cursor: auto;
+  display: flex;
+}
+
+#form-add-new-tour .input-tour-highlight-field.active{
+  width: 100%;
+  overflow: hidden;
+  border-radius: 7px;
+  border: 2px solid var(--color-border);
+  background: #fafcfe;
+  cursor: auto;
+  display: flex;
+}
+
+#form-add-new-tour .sub-input-tour-highlight-field{
+  width: 100%;
+}
+
+
+#form-add-new-tour .btn-function-add-highlight-field.active{
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px 0px 0px ;
+}
+
+#form-add-new-tour .btn-function-add-highlight-field{
+  display: none;
+}
+
+#form-add-new-tour .btn-function-update-highlight-field.active{
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px 0px 0px ;
+}
+
+#form-add-new-tour .btn-function-update-highlight-field{
+  display: none;
+  /* visibility: hidden; */
+}
+
+#form-add-new-tour #input-tour-highlight{
+
+  /* border: 2px solid var(--color-border); */
+  border: none;
+  /* background-color: tra
+/ */
+}
+
+#form-add-new-tour .cont-btn-add-new-highlight{
+  display: flex;
+  justify-content: center;
+}
+
+#form-add-new-tour #btn-add-new-highlight{
+  all: unset;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid var(--color-primary);
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+#form-add-new-tour #btn-add-new-highlight > span{
+  color: var(--color-primary);
+}
+
+#form-add-new-tour #btn-add-new-highlight:hover{
+  background: var(--color-primary);
+  transition: var(--time-fast) ease;
+}
+
+#form-add-new-tour #btn-add-new-highlight:hover span {
+  color: var(--color-primary-light);
+  background: var(--color-primary);
+  transition: var(--time-fast) ease;
+}
+
+/* #form-add-new-tour .btn-function-update-highlight-field span{
+  font-size: var(--font-size-normal);
+  justify-content: center;
+} */
+
+#form-add-new-tour .input-tour-highlight-field span{
+  font-size: var(--font-size-normal);
+  justify-content: center;
+}
+
