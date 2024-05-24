@@ -379,10 +379,11 @@
                       <span class="tour-description-char-count char-count">100/100</span>
                     </div>
                   </div>
-                  <div class="sub-cont-inf-new-tour cont-process-2 ">
+                  <div class="sub-cont-inf-new-tour cont-process-2">
                     <div id="cont-date">
                       <div class="cont-departure-date-add-new-tour cont-inf-field ">
                         <label class="title-field" for="input-departure-date">Departure Date <span>(required)</span></label>
+                      
                         <input class="input-field input-reset" id="input-departure-date" placeholder="Select departure date!" readonly style="cursor: pointer;">
                         <div id="cont-departure-calendar" class="cont-calendar">
                           <div class="sub-cont-calendar">
@@ -561,6 +562,7 @@
                   </div>
                   <div class="sub-cont-inf-new-tour cont-process-3 ">
                     <div id="cont-tour-schedule" class="cont-inf-field ">
+              
                       <!-- <div class="cont-date-schedule">
                         <div id="cont-tour-schedule-title" class="cont-inf-field ">
                           <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
@@ -624,86 +626,79 @@
                   <div class="sub-cont-inf-new-tour cont-process-4">
                     <div id="cont-main-price" class="cont-inf-field">
                       <label for="input-tour-main-price" class="title-field">Price per once <span>(required)</span></label>
-                      <input type="text" id="input-tour-main-price" class="input-field input-price" value="0" max="100000000" min="0" />
+                      <input type="text" id="input-tour-main-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
                       <span class="char-count">VND</span>
                     </div>
                     <div class="cont-sub-price">
                       <div id="cont-tour-adult-price" class="cont-inf-field ">
                         <label for="input-tour-adult-price" class="title-field">Adult <span>(Ages 12 and above) (required)</span></label>
-                        <input type="text" id="input-tour-adult-price" class="input-field input-price" value="0" max="100000000" min="0" />
+                        <input type="text" id="input-tour-adult-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                       <div id="cont-tour-children-price" class="cont-inf-field ">
                         <label for="input-tour-children-price" class="title-field">Children <span>(Ages 5 - 11 and above) (required)</span></label>
-                        <input type="text" id="input-tour-children-price" class="input-field input-price" value="0" max="100000000" min="0" />
+                        <input type="text" id="input-tour-children-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                       <div id="cont-tour-toddler-price" class="cont-inf-field ">
                         <label for="input-tour-toddler-price" class="title-field">Toddler <span>(Ages 2 - 4 and above) (required)</span></label>
-                        <input type="text" id="input-tour-toddler-price" class="input-field input-price" value="0" max="100000000" min="0" />
+                        <input type="text" id="input-tour-toddler-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                       <div id="cont-tour-infant-price" class="cont-inf-field ">
                         <label for="input-tour-infant-price" class="title-field">Infant <span>(Ages 0 - 2 and above) (required)</span></label>
-                        <input type="number" id="input-tour-infant-price" class="input-field input-price" value="0" max="100000000" min="0" />
+                        <input type="number" id="input-tour-infant-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                     </div>
 
                   </div>
-                  <div class="sub-cont-inf-new-tour cont-process-5 ">
+                  <div class="sub-cont-inf-new-tour cont-process-5">
                     <div id="cont-tour-highlights" class="cont-inf-field ">
                       <label for="input-tour-highlights" class="title-field">Highlights</label>
-                      <div class="sub-input-tour-highlight-field">
-                        <!-- <div class="input-tour-highlight-field  active">
-                          <div class="sub-input-tour-highlight-field ">
-                            <input type="text" id="input-tour-highlight" class="input-field input-reset" placeholder="e.g: Khám phá Thung Lũng Tình Yêu, tận hưởng những khu vườn lãng mạn, hồ nước yên bình và những con đường mòn tuyệt đẹp.">
-                          </div>
-                          <div class="btn-function-add-highlight-field active">
-                            <a href="#" id="btn-accept-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
-                              check
-                              </span></a>
-                            <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
-                              delete
-                              </span></a>
-                          </div>
-
-                          <div class="btn-function-update-highlight-field ">
-                            <a href="#" id="btn-update-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
-                              edit
-                              </span></a>
-                            <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
-                              delete
-                              </span></a>
-                          </div>                          
+                      <div class="sub-cont-input-tour-highlights-field sub-cont-input-tour-field-process-note">
+                        <div class="cont-input-tour-highlights-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field">
+                          <input type="text" id="input-tour-highlights" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
                         </div>
-                        
-                        <div class="input-tour-highlight-field active">
-                          <div class="sub-input-tour-highlight-field ">
-                            <input type="text" id="input-tour-highlight" class="input-field input-reset" placeholder="e.g: Khám phá Thung Lũng Tình Yêu, tận hưởng những khu vườn lãng mạn, hồ nước yên bình và những con đường mòn tuyệt đẹp.">
-                          </div>
-                          <div class="btn-function-add-highlight-field active">
-                            <a href="#" id="btn-accept-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
-                              check
-                              </span></a>
-                            <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
-                              delete
-                              </span></a>
-                          </div>
-
-                          <div class="btn-function-update-highlight-field ">
-                            <a href="#" id="btn-update-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
-                              edit
-                              </span></a>
-                            <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
-                              delete
-                              </span></a>
-                          </div>         
-                        </div> -->
                       </div>
+                      <div class="cont-btn-add-new-highlights cont-btn-add-field-process-note">
+                        <a href="#" id="btn-add-new-highlights"><span class="material-symbols-outlined">
+                            add
+                          </span></a>
+                      </div>
+                    </div>
 
-                      <div class="cont-btn-add-new-highlight">
-                        <a href="#" id="btn-add-new-highlight"><span class="material-symbols-outlined">
+                    <div id="cont-tour-included" class="cont-inf-field ">
+                      <label for="input-tour-included" class="title-field">Included</label>
+                      <div class="sub-cont-input-tour-included-field sub-cont-input-tour-field-process-note">
+                        <div class="cont-input-tour-included-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field">
+                          <input type="text" id="input-tour-included" class="input-field input-reset input-tour-field-process-note input-tour-included-field" placeholder="e.g: Professional tour guide">
+                          <!-- <div class="cont-btn-function-with-included-field cont-btn-function-with-field-of-process-note">
+                            <a href="#" id="btn-delete-included" class="btn-function-with-field-of-process-note btn-normal">
+                              <span class="material-symbols-outlined">close</span></a>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="cont-btn-add-new-included cont-btn-add-field-process-note">
+                        <a href="#" id="btn-add-new-included"><span class="material-symbols-outlined">
+                            add
+                          </span></a>
+                      </div>
+                    </div>
+
+                    <div id="cont-tour-excluded" class="cont-inf-field ">
+                      <label for="input-tour-excluded" class="title-field">Excluded</label>
+                      <div class="sub-cont-input-tour-excluded-field sub-cont-input-tour-field-process-note">
+                        <div class="cont-input-tour-excluded-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field">
+                          <input type="text" id="input-tour-excluded" class="input-field input-reset input-tour-field-process-note input-tour-excluded-field" placeholder="e.g: Personal expenses such as shopping and phone calls">
+                          <!-- <div class="cont-btn-function-with-excluded-field cont-btn-function-with-field-of-process-note">
+                            <a href="#" id="btn-delete-excluded" class="btn-function-with-field-of-process-note btn-normal">
+                              <span class="material-symbols-outlined">close</span></a>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="cont-btn-add-new-excluded cont-btn-add-field-process-note">
+                        <a href="#" id="btn-add-new-excluded"><span class="material-symbols-outlined">
                             add
                           </span></a>
                       </div>

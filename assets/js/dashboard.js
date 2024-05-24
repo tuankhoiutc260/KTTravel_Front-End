@@ -133,7 +133,6 @@ function checkContainerOverview() {
   return isValid;
 }
 
-
 function checkEmptyInputField() {
   const timeInput = document.getElementById("input-centralized-time-inf");
   timeInput.addEventListener("change", () => {
@@ -147,19 +146,29 @@ function checkEmptyInputField() {
 
   const alInputField = document.querySelectorAll(".input-field");
   alInputField.forEach((inputField) => {
-    const subContScheduleContent = inputField.closest(
-      ".sub-cont-schedule-content"
-    );
+    const subContInputField = inputField.closest(".sub-cont-input-field");
     const inputTourHighlightCloset = inputField.closest(
       ".input-tour-highlight-field.active"
     );
 
     inputField.addEventListener("keyup", function () {
-      if (subContScheduleContent) {
-        if (inputField.textContent.trim() === "") {
-          subContScheduleContent.style.borderColor = "red";
+      // console.log("subContInputField: " + subContInputField);
+      if (subContInputField) {
+        if (
+          inputField.tagName === "INPUT" ||
+          inputField.tagName === "TEXTAREA"
+        ) {
+          if (inputField.value.trim() === "") {
+            subContInputField.style.borderColor = "red";
+          } else {
+            subContInputField.style.borderColor = "";
+          }
         } else {
-          subContScheduleContent.style.borderColor = "";
+          if (inputField.textContent.trim() === "") {
+            subContInputField.style.borderColor = "red";
+          } else {
+            subContInputField.style.borderColor = "";
+          }
         }
       } else if (inputTourHighlightCloset) {
         if (inputField.value.trim() === "") {
@@ -214,13 +223,11 @@ function resetInputField() {
   const allInputReset = document.querySelectorAll(".input-reset");
   let needConfirmation = false;
   allInputReset.forEach((inputReset) => {
-    // Kiểm tra nếu phần tử là một input hoặc textarea
     if (inputReset.tagName === "INPUT" || inputReset.tagName === "TEXTAREA") {
       if (inputReset.value.trim() !== "") {
         needConfirmation = true;
       }
     } else {
-      // Kiểm tra nếu là các phần tử khác (như <div>, <span>, ...)
       if (inputReset.textContent.trim() !== "") {
         needConfirmation = true;
       }
@@ -238,9 +245,9 @@ function resetInputField() {
 
   //   }
   // });
-  
+
   allInputReset.forEach((inputReset) => {
-      inputReset.style.borderColor = ''
+    inputReset.style.borderColor = "";
   });
 
   if (needConfirmation) {
@@ -250,10 +257,28 @@ function resetInputField() {
         inputReset.value = "";
         inputReset.textContent = "";
       });
+
       closeContAddNewTour();
     }
   } else {
     closeContAddNewTour();
+  }
+
+  const highlights = document.querySelectorAll(
+    ".cont-input-tour-highlights-field"
+  );
+  for (let i = 1; i < highlights.length; i++) {
+    highlights[i].remove();
+  }
+
+  const included = document.querySelectorAll(".cont-input-tour-included-field");
+  for (let i = 1; i < included.length; i++) {
+    included[i].remove();
+  }
+
+  const excluded = document.querySelectorAll(".cont-input-tour-excluded-field");
+  for (let i = 1; i < excluded.length; i++) {
+    excluded[i].remove();
   }
 }
 
@@ -375,18 +400,48 @@ function checkContainerPriceList() {
 
 function checkNote() {
   let isValid = true;
-  const allInputTourHighlights = document.querySelectorAll(
-    "#input-tour-highlight"
+  const allInputTourHighlight = document.querySelectorAll(
+    ".input-tour-highlight-field"
   );
-  allInputTourHighlights.forEach((inputTourHighlight) => {
+  const allInputTourIncluded = document.querySelectorAll(
+    ".input-tour-included-field"
+  );
+  const allInputTourExcluded = document.querySelectorAll(
+    ".input-tour-excluded-field"
+  );
+  allInputTourHighlight.forEach((inputTourHighlight) => {
     const inputTourHighlightCloset = inputTourHighlight.closest(
-      ".input-tour-highlight-field.active"
+      ".sub-cont-input-field"
     );
     if (inputTourHighlight.value.trim() === "") {
       inputTourHighlightCloset.style.borderColor = "red";
       isValid = false;
     } else {
       inputTourHighlightCloset.style.borderColor = "";
+    }
+  });
+
+  allInputTourIncluded.forEach((inputTourIncluded) => {
+    const inputTourIncludedCloset = inputTourIncluded.closest(
+      ".sub-cont-input-field"
+    );
+    if (inputTourIncluded.value.trim() === "") {
+      inputTourIncludedCloset.style.borderColor = "red";
+      isValid = false;
+    } else {
+      inputTourIncludedCloset.style.borderColor = "";
+    }
+  });
+
+  allInputTourExcluded.forEach((inputTourExcluded) => {
+    const inputTourExcludedCloset = inputTourExcluded.closest(
+      ".sub-cont-input-field"
+    );
+    if (inputTourExcluded.value.trim() === "") {
+      inputTourExcludedCloset.style.borderColor = "red";
+      isValid = false;
+    } else {
+      inputTourExcludedCloset.style.borderColor = "";
     }
   });
   return isValid;
@@ -429,32 +484,33 @@ btnNextProgress.addEventListener("click", function () {
   switch (currentActiveIndex) {
     case 0:
       checkEmptyInputField();
-      // if (checkContainerOverview()) {
-        updateProgressAndNavigation();
-      // }
+      if (checkContainerOverview()) {
+      updateProgressAndNavigation();
+      }
       break;
     case 1:
       checkEmptyInputField();
-      // if (checkContainerDetails()) {
+      if (checkContainerDetails()) {
         updateProgressAndNavigation();
-      // }
+      }
       break;
     case 2:
       checkEmptyInputField();
-      // if (checkContainerSchedule()) {
+      if (checkContainerSchedule()) {
         updateProgressAndNavigation();
-      // }
+      }
       break;
     case 3:
       checkEmptyInputField();
-      // if (checkContainerPriceList()) {
+      if (checkContainerPriceList()) {
         updateProgressAndNavigation();
-      // }
+      }
       break;
     case 4:
       checkEmptyInputField();
       if (checkNote()) {
-        console.log("finish");
+        resetInputField();
+
       }
   }
   if (currentActiveIndex == 1) {
@@ -506,23 +562,23 @@ function addSchedule(dayIndex) {
   const newSchedule = document.createElement("div");
   newSchedule.className = "cont-date-schedule";
   newSchedule.innerHTML = `
-                <div id="cont-tour-schedule-title" class="cont-inf-field">
-                    <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day ${dayCount} - ${formattedDate}</span>
-                    <label for="input-tour-schedule-title-${dayCount}" class="title-field">Title Schedule <span>(required)</span></label>
-                    <input type="text" id="input-tour-schedule-title-${dayCount}" class="input-field input-reset input-tour-schedule-title" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
-                    <span class="tour-schedule-title-char-count char-count">0/100</span>
-                </div>
-                <div class="cont-schedule-content cont-inf-field">
-                    <label for="input-tour-description-schedule-${dayCount}" class="title-field">Description Schedule <span>(required)</span></label>
-                    <div class="sub-cont-schedule-content sub-input-field">
-                        <div style="border: none;" id="input-tour-description-schedule-${dayCount}" class="input-field input-reset input-tour-description-schedule" contenteditable="true"></div>
-                        <div class="cont-tool-editor">
-                            <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold', true, '')"><strong>B</strong></a>
-                            <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
-                            <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
-                        </div>
-                    </div>
-                </div>
+  <div id="cont-tour-schedule-title" class="cont-inf-field">
+    <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day ${dayCount} - ${formattedDate}</span>
+    <label for="input-tour-schedule-title-${dayCount}" class="title-field">Title Schedule <span>(required)</span></label>
+    <input type="text" id="input-tour-schedule-title-${dayCount}" class="input-field input-reset input-tour-schedule-title" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
+    <span class="tour-schedule-title-char-count char-count">0/100</span>
+  </div>
+  <div class="cont-schedule-content cont-inf-field">
+    <label for="input-tour-description-schedule-${dayCount}" class="title-field">Description Schedule <span>(required)</span></label>
+    <div class="sub-cont-input-field sub-input-field">
+      <div style="border: none;" id="input-tour-description-schedule-${dayCount}" class="input-field input-reset input-tour-description-schedule" contenteditable="true"></div>
+      <div class="cont-tool-editor">
+        <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold', true, '')"><strong>B</strong></a>
+        <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
+        <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
+      </div>
+    </div>
+  </div>
             `;
   container.appendChild(newSchedule);
   // const alInputField = document.querySelectorAll(".input-field");
@@ -604,15 +660,25 @@ const contAddNewTour = document.querySelector(".cont-add-new-tour");
 const btnAddNewTour = document.getElementById("btn-add-new-tour");
 btnCloseContAddNewTour.addEventListener("click", function () {
   resetInputField();
-  const highlights = document.querySelectorAll(".input-tour-highlight-field");
-
-  // Iterate over each highlight element and remove it
-  highlights.forEach((highlight) => {
-    highlight.remove();
-  });
 });
 
 btnAddNewTour.addEventListener("click", function () {
+  console.log("currentDepartureMonth: " + currentDepartureMonth.value);
+  console.log("currentDestinationMonth: " + currentDestinationMonth.value);
+  destinationSelectedDate = "";
+  departureSelectedDate = "";
+  currentDepartureMonth = { value: currentDepartureDate.getMonth() };
+  currentDestinationMonth = { value: currentDestinationDate.getMonth() };
+  currentDepartureYear = { value: currentDepartureDate.getFullYear() };
+  currentDestinationYear = { value: currentDestinationDate.getFullYear() };
+  generateDepartureCalendar(
+    currentDepartureMonth.value,
+    currentDepartureYear.value
+  );
+  generateDestinationCalendar(
+    currentDestinationMonth.value,
+    currentDestinationYear.value
+  );
   contAddNewTour.classList.toggle("active");
 });
 // Calendar
@@ -1354,81 +1420,92 @@ inputTourChildrenPrice.addEventListener("keyup", function () {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   this.value = inputTourPriceFormatted;
 });
-
-// const input = document.createElement("input");
-// input.type = "time";
-// input.min = "23:00";
-// input.max = "01:00";
-// input.value = "23:59";
-
-// if (input.validity.valid && input.type === "time") {
-//   // <input type=time> reversed range supported
-// } else {
-//   // <input type=time> reversed range unsupported
-// }
-
-const btnAddNewHighlight = document
-  .getElementById("btn-add-new-highlight")
+const btnAddNewHighlights = document
+  .getElementById("btn-add-new-highlights")
   .addEventListener("click", function () {
     checkEmptyInputField();
-    const subInputTourHighlightField = document.querySelector(
-      ".sub-input-tour-highlight-field"
-    );
-    const newHighlight = document.createElement("div");
-    newHighlight.className = "input-tour-highlight-field  active";
-    newHighlight.innerHTML = `<div class="sub-input-tour-highlight-field ">
-    <input type="text" id="input-tour-highlight" class="input-field input-reset" placeholder="e.g: Khám phá Thung Lũng Tình Yêu, tận hưởng những khu vườn lãng mạn, hồ nước yên bình và những con đường mòn tuyệt đẹp.">
-  </div>
-  <div class="btn-function-add-highlight-field active">
-    <a href="#" id="btn-accept-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
-    check
-    </span></a>
-    <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
-    close
-    </span></a>
-  </div>
-
-  <div class="btn-function-update-highlight-field ">
-    <a href="#" id="btn-update-new-highlight" class="btn btn-accept"><span class="material-symbols-outlined">
-      edit
-      </span></a>
-    <a href="#" id="btn-delete-new-highlight" class="btn btn-delete"><span class="material-symbols-outlined">
-      delete
-      </span></a>
-  </div>   `;
-    subInputTourHighlightField.appendChild(newHighlight);
-    const btnFunctionUpdateHighlightField = newHighlight.querySelector(
-      ".btn-function-update-highlight-field"
-    );
-    const btnFunctionAddHighlightField = newHighlight.querySelector(
-      ".btn-function-add-highlight-field"
-    );
-    const inputTourHighlight = newHighlight.querySelector(
-      "#input-tour-highlight"
-    );
-    newHighlight
-      .querySelector("#btn-accept-new-highlight")
-      .addEventListener("click", function (e) {
-        e.preventDefault();
-        btnFunctionAddHighlightField.classList.remove("active");
-        btnFunctionUpdateHighlightField.classList.add("active");
-      });
-    const allBtnDeleteNewHighlight = newHighlight.querySelectorAll(
-      "#btn-delete-new-highlight"
+    const subContInputTourHighlightsField = document.querySelector(
+      ".sub-cont-input-tour-highlights-field"
     );
 
-    allBtnDeleteNewHighlight.forEach((btnDeleteNewHighlight) => {
-      btnDeleteNewHighlight.addEventListener("click", function (e) {
-        e.preventDefault(); // Prevent the default anchor behavior
-        newHighlight.remove(); // Remove the container
-      });
+    const newContHighlights = document.createElement("div");
+    newContHighlights.className =
+      "cont-input-tour-highlights-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
+    newContHighlights.innerHTML = `
+    <input type="text" id="input-tour-highlights" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+    <div class="cont-btn-function-with-highlights-field cont-btn-function-with-field-of-process-note">
+      <a href="#" id="btn-delete-highlights" class="btn-function-with-field-of-process-note btn-normal">
+      <span class="material-symbols-outlined">close</span></a>
+    </div>`;
+    subContInputTourHighlightsField.appendChild(newContHighlights);
+    checkEmptyInputField();
+
+    const btnDeleteNewHighlights = newContHighlights.querySelector(
+      "#btn-delete-highlights"
+    );
+
+    btnDeleteNewHighlights.addEventListener("click", function (e) {
+      e.preventDefault();
+      newContHighlights.remove();
     });
+  });
 
-    newHighlight
-      .querySelector("#btn-update-new-highlight")
-      .addEventListener("click", function (e) {
-        e.preventDefault();
-        btnFunctionUpdateHighlightField.classList.remove("active");
-        btnFunctionAddHighlightField.classList.add("active");
-      });
+const btnAddNewIncluded = document
+  .getElementById("btn-add-new-included")
+  .addEventListener("click", function () {
+    checkEmptyInputField();
+    const subContInputTourIncludedField = document.querySelector(
+      ".sub-cont-input-tour-included-field"
+    );
+
+    const newContIncluded = document.createElement("div");
+    newContIncluded.className =
+      "cont-input-tour-included-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
+    newContIncluded.innerHTML = `
+    <input type="text" id="input-tour-included" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+    <div class="cont-btn-function-with-included-field cont-btn-function-with-field-of-process-note">
+      <a href="#" id="btn-delete-included" class="btn-function-with-field-of-process-note btn-normal">
+      <span class="material-symbols-outlined">close</span></a>
+    </div>`;
+    subContInputTourIncludedField.appendChild(newContIncluded);
+    checkEmptyInputField();
+
+    const btnDeleteNewIncluded = newContIncluded.querySelector(
+      "#btn-delete-included"
+    );
+
+    btnDeleteNewIncluded.addEventListener("click", function (e) {
+      e.preventDefault();
+      newContIncluded.remove();
+    });
+  });
+
+  const btnAddNewExcluded = document
+  .getElementById("btn-add-new-excluded")
+  .addEventListener("click", function () {
+    checkEmptyInputField();
+    const subContInputTourExcludedField = document.querySelector(
+      ".sub-cont-input-tour-excluded-field"
+    );
+
+    const newContExcluded = document.createElement("div");
+    newContExcluded.className =
+      "cont-input-tour-excluded-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
+    newContExcluded.innerHTML = `
+    <input type="text" id="input-tour-excluded" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+    <div class="cont-btn-function-with-excluded-field cont-btn-function-with-field-of-process-note">
+      <a href="#" id="btn-delete-excluded" class="btn-function-with-field-of-process-note btn-normal">
+      <span class="material-symbols-outlined">close</span></a>
+    </div>`;
+    subContInputTourExcludedField.appendChild(newContExcluded);
+    checkEmptyInputField();
+
+    const btnDeleteNewExcluded = newContExcluded.querySelector(
+      "#btn-delete-excluded"
+    );
+
+    btnDeleteNewExcluded.addEventListener("click", function (e) {
+      e.preventDefault();
+      newContExcluded.remove();
+    });
   });
