@@ -1,9 +1,4 @@
 window.addEventListener("DOMContentLoaded", function () {
-  iconProgressBar.style.left = -iconProgressBarWidth / 2 + "px";
-  countChar100(inputTourName, tourNameCharCount);
-  // countChar100(inputTourScheduleTitle, tourScheduleTitleCharCount);
-  countChar250(inputTourDescription, tourDescriptionCharCount);
-
   allInputPrice.forEach((inputPrice) => {
     inputPrice.addEventListener("keyup", function () {
       formatPrice(inputPrice);
@@ -11,10 +6,28 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+const btnShowToast = document.querySelector("#show-toast");
+const toastBox = document.querySelector("#toast-box");
+let successMsg =
+  '<span class="material-symbols-outlined"> check_circle </span> <span>Successfully</span>';
+btnShowToast.addEventListener("click", function () {
+  showToast(successMsg);
+});
+function showToast(msg) {
+  let toast = document.createElement("div");
+  toast.classList.add("toast", "success-toast");
+  toast.innerHTML = msg;
+  toastBox.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+  }, 4000);
+}
+
 function formatPrice(element) {
-  var inputPriceRemovedChar = element.value.replace(/[^0-9\.]/g, "");
-  var inputPriceRemovedDot = inputPriceRemovedChar.replace(/\./g, "");
-  var inputPriceValue = inputPriceRemovedDot;
+  const inputPriceRemovedChar = element.value.replace(/[^0-9]/g, "");
+  let inputPriceRemovedDot;
+  inputPriceRemovedDot = inputPriceRemovedChar.replace(/\./g, "");
+  let inputPriceValue = inputPriceRemovedDot;
   if (inputPriceValue.length < 1) {
     inputPriceValue = "0";
   }
@@ -22,26 +35,23 @@ function formatPrice(element) {
   if (inputPriceValue.length < 1) {
     inputPriceValue = "0";
   }
-  var maxTourMainPrice = parseInt(element.getAttribute("max"), 10);
+  const maxTourMainPrice = parseInt(element.getAttribute("max"), 10);
   if (parseInt(inputPriceValue, 10) > maxTourMainPrice) {
     inputPriceValue = inputPriceValue.substring(0, inputPriceValue.length - 1);
   }
-  var inputTourPriceFormatted = inputPriceValue.replace(
+  let inputTourPriceFormatted;
+  inputTourPriceFormatted = inputPriceValue.replace(
     /\B(?=(\d{3})+(?!\d))/g,
     "."
   );
   element.value = inputTourPriceFormatted;
 }
 
-const subContAddNewTour = document.querySelector(".sub-cont-add-new-tour");
 const allInputPrice = document.querySelectorAll(".input-price");
-
 const toggle = document.querySelector(".toggle");
 const navigation = document.querySelector(".navigation");
 const titles = document.querySelectorAll(".title");
 const btnFunction = document.querySelectorAll(".navigation > ul > li");
-const contFunction = document.querySelector(".navigation ul");
-
 const liNavigation = document.querySelector(".navigation li");
 const iconBtn = document.querySelector(".navigation .icon-btn");
 const liNavigationActive = document.querySelector(".navigation.active ul li");
@@ -70,10 +80,8 @@ const iconProgressBar = document.getElementById("icon-progress-bar");
 const iconProgressBarWidth = parseFloat(
   window.getComputedStyle(iconProgressBar).getPropertyValue("width")
 );
-
 const contNumbs = document.querySelectorAll(".cont-numb");
 const btnNextProgress = document.getElementById("btn-next-progress");
-
 const contProgress = document.querySelector(".cont-progress");
 const subContSuccessProgressBar = document.querySelector(
   ".sub-cont-success-progress-bar"
@@ -81,37 +89,22 @@ const subContSuccessProgressBar = document.querySelector(
 const contProgressWidth = parseFloat(
   window.getComputedStyle(contProgress).getPropertyValue("width")
 );
-
-const contMainSubProgressActiveAfters = document.querySelectorAll(
-  ".cont-main-sub-progress.active::after"
-);
 const sub2ContInfNewTour = document.querySelector(".sub-2-cont-inf-new-tour");
 const inputTourName = document.getElementById("input-tour-name");
-const tourNameCharCount = document.querySelector(".tour-name-char-count");
 const inputTourDescription = document.getElementById("input-tour-description");
-const tourDescriptionCharCount = document.querySelector(
-  ".tour-description-char-count"
-);
-// const inputTourScheduleTitle = document.getElementById(
-//   "input-tour-schedule-title"
-// );
-
-const tourScheduleTitleCharCount = document.querySelector(
-  ".tour-schedule-title-char-count"
-);
 const allSubContInfNewTour = document.querySelectorAll(
   ".sub-cont-inf-new-tour"
 );
 
 const textareas = document.querySelectorAll("textarea");
-
 textareas.forEach((textarea) => {
   textarea.addEventListener("keyup", (e) => {
-    textarea.style.height = "50px";
-    let scHeigth = e.target.scrollHeight;
-    textarea.style.height = `${scHeigth}px`;
+    textarea.style.height = `50px`;
+    let scHeight = e.target.scrollHeight;
+    textarea.style.height = `${scHeight}px`;
   });
 });
+
 const allProgressBarsText = document.querySelectorAll(
   ".cont-add-new-tour .sub-cont-progress span"
 );
@@ -145,6 +138,9 @@ function checkEmptyInputField() {
   });
 
   const alInputField = document.querySelectorAll(".input-field");
+  const allContInputTourImage = document.querySelectorAll(
+    ".cont-input-tour-image"
+  );
   alInputField.forEach((inputField) => {
     const subContInputField = inputField.closest(".sub-cont-input-field");
     const inputTourHighlightCloset = inputField.closest(
@@ -152,7 +148,6 @@ function checkEmptyInputField() {
     );
 
     inputField.addEventListener("keyup", function () {
-      // console.log("subContInputField: " + subContInputField);
       if (subContInputField) {
         if (
           inputField.tagName === "INPUT" ||
@@ -173,7 +168,6 @@ function checkEmptyInputField() {
       } else if (inputTourHighlightCloset) {
         if (inputField.value.trim() === "") {
           inputTourHighlightCloset.style.borderColor = "red";
-          isValid = false;
         } else {
           inputTourHighlightCloset.style.borderColor = "";
         }
@@ -183,6 +177,19 @@ function checkEmptyInputField() {
         } else {
           inputField.style.borderColor = "";
         }
+      }
+    });
+  });
+
+  allContInputTourImage.forEach((contInputTourImage) => {
+    const inputTourImageFile = contInputTourImage.querySelector(
+      ".input-tour-image-file"
+    );
+    inputTourImageFile.addEventListener("change", function () {
+      if (inputTourImageFile.files.length === 0) {
+        contInputTourImage.style.borderColor = "red";
+      } else {
+        contInputTourImage.style.borderColor = "";
       }
     });
   });
@@ -219,45 +226,97 @@ function closeContAddNewTour() {
   contAddNewTour.classList.remove("active");
 }
 
-function resetInputField() {
-  const allInputReset = document.querySelectorAll(".input-reset");
-  let needConfirmation = false;
-  allInputReset.forEach((inputReset) => {
-    if (inputReset.tagName === "INPUT" || inputReset.tagName === "TEXTAREA") {
-      if (inputReset.value.trim() !== "") {
-        needConfirmation = true;
+function subResetField() {
+  const allResetField = document.querySelectorAll(".reset-field");
+  allResetField.forEach((resetField) => {
+    if (resetField.classList.contains("text-field")) {
+      if (resetField.tagName === "INPUT" || resetField.tagName === "TEXTAREA") {
+        if (resetField.value.trim() !== "") {
+          resetField.value = "";
+        }
+      } else {
+        if (resetField.textContent.trim() !== "") {
+          resetField.textContent = "";
+        }
       }
-    } else {
-      if (inputReset.textContent.trim() !== "") {
-        needConfirmation = true;
+    } else if (resetField.classList.contains("number-field")) {
+      if (resetField.tagName === "INPUT" || resetField.tagName === "TEXTAREA") {
+        if (resetField.value.value !== 0) {
+          resetField.value = 0;
+        }
+      } else {
+        if (resetField.textContent !== "0") {
+          if (resetField.classList.contains("char-count-100")) {
+            resetField.textContent = `0/100`;
+          } else if (resetField.classList.contains("char-count-250")) {
+            resetField.textContent = `0/250`;
+          }
+        }
       }
     }
   });
-  // allInputReset.forEach((inputReset) => {
-  //   if (inputReset.textContent.trim() !== "") {
-  //     needConfirmation = true;
-  //   }
-  // });
+}
 
-  // allInputReset.forEach((inputReset) => {
-  //   if (inputReset.value.trim() !== "") {
-  //     needConfirmation = true;
+function resetField() {
+  const allResetField = document.querySelectorAll(".reset-field");
+  let needConfirmation = false;
 
-  //   }
-  // });
+  allResetField.forEach((resetField) => {
+    const subInputField = resetField.closest(".sub-input-field");
+    if (subInputField) {
+      subInputField.style.borderColor = "";
+    } else {
+      resetField.style.borderColor = "";
 
-  allInputReset.forEach((inputReset) => {
-    inputReset.style.borderColor = "";
+      if (resetField.classList.contains("text-field")) {
+        if (
+          resetField.tagName === "INPUT" ||
+          resetField.tagName === "TEXTAREA"
+        ) {
+          if (resetField.value.trim() !== "") {
+            needConfirmation = true;
+          }
+        } else {
+          if (resetField.textContent.trim() !== "") {
+            needConfirmation = true;
+          }
+        }
+      } else if (resetField.classList.contains("number-field")) {
+        if (
+          resetField.tagName === "INPUT" ||
+          resetField.tagName === "TEXTAREA"
+        ) {
+          if (resetField.value !== "0") {
+            needConfirmation = true;
+          }
+        }
+      } else if (resetField.classList.contains("image-field")) {
+        const resetImageFieldChild = resetField.querySelector(
+          ".input-tour-image-file"
+        );
+        const inputTourImageArea = resetField.querySelector(
+          ".input-tour-image-area"
+        );
+
+        if (resetImageFieldChild.files.length !== 0) {
+          needConfirmation = true;
+          inputTourImageArea.classList.remove("active");
+          resetImageFieldChild.value = "";
+          const allImg = inputTourImageArea.querySelectorAll("img");
+          allImg.forEach((img) => img.remove());
+        }
+      }
+    }
   });
 
-  if (needConfirmation) {
+  if (needConfirmation && finishAddNewTour) {
+    showToast(successMsg);
+    subResetField();
+    closeContAddNewTour();
+  } else if (needConfirmation && !finishAddNewTour) {
     const confirmReset = confirm("Are you sure you want to close?");
     if (confirmReset) {
-      allInputReset.forEach((inputReset) => {
-        inputReset.value = "";
-        inputReset.textContent = "";
-      });
-
+      subResetField();
       closeContAddNewTour();
     }
   } else {
@@ -280,23 +339,16 @@ function resetInputField() {
   for (let i = 1; i < excluded.length; i++) {
     excluded[i].remove();
   }
+  finishAddNewTour = false;
 }
 
-// Call the function with the appropriate input ID and character count selector
-
-// inputTourName.addEventListener('keyup', function(){
-//   if(this.value.trim() === ''){
-//     this.style.borderColor = "red";
-//   } else {
-//     this.style.borderColor = "";
-//   }
-// })
 const inputCentralizedPositionInf = document.getElementById(
   "input-centralized-position-inf"
 );
 const inputCentralizedTimeInf = document.getElementById(
   "input-centralized-time-inf"
 );
+
 function checkContainerDetails() {
   let isValid = true;
   if (inputDepartureDate.value.trim() === "") {
@@ -335,7 +387,6 @@ function checkContainerDetails() {
   } else {
     inputCentralizedPositionInf.style.borderColor = "";
   }
-  console.log;
   return isValid;
 }
 
@@ -370,26 +421,28 @@ function checkContainerSchedule() {
 
   return isValid;
 }
+
 const inputTourMainPrice = document.getElementById("input-tour-main-price");
 const inputTourAdultPrice = document.getElementById("input-tour-adult-price");
 const inputTourChildrenPrice = document.getElementById(
   "input-tour-children-price"
 );
+
 function checkContainerPriceList() {
   let isValid = true;
-  if (inputTourMainPrice.value == 0) {
+  if (inputTourMainPrice.value === "0") {
     inputTourMainPrice.style.borderColor = "red";
     isValid = false;
   } else {
     inputTourMainPrice.style.borderColor = "";
   }
-  if (inputTourAdultPrice.value == 0) {
+  if (inputTourAdultPrice.value === "0") {
     inputTourAdultPrice.style.borderColor = "red";
     isValid = false;
   } else {
     inputTourAdultPrice.style.borderColor = "";
   }
-  if (inputTourChildrenPrice.value == 0) {
+  if (inputTourChildrenPrice.value === "0") {
     inputTourChildrenPrice.style.borderColor = "red";
     isValid = false;
   } else {
@@ -409,6 +462,11 @@ function checkNote() {
   const allInputTourExcluded = document.querySelectorAll(
     ".input-tour-excluded-field"
   );
+
+  const allContInputTourImage = document.querySelectorAll(
+    ".cont-input-tour-image"
+  );
+
   allInputTourHighlight.forEach((inputTourHighlight) => {
     const inputTourHighlightCloset = inputTourHighlight.closest(
       ".sub-cont-input-field"
@@ -444,11 +502,24 @@ function checkNote() {
       inputTourExcludedCloset.style.borderColor = "";
     }
   });
+
+  allContInputTourImage.forEach((contInputTourImage) => {
+    const inputTourImageFile = contInputTourImage.querySelector(
+      ".input-tour-image-file"
+    );
+    if (inputTourImageFile.files.length === 0) {
+      contInputTourImage.style.borderColor = "red";
+      isValid = false;
+    } else {
+      contInputTourImage.style.borderColor = "";
+    }
+  });
   return isValid;
 }
 
 let currentActiveIndex = 0;
 let lastActiveIndex = -1;
+let finishAddNewTour = false;
 
 btnNextProgress.addEventListener("click", function () {
   const currentProgressBarWidth = subContSuccessProgressBar.offsetWidth;
@@ -458,6 +529,7 @@ btnNextProgress.addEventListener("click", function () {
   );
   const newIconProgressBarLeft =
     currentIconProgressBarLeft + contProgressWidth * 0.2;
+
   function updateProgressAndNavigation() {
     contNumbs.forEach((contNumb, index) => {
       if (
@@ -480,21 +552,48 @@ btnNextProgress.addEventListener("click", function () {
       currentActiveIndex++;
     }
   }
-  // updateProgressAndNavigation();
+
+  function addSchedule(){
+    const departureDateParts = inputDepartureDate.value.split("/");
+    const destinationDateParts = inputDestinationDate.value.split("/");
+    departureDate = new Date(
+      departureDateParts[2],
+      departureDateParts[1] - 1,
+      departureDateParts[0]
+    );
+    destinationDate = new Date(
+      destinationDateParts[2],
+      destinationDateParts[1] - 1,
+      destinationDateParts[0]
+    );
+    const timeDifference = destinationDate - departureDate;
+    const dayDifference = timeDifference / (1000 * 60 * 60 * 24) + 1;
+    console.log("destinationSelectedDate: " + destinationSelectedDate);
+    console.log("destinationDate: " + destinationDate);
+
+        console.log('dayDifference: ' + dayDifference)
+    removeAllSchedules(); // Remove existing schedules
+    for (let i = 0; i <  dayDifference; i++) {
+      addScheduleContainer(i); // Re-add schedules based on new day count
+    }
+  }
+
   switch (currentActiveIndex) {
     case 0:
       checkEmptyInputField();
-      if (checkContainerOverview()) {
+      // if (checkContainerOverview()) {
       updateProgressAndNavigation();
-      }
+      // }
       break;
     case 1:
       checkEmptyInputField();
-      if (checkContainerDetails()) {
-        updateProgressAndNavigation();
-      }
+      // if (checkContainerDetails()) {
+      updateProgressAndNavigation();
+      addSchedule();
+      // }
       break;
     case 2:
+      
       checkEmptyInputField();
       if (checkContainerSchedule()) {
         updateProgressAndNavigation();
@@ -509,80 +608,52 @@ btnNextProgress.addEventListener("click", function () {
     case 4:
       checkEmptyInputField();
       if (checkNote()) {
-        resetInputField();
+        finishAddNewTour = true;
 
+        resetField();
       }
   }
-  if (currentActiveIndex == 1) {
+
+  
+  if (currentActiveIndex === 1) {
     sub2ContInfNewTour.style.overflowX = "visible";
   } else {
     sub2ContInfNewTour.style.overflowX = "hidden";
-  }
-  if (lastActiveIndex == 1) {
-    var departureDateParts = inputDepartureDate.value.split("/");
-    var destinationDateParts = inputDestinationDate.value.split("/");
-    departureDate = new Date(
-      departureDateParts[2],
-      departureDateParts[1] - 1,
-      departureDateParts[0]
-    );
-    destinationDate = new Date(
-      destinationDateParts[2],
-      destinationDateParts[1] - 1,
-      destinationDateParts[0]
-    );
-    var timeDifference = destinationDate - departureDate;
-    var dayDifference = timeDifference / (1000 * 60 * 60 * 24) + 1;
-
-    if (dayCount < dayDifference) {
-      for (let i = 0; i < dayDifference; i++) {
-        addSchedule(i); // Add schedules for the new days
-      }
-    }
-
-    if (dayCount > dayDifference) {
-      removeAllSchedules(); // Remove existing schedules
-      for (let i = 0; i < dayDifference; i++) {
-        addSchedule(i); // Re-add schedules based on new day count
-      }
-    }
-  }
+  } 
 });
 
 let dayCount = 0;
-let departureDate; // Declare departureDate at a higher scope
-let destinationDate; // Declare destinationDate at a higher scope
+let departureDate;
+let destinationDate;
 
-function addSchedule(dayIndex) {
+function addScheduleContainer(dayIndex) {
   dayCount++;
   const container = document.getElementById("cont-tour-schedule");
-  const scheduleDate = new Date(departureDate);
-  scheduleDate.setDate(departureDate.getDate() + dayIndex);
+  const scheduleDate = new Date(departureSelectedDate);
+  scheduleDate.setDate(departureSelectedDate.getDate() + dayIndex);
   const formattedDate = scheduleDate.toLocaleDateString("vi-VN");
   const newSchedule = document.createElement("div");
   newSchedule.className = "cont-date-schedule";
   newSchedule.innerHTML = `
-  <div id="cont-tour-schedule-title" class="cont-inf-field">
-    <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day ${dayCount} - ${formattedDate}</span>
-    <label for="input-tour-schedule-title-${dayCount}" class="title-field">Title Schedule <span>(required)</span></label>
-    <input type="text" id="input-tour-schedule-title-${dayCount}" class="input-field input-reset input-tour-schedule-title" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
-    <span class="tour-schedule-title-char-count char-count">0/100</span>
-  </div>
-  <div class="cont-schedule-content cont-inf-field">
-    <label for="input-tour-description-schedule-${dayCount}" class="title-field">Description Schedule <span>(required)</span></label>
-    <div class="sub-cont-input-field sub-input-field">
-      <div style="border: none;" id="input-tour-description-schedule-${dayCount}" class="input-field input-reset input-tour-description-schedule" contenteditable="true"></div>
-      <div class="cont-tool-editor">
-        <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold', true, '')"><strong>B</strong></a>
-        <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
-        <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
-      </div>
-    </div>
-  </div>
-            `;
+<div id="cont-tour-schedule-title" class="cont-inf-field">
+<span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day ${dayCount} - ${formattedDate}</span>
+<label for="input-tour-schedule-title-${dayCount}" class="title-field">Title Schedule <span>(required)</span></label>
+<input type="text" id="input-tour-schedule-title-${dayCount}" class="input-field reset-field input-tour-schedule-title text-field" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('#tour-schedule-title-char-count'))">
+<span id="tour-schedule-title-char-count" class="char-count char-count-100 reset-field">0/100</span>
+</div>
+<div class="cont-schedule-content cont-inf-field">
+<p class="title-field">Description Schedule <span>(required)</span></p>
+<div class="sub-cont-input-field sub-input-field">
+<div style="border: none;" id="input-tour-description-schedule-${dayCount}" class="input-field input-tour-description-schedule reset-field text-field" contenteditable="true"></div>
+<div class="cont-tool-editor">
+  <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold', true, '')"><strong>B</strong></a>
+  <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
+  <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
+</div>
+</div>
+</div>
+      `;
   container.appendChild(newSchedule);
-  // const alInputField = document.querySelectorAll(".input-field");
-
   checkEmptyInputField();
 }
 
@@ -591,7 +662,7 @@ function removeAllSchedules() {
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
-  dayCount = 0; // Reset dayCount
+  dayCount = 0;
 }
 
 contNumbs.forEach((contNumb, index) => {
@@ -607,11 +678,11 @@ contNumbs.forEach((contNumb, index) => {
       }
 
       const activeCount = index;
-      if (activeCount == 1) {
+      if (activeCount === 1) {
         sub2ContInfNewTour.style.overflowX = "visible";
       }
 
-      if (activeCount != 1) {
+      if (activeCount !== 1) {
         sub2ContInfNewTour.style.overflowX = "hidden";
       }
       const newProgressBarWidth =
@@ -641,30 +712,18 @@ function countChar250(element, spanElement) {
   spanElement.textContent = elementCountCharNumb + "/250";
 }
 
-function countCharTourDescription() {
-  let inputTourDescriptionVariable = inputTourDescription.value.trim();
-  let inputTourDescriptionCharCountVariable =
-    inputTourDescriptionVariable.length;
-  tourDescriptionCharCount.textContent =
-    inputTourDescriptionCharCountVariable + "/250";
-}
-
-// inputTourDescription.addEventListener("input", function () {
-//   countCharTourDescription();
-// });
-
 const btnCloseContAddNewTour = document.getElementById(
   "btn-close-cont-add-new-tour"
 );
 const contAddNewTour = document.querySelector(".cont-add-new-tour");
 const btnAddNewTour = document.getElementById("btn-add-new-tour");
 btnCloseContAddNewTour.addEventListener("click", function () {
-  resetInputField();
+  resetField();
 });
 
 btnAddNewTour.addEventListener("click", function () {
-  console.log("currentDepartureMonth: " + currentDepartureMonth.value);
-  console.log("currentDestinationMonth: " + currentDestinationMonth.value);
+  iconProgressBar.style.left = -iconProgressBarWidth / 2 + "px";
+
   destinationSelectedDate = "";
   departureSelectedDate = "";
   currentDepartureMonth = { value: currentDepartureDate.getMonth() };
@@ -733,7 +792,6 @@ const departureMonthList = contDepartureCalendar.querySelector(
 const destinationMonthList = contDestinationCalendar.querySelector(
   "#destination-month-list"
 );
-// const dateInformation = document.querySelector(".date-information");
 
 // Current month and year
 let currentDepartureDate = new Date();
@@ -767,7 +825,7 @@ const generateDepartureCalendar = (departureMonth, departureYear) => {
   ];
 
   monthDeparturePicker.innerHTML = monthName[departureMonth];
-  departureCalendarHeaderYear.innerHTML = departureYear;
+  departureCalendarHeaderYear.innerHTML = departureYear.toString();
   let departureFirstDay = new Date(departureYear, departureMonth);
   for (
     let i = 0;
@@ -776,8 +834,7 @@ const generateDepartureCalendar = (departureMonth, departureYear) => {
   ) {
     let departureDay = document.createElement("div");
     if (i >= departureFirstDay.getDay()) {
-      departureDay.innerHTML = i - departureFirstDay.getDay() + 1;
-      // Highlight the current date
+      departureDay.innerHTML = (i - departureFirstDay.getDay() + 1).toString();
       if (
         i - departureFirstDay.getDay() + 1 === currentDepartureDate.getDate() &&
         departureYear === currentDepartureDate.getFullYear() &&
@@ -786,12 +843,11 @@ const generateDepartureCalendar = (departureMonth, departureYear) => {
         departureDay.classList.add("current-date");
       }
     }
-    // Add day element to the calendar
     departureCalendarDays.appendChild(departureDay);
   }
-  // Attach event listeners to the day elements
   attachEventListenersDepartureToDays();
 };
+
 const attachEventListenersDepartureToDays = () => {
   const departureDayElements = document.querySelectorAll(
     ".departure-calendar-days > div"
@@ -837,10 +893,6 @@ const attachEventListenersDepartureToDays = () => {
 
 let departureSelectedDate = "";
 let destinationSelectedDate = "";
-let click1 = null;
-let click2 = null;
-let clickCount = 0;
-
 const selectDepartureDay = (departureDayElement, departureDate) => {
   const previousSelectedDepartureDay = document.querySelector(
     ".departure-calendar-days .selected-day"
@@ -848,42 +900,16 @@ const selectDepartureDay = (departureDayElement, departureDate) => {
   if (previousSelectedDepartureDay) {
     previousSelectedDepartureDay.classList.remove("selected-day");
   }
-
   departureDayElement.classList.add("selected-day");
   hideDepartureCalendar();
-
-  // clickCount++;
-  // if (clickCount === 1) {
-  //   click1 = departureDate;
-  //   console.log("First click date:", click1);
-  //   departureDayElement.classList.add("selected-day");
-
-  // } else if (clickCount === 2) {
-  //   click2 = departureDate;
-  //   console.log("Second click date:", click2);
-  //   departureDayElement.classList.add("selected-day");
-  // } else if(clickCount == 3) {
-  //   allPreviousSelectedDepartureDay.forEach((previousSelectedDepartureDay) => {
-  //     previousSelectedDepartureDay.classList.remove("selected-day");
-  //   });
-
-  //   clickCount = 1;
-  //   click1 = departureDate;
-  //   click2 = null;
-  //   departureDayElement.classList.add("selected-day");
-
-  //   console.log("Resetting, new first click date:", click1);
-  // }
-  // console.log("count: " + clickCount);
-
   displayDepartureDateInfo(departureDate);
-
   departureSelectedDate = departureDate;
 };
 
 const inputDepartureDate = document.getElementById("input-departure-date");
 const displayDepartureDateInfo = (departureDate) => {
-  const formattedDepartureDate = departureDate.toLocaleDateString("vi-VN");
+  let formattedDepartureDate;
+  formattedDepartureDate = departureDate.toLocaleDateString("vi-VN");
   inputDepartureDate.value = formattedDepartureDate;
   inputDepartureDate.style.borderColor = "";
 };
@@ -937,9 +963,6 @@ document.getElementById("pre-departure-month").onclick = () => {
     currentDepartureMonth.value,
     currentDepartureYear.value
   );
-
-  // console.log(departureSelectedDate);
-  // console.log(destinationSelectedDate);
 };
 
 document.getElementById("next-departure-month").onclick = () => {
@@ -952,9 +975,6 @@ document.getElementById("next-departure-month").onclick = () => {
     currentDepartureMonth.value,
     currentDepartureYear.value
   );
-  // console.log(departureSelectedDate)
-  // console.log(destinationSelectedDate)
-  // attachEventListenersDepartureToDays();
 };
 
 document.getElementById("pre-departure-year").onclick = () => {
@@ -997,7 +1017,7 @@ const generateDestinationCalendar = (destinationMonth, destinationYear) => {
   ];
 
   monthDestinationPicker.innerHTML = monthName[destinationMonth];
-  destinationCalendarHeaderYear.innerHTML = destinationYear;
+  destinationCalendarHeaderYear.innerHTML = destinationYear.toString();
   let destinationFirstDay = new Date(destinationYear, destinationMonth);
   for (
     let i = 0;
@@ -1008,7 +1028,11 @@ const generateDestinationCalendar = (destinationMonth, destinationYear) => {
     let destinationDay = document.createElement("div");
 
     if (i >= destinationFirstDay.getDay()) {
-      destinationDay.innerHTML = i - destinationFirstDay.getDay() + 1;
+      destinationDay.innerHTML = (
+        i -
+        destinationFirstDay.getDay() +
+        1
+      ).toString();
       if (
         i - destinationFirstDay.getDay() + 1 ===
           currentDestinationDate.getDate() &&
@@ -1059,9 +1083,6 @@ const attachEventListenersDestinationToDays = () => {
       destinationDayElement.classList.add("past-day");
     }
     destinationDayElement.addEventListener("click", () => {
-      // if (destinationDate < departureSelectedDate) {
-      //   return;
-      // }
       if (departureDate) {
         if (destinationDate < departureSelectedDate) {
           return;
@@ -1077,17 +1098,12 @@ const attachEventListenersDestinationToDays = () => {
   });
 };
 
-// const selectDestinationDay = (destinationDayElement, destinationDate) => {
 const selectDestinationDay = (destinationDayElement, destinationDate) => {
   const previousSelectedDestinationDay = document.querySelector(
     ".destination-calendar-days .selected-day"
   );
   if (previousSelectedDestinationDay) {
     previousSelectedDestinationDay.classList.remove("selected-day");
-    // const pastDays = document.querySelectorAll(
-    //   ".destination-calendar-days .past-day"
-    // );
-    // pastDays.forEach((day) => day.classList.remove("past-day"));
   }
 
   destinationDayElement.classList.add("selected-day");
@@ -1098,7 +1114,8 @@ const selectDestinationDay = (destinationDayElement, destinationDate) => {
 
 const inputDestinationDate = document.getElementById("input-destination-date");
 const displayDestinationDateInfo = (destinationDate) => {
-  const formattedDestinationDate = destinationDate.toLocaleDateString("vi-VN");
+  let formattedDestinationDate;
+  formattedDestinationDate = destinationDate.toLocaleDateString("vi-VN");
   inputDestinationDate.value = formattedDestinationDate;
   inputDestinationDate.style.borderColor = "";
 };
@@ -1195,9 +1212,6 @@ document.getElementById("next-destination-year").onclick = () => {
 };
 
 // Position
-// const inputDepartureAddNewTour = document.getElementById(
-//   "input-position-departure"
-// );
 const inputPositionDeparture = document.getElementById(
   "input-position-departure"
 );
@@ -1212,9 +1226,6 @@ const inputPositionDestination = document.getElementById(
   "input-position-destination"
 );
 
-// const inputDestinationAddNewTour = document.getElementById(
-//   "input-position-destination"
-// );
 const destinationPositionContent = document.querySelector(
   ".destination-position-content"
 );
@@ -1226,11 +1237,8 @@ inputPositionDestination.addEventListener("click", function () {
 const departurePositionOptionsList = document.querySelectorAll(
   ".departure-position-options li"
 );
-// const inputPositionDeparture = document.getElementById(
-//   "input-position-departure"
-// );
 const optionSearchDeparturePosition = document.getElementById(
-  "optionSearchDeparturePosition"
+  "option-search-departure-position"
 );
 const departurePositionOptions = document.querySelector(
   ".departure-position-options"
@@ -1240,7 +1248,8 @@ departurePositionOptionsList.forEach(function (
   departurePositionOptionsListSingle
 ) {
   departurePositionOptionsListSingle.addEventListener("click", function () {
-    var departurePositionValue = this.textContent;
+    let departurePositionValue;
+    departurePositionValue = this.textContent;
     inputPositionDeparture.value = departurePositionValue;
     inputPositionDeparture.style.borderColor = "";
     departurePositionContent.classList.remove("active");
@@ -1248,7 +1257,7 @@ departurePositionOptionsList.forEach(function (
 });
 
 optionSearchDeparturePosition.addEventListener("keyup", function () {
-  var filter, li, i, textValue, liCount;
+  let filter, li, i, textValue, liCount;
   filter = optionSearchDeparturePosition.value.toUpperCase();
   li = departurePositionOptions.getElementsByTagName("li");
   for (i = 0; i < li.length; i++) {
@@ -1277,7 +1286,8 @@ destinationPositionOptionsList.forEach(function (
   destinationPositionOptionsListSingle
 ) {
   destinationPositionOptionsListSingle.addEventListener("click", function () {
-    var destinationPositionValue = this.textContent;
+    let destinationPositionValue;
+    destinationPositionValue = this.textContent;
     inputPositionDestination.value = destinationPositionValue;
     inputPositionDestination.style.borderColor = "";
     destinationPositionContent.classList.remove("active");
@@ -1285,7 +1295,7 @@ destinationPositionOptionsList.forEach(function (
 });
 
 optionSearchDestinationPosition.addEventListener("keyup", function () {
-  var filter, li, i, textValue, liCount;
+  let filter, li, i, textValue, liCount;
   filter = optionSearchDestinationPosition.value.toUpperCase();
   li = destinationPositionOptions.getElementsByTagName("li");
   for (i = 0; i < li.length; i++) {
@@ -1298,9 +1308,8 @@ optionSearchDestinationPosition.addEventListener("keyup", function () {
     }
   }
 });
-
-document.addEventListener("click", function () {
-  var target = event.target;
+document.addEventListener("click", function (event) {
+  const target = event.target;
   if (
     !contDepartureCalendar.contains(target) &&
     !inputDepartureDate.contains(target)
@@ -1330,36 +1339,10 @@ document.addEventListener("click", function () {
   }
 });
 
-function clearPlaceholderInput(
-  element,
-  placeholderText,
-  textColor,
-  fontWeight
-) {
-  if (element.textContent === placeholderText) {
-    element.textContent = "";
-    element.style.color = textColor;
-    element.style.fontWeight = fontWeight;
-  }
-}
-
-function restorePlaceholderInput(
-  element,
-  placeholderText,
-  textColor,
-  fontWeight
-) {
-  if (element.textContent === "") {
-    element.textContent = placeholderText;
-    element.style.color = textColor;
-    element.style.fontWeight = fontWeight;
-  }
-}
-
 inputTourMainPrice.addEventListener("keyup", function () {
   formatPrice(this);
-  var inputTourMainPriceRemovedChar = this.value.replace(/[^0-9\.]/g, "");
-  var inputTourMainPriceRemovedDot = inputTourMainPriceRemovedChar.replace(
+  const inputTourMainPriceRemovedChar = this.value.replace(/[^0-9]/g, "");
+  const inputTourMainPriceRemovedDot = inputTourMainPriceRemovedChar.replace(
     /\./g,
     ""
   );
@@ -1368,7 +1351,7 @@ inputTourMainPrice.addEventListener("keyup", function () {
 
   inputTourChildrenPrice.value = Math.round(inputTourMainPriceRemovedDot / 2);
   formatPrice(inputTourChildrenPrice);
-  if (inputTourMainPriceRemovedDot == 0) {
+  if (inputTourMainPriceRemovedDot === 0) {
     inputTourAdultPrice.style.borderColor = "red";
     inputTourChildrenPrice.style.borderColor = "red";
   }
@@ -1380,20 +1363,21 @@ inputTourMainPrice.addEventListener("keyup", function () {
 
 inputTourAdultPrice.addEventListener("keyup", function () {
   formatPrice(this);
-  var inputTourMainPriceValue = parseInt(
+  const inputTourMainPriceValue = parseInt(
     inputTourMainPrice.value.replace(/\./g, ""),
     10
   );
-  var inputTourAdultPriceRemovedChar = this.value.replace(/[^0-9\.]/g, "");
-  var inputTourAdultPriceRemovedDot = inputTourAdultPriceRemovedChar.replace(
+  const inputTourAdultPriceRemovedChar = this.value.replace(/[^0-9]/g, "");
+  const inputTourAdultPriceRemovedDot = inputTourAdultPriceRemovedChar.replace(
     /\./g,
     ""
   );
-  var inputTourAdultPriceValue = parseInt(inputTourAdultPriceRemovedDot, 10);
+  let inputTourAdultPriceValue = parseInt(inputTourAdultPriceRemovedDot, 10);
   if (inputTourAdultPriceValue > inputTourMainPriceValue) {
     inputTourAdultPriceValue = Math.floor(inputTourAdultPriceValue / 10);
   }
-  var inputTourPriceFormatted = inputTourAdultPriceValue
+  let inputTourPriceFormatted;
+  inputTourPriceFormatted = inputTourAdultPriceValue
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   this.value = inputTourPriceFormatted;
@@ -1401,111 +1385,144 @@ inputTourAdultPrice.addEventListener("keyup", function () {
 
 inputTourChildrenPrice.addEventListener("keyup", function () {
   formatPrice(this);
-  var inputTourMainPriceValue = parseInt(
+  const inputTourMainPriceValue = parseInt(
     inputTourMainPrice.value.replace(/\./g, ""),
     10
   );
-  var inputTourChildrenPriceRemovedChar = this.value.replace(/[^0-9\.]/g, "");
-  var inputTourChildrenPriceRemovedDot =
+  const inputTourChildrenPriceRemovedChar = this.value.replace(/[^0-9]/g, "");
+  const inputTourChildrenPriceRemovedDot =
     inputTourChildrenPriceRemovedChar.replace(/\./g, "");
-  var inputTourChildrenPriceValue = parseInt(
+  let inputTourChildrenPriceValue = parseInt(
     inputTourChildrenPriceRemovedDot,
     10
   );
   if (inputTourChildrenPriceValue > inputTourMainPriceValue) {
     inputTourChildrenPriceValue = Math.floor(inputTourChildrenPriceValue / 10);
   }
-  var inputTourPriceFormatted = inputTourChildrenPriceValue
+  let inputTourPriceFormatted;
+  inputTourPriceFormatted = inputTourChildrenPriceValue
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   this.value = inputTourPriceFormatted;
 });
-const btnAddNewHighlights = document
-  .getElementById("btn-add-new-highlights")
-  .addEventListener("click", function () {
-    checkEmptyInputField();
-    const subContInputTourHighlightsField = document.querySelector(
-      ".sub-cont-input-tour-highlights-field"
-    );
+const btnAddNewHighlights = document.getElementById("btn-add-new-highlights");
 
-    const newContHighlights = document.createElement("div");
-    newContHighlights.className =
-      "cont-input-tour-highlights-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
-    newContHighlights.innerHTML = `
-    <input type="text" id="input-tour-highlights" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
-    <div class="cont-btn-function-with-highlights-field cont-btn-function-with-field-of-process-note">
-      <a href="#" id="btn-delete-highlights" class="btn-function-with-field-of-process-note btn-normal">
-      <span class="material-symbols-outlined">close</span></a>
-    </div>`;
-    subContInputTourHighlightsField.appendChild(newContHighlights);
-    checkEmptyInputField();
+btnAddNewHighlights.addEventListener("click", function () {
+  checkEmptyInputField();
+  const subContInputTourHighlightsField = document.querySelector(
+    ".sub-cont-input-tour-highlights-field"
+  );
 
-    const btnDeleteNewHighlights = newContHighlights.querySelector(
-      "#btn-delete-highlights"
-    );
+  const newContHighlights = document.createElement("div");
+  newContHighlights.className =
+    "cont-input-tour-highlights-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
+  newContHighlights.innerHTML = `
+<input type="text" id="input-tour-highlights" class="input-field input-tour-field-process-note input-tour-highlight-field reset-field text-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+<div class="cont-btn-function-with-highlights-field cont-btn-function-with-field-of-process-note">
+<a href="#" id="btn-delete-highlights" class="btn-function-with-field-of-process-note btn-normal">
+<span class="material-symbols-outlined">close</span></a>
+</div>`;
+  subContInputTourHighlightsField.appendChild(newContHighlights);
+  checkEmptyInputField();
 
-    btnDeleteNewHighlights.addEventListener("click", function (e) {
-      e.preventDefault();
-      newContHighlights.remove();
+  const btnDeleteNewHighlights = newContHighlights.querySelector(
+    "#btn-delete-highlights"
+  );
+
+  btnDeleteNewHighlights.addEventListener("click", function (e) {
+    e.preventDefault();
+    newContHighlights.remove();
+  });
+});
+
+const btnAddNewIncluded = document.getElementById("btn-add-new-included");
+
+btnAddNewIncluded.addEventListener("click", function () {
+  checkEmptyInputField();
+  const subContInputTourIncludedField = document.querySelector(
+    ".sub-cont-input-tour-included-field"
+  );
+
+  const newContIncluded = document.createElement("div");
+  newContIncluded.className =
+    "cont-input-tour-included-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
+  newContIncluded.innerHTML = `
+<input type="text" id="input-tour-included" class="input-field input-tour-field-process-note input-tour-highlight-field reset-field text-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+<div class="cont-btn-function-with-included-field cont-btn-function-with-field-of-process-note">
+<a href="#" id="btn-delete-included" class="btn-function-with-field-of-process-note btn-normal">
+<span class="material-symbols-outlined">close</span></a>
+</div>`;
+  subContInputTourIncludedField.appendChild(newContIncluded);
+  checkEmptyInputField();
+
+  const btnDeleteNewIncluded = newContIncluded.querySelector(
+    "#btn-delete-included"
+  );
+
+  btnDeleteNewIncluded.addEventListener("click", function (e) {
+    e.preventDefault();
+    newContIncluded.remove();
+  });
+});
+
+const btnAddNewExcluded = document.getElementById("btn-add-new-excluded");
+
+btnAddNewExcluded.addEventListener("click", function () {
+  checkEmptyInputField();
+  const subContInputTourExcludedField = document.querySelector(
+    ".sub-cont-input-tour-excluded-field"
+  );
+
+  const newContExcluded = document.createElement("div");
+  newContExcluded.className =
+    "cont-input-tour-excluded-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
+  newContExcluded.innerHTML = `
+<input type="text" id="input-tour-excluded" class="input-field input-tour-field-process-note input-tour-highlight-field reset-field text-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+<div class="cont-btn-function-with-excluded-field cont-btn-function-with-field-of-process-note">
+<a href="#" id="btn-delete-excluded" class="btn-function-with-field-of-process-note btn-normal">
+<span class="material-symbols-outlined">close</span></a>
+</div>`;
+  subContInputTourExcludedField.appendChild(newContExcluded);
+  checkEmptyInputField();
+
+  const btnDeleteNewExcluded = newContExcluded.querySelector(
+    "#btn-delete-excluded"
+  );
+
+  btnDeleteNewExcluded.addEventListener("click", function (e) {
+    e.preventDefault();
+    newContExcluded.remove();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const selectImages = document.querySelectorAll(".cont-input-tour-image");
+
+  selectImages.forEach((selectImage) => {
+    const fileInput = selectImage.querySelector(".input-tour-image-file");
+    const imgArea = selectImage.querySelector(".input-tour-image-area");
+
+    imgArea.addEventListener("click", () => {
+      fileInput.click();
+    });
+    fileInput.addEventListener("change", function () {
+      const image = this.files[0];
+      if (image && image.size < 2000000) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const allImg = imgArea.querySelectorAll("img");
+          allImg.forEach((img) => img.remove());
+          const imgUrl = reader.result;
+          const img = document.createElement("img");
+          img.src = imgUrl;
+          imgArea.appendChild(img);
+          imgArea.classList.add("active");
+          imgArea.dataset.img = image.name;
+        };
+        reader.readAsDataURL(image);
+      } else {
+        alert("Image size more than 2MB");
+      }
     });
   });
-
-const btnAddNewIncluded = document
-  .getElementById("btn-add-new-included")
-  .addEventListener("click", function () {
-    checkEmptyInputField();
-    const subContInputTourIncludedField = document.querySelector(
-      ".sub-cont-input-tour-included-field"
-    );
-
-    const newContIncluded = document.createElement("div");
-    newContIncluded.className =
-      "cont-input-tour-included-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
-    newContIncluded.innerHTML = `
-    <input type="text" id="input-tour-included" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
-    <div class="cont-btn-function-with-included-field cont-btn-function-with-field-of-process-note">
-      <a href="#" id="btn-delete-included" class="btn-function-with-field-of-process-note btn-normal">
-      <span class="material-symbols-outlined">close</span></a>
-    </div>`;
-    subContInputTourIncludedField.appendChild(newContIncluded);
-    checkEmptyInputField();
-
-    const btnDeleteNewIncluded = newContIncluded.querySelector(
-      "#btn-delete-included"
-    );
-
-    btnDeleteNewIncluded.addEventListener("click", function (e) {
-      e.preventDefault();
-      newContIncluded.remove();
-    });
-  });
-
-  const btnAddNewExcluded = document
-  .getElementById("btn-add-new-excluded")
-  .addEventListener("click", function () {
-    checkEmptyInputField();
-    const subContInputTourExcludedField = document.querySelector(
-      ".sub-cont-input-tour-excluded-field"
-    );
-
-    const newContExcluded = document.createElement("div");
-    newContExcluded.className =
-      "cont-input-tour-excluded-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field";
-    newContExcluded.innerHTML = `
-    <input type="text" id="input-tour-excluded" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
-    <div class="cont-btn-function-with-excluded-field cont-btn-function-with-field-of-process-note">
-      <a href="#" id="btn-delete-excluded" class="btn-function-with-field-of-process-note btn-normal">
-      <span class="material-symbols-outlined">close</span></a>
-    </div>`;
-    subContInputTourExcludedField.appendChild(newContExcluded);
-    checkEmptyInputField();
-
-    const btnDeleteNewExcluded = newContExcluded.querySelector(
-      "#btn-delete-excluded"
-    );
-
-    btnDeleteNewExcluded.addEventListener("click", function (e) {
-      e.preventDefault();
-      newContExcluded.remove();
-    });
-  });
+});

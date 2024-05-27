@@ -14,6 +14,7 @@
 
   <body>
     <div class="container">
+      <div id="toast-box"></div>
       <div class="navigation">
         <ul>
           <li>
@@ -108,6 +109,7 @@
                 </select>
                 entries
               </div>
+              <button id="show-toast">Show toast</button>
               <div class="filter">
                 <span class="material-symbols-outlined"> search </span>
                 <input type="search" name="" id="search" placeholder="Enter Tour name to find" />
@@ -367,24 +369,23 @@
             <div class="main-cont-inf-new-tour">
               <div class="sub-2-cont-inf-new-tour">
                 <form id="form-add-new-tour" action="submit">
-                  <div class="sub-cont-inf-new-tour cont-process-1 active">
+                  <div class="sub-cont-inf-new-tour cont-process-1 active ">
                     <div id="cont-tour-name" class="cont-inf-field ">
                       <label for="input-tour-name" class="title-field">Tour Name <span>(required)</span></label>
-                      <input type="text" id="input-tour-name" class="input-field input-reset" placeholder="e.g: Khám phá Đà Lạt" maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-name-char-count'))">
-                      <span class="tour-name-char-count char-count">100/100</span>
+                      <input type="text" id="input-tour-name" class="input-field reset-field text-field" placeholder="e.g: Khám phá Đà Lạt" maxlength="100" required oninput="countChar100(this, document.querySelector('#tour-name-char-count'))">
+                      <span id="tour-name-char-count" class="char-count char-count-100 reset-field">0/100</span>
                     </div>
                     <div id="cont-tour-description" class="cont-inf-field ">
                       <label for="input-tour-description" class="title-field">Tour Description <span>(required)</span></label>
-                      <textarea id="input-tour-description" class="input-field input-reset" placeholder="e.g: Hòa mình vào vẻ đẹp huyền bí của Đà Lạt - thành phố sương mù và hoa..." maxlength="250" required oninput="countChar250(this, document.querySelector('.tour-description-char-count'))"></textarea>
-                      <span class="tour-description-char-count char-count">100/100</span>
+                      <textarea id="input-tour-description" class="input-field reset-field text-field" placeholder="e.g: Hòa mình vào vẻ đẹp huyền bí của Đà Lạt - thành phố sương mù và hoa..." maxlength="250" required oninput="countChar250(this, document.querySelector('#tour-description-char-count'))"></textarea>
+                      <span id="tour-description-char-count" class="char-count char-count-100 reset-field">0/100</span>
                     </div>
                   </div>
                   <div class="sub-cont-inf-new-tour cont-process-2">
                     <div id="cont-date">
                       <div class="cont-departure-date-add-new-tour cont-inf-field ">
                         <label class="title-field" for="input-departure-date">Departure Date <span>(required)</span></label>
-                      
-                        <input class="input-field input-reset" id="input-departure-date" placeholder="Select departure date!" readonly style="cursor: pointer;">
+                        <input id="input-departure-date" class="input-field input-select-field reset-field text-field" placeholder="Select departure date!" readonly>
                         <div id="cont-departure-calendar" class="cont-calendar">
                           <div class="sub-cont-calendar">
                             <div class="calendar-header">
@@ -447,7 +448,7 @@
                       </div>
                       <div class="cont-destination-date-add-new-tour cont-inf-field ">
                         <label class="title-field" for="input-destination-date">Destination Date <span>(required)</span></label>
-                        <input class="input-field input-reset" id="input-destination-date" placeholder="Select destination date!" readonly style="cursor: pointer;">
+                        <input id="input-destination-date" class="input-field input-select-field reset-field text-field" placeholder="Select destination date!" readonly>
                         <div id="cont-destination-calendar" class="cont-calendar">
                           <div class="sub-cont-calendar">
                             <div class="calendar-header">
@@ -512,11 +513,11 @@
                     <div class="cont-position">
                       <div id="cont-position-departure" class="cont-inf-field ">
                         <label for="input-position-departure" class="title-field ">Departure <span>(required)</span></label>
-                        <input id="input-position-departure" class="input-field input-reset" type="text" placeholder="Select Departure" readonly>
+                        <input id="input-position-departure" class="input-field input-select-field reset-field text-field" type="text" placeholder="Select Departure" readonly>
                         <div class="departure-position-content">
                           <div class="position-search">
                             <!-- <label for="optionSearchDeparturePosition"></label> -->
-                            <input type="text" id="optionSearchDeparturePosition" placeholder="Search Departure" class="input-field">
+                            <input type="text" id="option-search-departure-position" class="input-field reset-field" placeholder="Search Departure">
                           </div>
                           <ul class="departure-position-options">
                             <li>Hà Nội</li>
@@ -531,11 +532,11 @@
                       </div>
                       <div id="cont-position-destination" class="cont-inf-field ">
                         <label for="input-position-destination" class="title-field">Destination <span>(required)</span></label>
-                        <input id="input-position-destination" class="input-field input-reset" type="text" placeholder="Select Destination" readonly>
+                        <input id="input-position-destination" class="input-field input-select-field reset-field text-field" type="text" placeholder="Select Destination" readonly>
                         <div class="destination-position-content">
                           <div class="position-search">
                             <!-- <label for="optionSearchDestinationPosition"></label> -->
-                            <input type="text" id="optionSearchDestinationPosition" placeholder="Search Destination" class="input-field">
+                            <input type="text" id="optionSearchDestinationPosition" class="input-field reset-field" placeholder="Search Destination">
                           </div>
                           <ul class="destination-position-options">
                             <li>Hà Nội</li>
@@ -552,102 +553,43 @@
                     <div class="cont-centralized-inf">
                       <div id="cont-centralized-time" class="cont-inf-field ">
                         <label for="input-centralized-time-inf" class="title-field ">Centralized Time <span>(required)</span></label>
-                        <input class="input-field input-reset" type="time" id="input-centralized-time-inf" required onfocus="this.showPicker()" />
+                        <input type="time" id="input-centralized-time-inf" class="input-field reset-field text-field" required onfocus="this.showPicker()" />
                       </div>
                       <div id="cont-centralized-position" class="cont-inf-field ">
                         <label for="input-centralized-position-inf" class="title-field">Centralized Position <span>(required)</span></label>
-                        <input type="text" id="input-centralized-position-inf" class="input-field input-reset" placeholder="e.g: Airport" maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-name-char-count'))">
+                        <input type="text" id="input-centralized-position-inf" class="input-field reset-field text-field" placeholder="e.g: Airport" maxlength="100" required>
                       </div>
                     </div>
                   </div>
                   <div class="sub-cont-inf-new-tour cont-process-3 ">
                     <div id="cont-tour-schedule" class="cont-inf-field ">
-              
-                      <!-- <div class="cont-date-schedule">
-                        <div id="cont-tour-schedule-title" class="cont-inf-field ">
-                          <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
-                          <label for="input-tour-schedule-title" class="title-field">Title Schedule <span>(required)</span></label>
-                          <input type="text" id="input-tour-schedule-title" class="input-field" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
-                          <span class="tour-schedule-title-char-count char-count">100/100</span>
-                        </div>
-                        <div class="cont-schedule-content cont-inf-field ">
-                          <label for="input-tour-description-schedule" class="title-field">Description Schedule <span>(required)</span></label>
-                          
-                          <div class="sub-cont-schedule-content input-field">
-                            <div id="input-tour-description-schedule" class=" input-field"  contenteditable="true"> </div>
-                            <div class="cont-tool-editor">
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold',true,'' )"><strong>B</strong></a>
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="cont-date-schedule">
-                        <div id="cont-tour-schedule-title" class="cont-inf-field ">
-                          <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
-                          <label for="input-tour-schedule-title-1" class="title-field">Title Schedule <span>(required)</span></label>
-                          <input type="text" id="input-tour-schedule-title-1" class="input-field input-tour-schedule-title" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
-                          <span class="tour-schedule-title-char-count char-count">100/100</span>
-                        </div>
-                        <div class="cont-schedule-content cont-inf-field ">
-                          <label for="input-tour-description-schedule-1" class="title-field">Description Schedule <span>(required)</span></label>
-                          <div class="sub-cont-schedule-content input-field">
-                            <div id="input-tour-description-schedule-1" class=" input-field input-tour-description-schedule"  contenteditable="true"> </div>
-                            <div class="cont-tool-editor">
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold',true,'' )"><strong>B</strong></a>
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="cont-date-schedule">
-                        <div id="cont-tour-schedule-title" class="cont-inf-field ">
-                          <span style="font-weight: bold; font-size: 1.5rem; text-align: center;">Day 1</span>
-                          <label for="input-tour-schedule-title-2" class="title-field">Title Schedule <span>(required)</span></label>
-                          <input type="text" id="input-tour-schedule-title-2" class="input-field input-tour-schedule-title" placeholder="e.g: Khám phá Thác Datanla và Đồi Cỏ xanh..." maxlength="100" required oninput="countChar100(this, document.querySelector('.tour-schedule-title-char-count'))">
-                          <span class="tour-schedule-title-char-count char-count">100/100</span>
-                        </div>
-                        <div class="cont-schedule-content cont-inf-field ">
-                          <label for="input-tour-description-schedule-2" class="title-field">Description Schedule <span>(required)</span></label>
-                          <div class="sub-cont-schedule-content input-field">
-                            <div id="input-tour-description-schedule-2" class=" input-field input-tour-description-schedule"  contenteditable="true"> </div>
-                            <div class="cont-tool-editor">
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('bold',true,'' )"><strong>B</strong></a>
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('italic', true, '')"><em>I</em></a>
-                              <a class="btn btn-tertiary" href="#" onclick="document.execCommand('underline', true, '')"><u>U</u></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>           -->
                     </div>
                   </div>
                   <div class="sub-cont-inf-new-tour cont-process-4">
                     <div id="cont-main-price" class="cont-inf-field">
                       <label for="input-tour-main-price" class="title-field">Price per once <span>(required)</span></label>
-                      <input type="text" id="input-tour-main-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
+                      <input type="text" id="input-tour-main-price" class="input-field input-price reset-field number-field" value="0" max="100000000" min="0" />
                       <span class="char-count">VND</span>
                     </div>
                     <div class="cont-sub-price">
                       <div id="cont-tour-adult-price" class="cont-inf-field ">
                         <label for="input-tour-adult-price" class="title-field">Adult <span>(Ages 12 and above) (required)</span></label>
-                        <input type="text" id="input-tour-adult-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
+                        <input type="text" id="input-tour-adult-price" class="input-field input-price reset-field number-field" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                       <div id="cont-tour-children-price" class="cont-inf-field ">
                         <label for="input-tour-children-price" class="title-field">Children <span>(Ages 5 - 11 and above) (required)</span></label>
-                        <input type="text" id="input-tour-children-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
+                        <input type="text" id="input-tour-children-price" class="input-field input-price reset-field number-field" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                       <div id="cont-tour-toddler-price" class="cont-inf-field ">
                         <label for="input-tour-toddler-price" class="title-field">Toddler <span>(Ages 2 - 4 and above) (required)</span></label>
-                        <input type="text" id="input-tour-toddler-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
+                        <input type="text" id="input-tour-toddler-price" class="input-field input-price reset-field number-field" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                       <div id="cont-tour-infant-price" class="cont-inf-field ">
                         <label for="input-tour-infant-price" class="title-field">Infant <span>(Ages 0 - 2 and above) (required)</span></label>
-                        <input type="number" id="input-tour-infant-price" class="input-field input-price input-reset" value="0" max="100000000" min="0" />
+                        <input type="number" id="input-tour-infant-price" class="input-field input-price reset-field number-field" value="0" max="100000000" min="0" />
                         <span class="char-count">VND</span>
                       </div>
                     </div>
@@ -655,10 +597,10 @@
                   </div>
                   <div class="sub-cont-inf-new-tour cont-process-5">
                     <div id="cont-tour-highlights" class="cont-inf-field ">
-                      <label for="input-tour-highlights" class="title-field">Highlights</label>
+                      <label for="input-tour-highlights" class="title-field">Highlights <span>(required)</span></label>
                       <div class="sub-cont-input-tour-highlights-field sub-cont-input-tour-field-process-note">
                         <div class="cont-input-tour-highlights-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field">
-                          <input type="text" id="input-tour-highlights" class="input-field input-reset input-tour-field-process-note input-tour-highlight-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
+                          <input type="text" id="input-tour-highlights" class="input-field reset-field input-tour-field-process-note input-tour-highlight-field text-field" placeholder="e.g: Explore the Valley of Love: Enjoy romantic gardens, serene lakes, and scenic walking trail">
                         </div>
                       </div>
                       <div class="cont-btn-add-new-highlights cont-btn-add-field-process-note">
@@ -669,10 +611,10 @@
                     </div>
 
                     <div id="cont-tour-included" class="cont-inf-field ">
-                      <label for="input-tour-included" class="title-field">Included</label>
+                      <label for="input-tour-included" class="title-field">Included <span>(required)</span></label>
                       <div class="sub-cont-input-tour-included-field sub-cont-input-tour-field-process-note">
                         <div class="cont-input-tour-included-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field">
-                          <input type="text" id="input-tour-included" class="input-field input-reset input-tour-field-process-note input-tour-included-field" placeholder="e.g: Professional tour guide">
+                          <input type="text" id="input-tour-included" class="input-field reset-field input-tour-field-process-note input-tour-included-field text-field " placeholder="e.g: Professional tour guide">
                           <!-- <div class="cont-btn-function-with-included-field cont-btn-function-with-field-of-process-note">
                             <a href="#" id="btn-delete-included" class="btn-function-with-field-of-process-note btn-normal">
                               <span class="material-symbols-outlined">close</span></a>
@@ -687,14 +629,10 @@
                     </div>
 
                     <div id="cont-tour-excluded" class="cont-inf-field ">
-                      <label for="input-tour-excluded" class="title-field">Excluded</label>
+                      <label for="input-tour-excluded" class="title-field">Excluded <span>(required)</span></label>
                       <div class="sub-cont-input-tour-excluded-field sub-cont-input-tour-field-process-note">
                         <div class="cont-input-tour-excluded-field cont-input-tour-field-process-note sub-cont-input-field sub-input-field">
-                          <input type="text" id="input-tour-excluded" class="input-field input-reset input-tour-field-process-note input-tour-excluded-field" placeholder="e.g: Personal expenses such as shopping and phone calls">
-                          <!-- <div class="cont-btn-function-with-excluded-field cont-btn-function-with-field-of-process-note">
-                            <a href="#" id="btn-delete-excluded" class="btn-function-with-field-of-process-note btn-normal">
-                              <span class="material-symbols-outlined">close</span></a>
-                          </div> -->
+                          <input type="text" id="input-tour-excluded" class="input-field reset-field input-tour-field-process-note input-tour-excluded-field text-field" placeholder="e.g: Personal expenses such as shopping and phone calls">
                         </div>
                       </div>
                       <div class="cont-btn-add-new-excluded cont-btn-add-field-process-note">
@@ -702,6 +640,53 @@
                             add
                           </span></a>
                       </div>
+                    </div>
+
+                    <div id="cont-tour-image" class="cont-inf-field ">
+                      <label for="input-tour-excluded" class="title-field">Image <span>(required)</span></label>
+                      <div class="cont-input-tour-image-field ">
+                        <div id="cont-input-tour-image-1" class="cont-input-tour-image input-field image-field reset-field">
+                          <input type="file" id="input-tour-image-1" class="input-tour-image-file" accept="image/*" hidden>
+                          <div id="input-tour-image-area-1" class="input-tour-image-area" data-img="">
+                            <span class="material-symbols-outlined">
+                              upload
+                              </span>
+                            <h2>Upload Image</h2>
+                            <p>Image size must be less than 2MB</p>
+                          </div>
+                        </div>
+                        <div id="cont-input-tour-image-2" class="cont-input-tour-image input-field image-field reset-field">
+                          <input type="file" id="input-tour-image-2" class="input-tour-image-file" accept="image/*" hidden>
+                          <div id="input-tour-image-area-2" class="input-tour-image-area" data-img="">
+                            <span class="material-symbols-outlined">
+                              upload
+                              </span>
+                            <h2>Upload Image</h2>
+                            <p>Image size must be less than 2MB</p>
+                          </div>
+                        </div> 
+                        <div id="cont-input-tour-image-3" class="cont-input-tour-image input-field image-field reset-field">
+                          <input type="file" id="input-tour-image-3" class="input-tour-image-file" accept="image/*" hidden>
+                          <div id="input-tour-image-area-3" class="input-tour-image-area" data-img="">
+                            <span class="material-symbols-outlined">
+                              upload
+                              </span>
+                            <h2>Upload Image</h2>
+                            <p>Image size must be less than 2MB</p>
+                          </div>
+                        </div> 
+                        <div id="cont-input-tour-image-4" class="cont-input-tour-image input-field image-field reset-field">
+                          <input type="file" id="input-tour-image-4" class="input-tour-image-file" accept="image/*" hidden>
+                          <div id="input-tour-image-area-4" class="input-tour-image-area" data-img="">
+                            <span class="material-symbols-outlined">
+                              upload
+                              </span>
+                            <h2>Upload Image</h2>
+                            <p>Image size must be less than 2MB</p>
+                          </div>
+                        </div>
+                      </div>
+                     
                     </div>
 
                     <!-- <button id="btn-next-progress" style="cursor: pointer">Next</button> -->
